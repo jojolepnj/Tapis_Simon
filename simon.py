@@ -1,160 +1,233 @@
-import socketio
-import logging
-import random
+from datetime import datetime
 from queue import Queue
 from threading import Event
-from datetime import datetime
+import logging
+import random
+import socketio
 
-# Configuration du logger
-logging.basicConfig(
-    filename='log.txt',
-    level=logging.INFO,
-    format='%(asctime)s - %(message)s'
-)
+class JeuSimon:
+    """
+    Classe principale du jeu Simon.
+    Gère la logique du jeu et la communication avec le SensFloor.
+    """
 
-# Configuration du client Socket.IO
-sio = socketio.Client(
-    reconnection=True,
-    reconnection_attempts=5,
-    reconnection_delay=1,
-    reconnection_delay_max=5,
-    logger=False,
-    engineio_logger=False
-)
+    def __init__(self):
+        # Configuration du fichier de log pour suivre les événements
+        logging.basicConfig(
+            filename='journal.txt',
+            level=logging.INFO,
+            format='%(asctime)s - %(message)s'
+        )
 
-# Variables globales pour le jeu
-game_state = {
-    'sequence': [],
-    'score': 0,
-    'current_color': None,
-    'color_queue': Queue(),
-    'waiting_for_input': Event(),
-    'last_detected_color': None,
-    'pending_color': None,      # Stocke la couleur en attente de validation
-    'empty_data_received': False # Flag pour suivre si on a reçu une liste vide
-}
+        # Création du client socket pour la communication réseau
+        self.socket = socketio.Client(
+            reconnection_delay=1,
+            reconnection=True,
+            reconnection_attempts=5,
+            reconnection_delay_max=5,
+            logger=False,
+            engineio_logger=False
+        )
 
-def get_color(data):
-    """Détermine la couleur en fonction des coordonnées"""
-    birthX, birthY = data[0], data[1]
-    
-    if 0 <= birthX <= 0.5:
-        return 'vert' if 1 <= birthY <= 1.5 else 'rouge'
-    elif 0.5 < birthX <= 1:
-        return 'jaune' if 1 <= birthY <= 1.5 else 'bleue'
-    return 'inconnu'
-
-def generate_sequence(previous_sequence):
-    """Génère une nouvelle séquence"""
-    colors = ['rouge', 'vert', 'bleue', 'jaune']
-    if previous_sequence:
-        colors = [c for c in colors if c != previous_sequence[-1]]
-    return previous_sequence + [random.choice(colors)]
-
-def display_sequence(sequence):
-    """Affiche la séquence"""
-    print(' '.join(sequence))
-    print('\n' * 3)
-
-@sio.event
-def connect():
-    """Gestion de la connexion"""
-    logging.info("Connecté au serveur SensFloor")
-    print("Connecté au serveur SensFloor")
-    print("Bienvenue dans le jeu Simon !")
-    start_game()
-
-@sio.event
-def disconnect():
-    """Gestion de la déconnexion"""
-    logging.info("Déconnecté du serveur")
-    print("Déconnecté du serveur")
-
-@sio.on('objects-update')
-def on_objects_update(data):
-    """Traitement des mises à jour avec validation sur liste vide"""
-    if not game_state['waiting_for_input'].is_set():
-        return
-
-    if not data:  # Si la liste est vide
-        if game_state['pending_color'] and not game_state['empty_data_received']:
-            # Valide la couleur en attente si elle existe
-            validated_color = game_state['pending_color']
-            if validated_color != game_state['last_detected_color']:
-                game_state['last_detected_color'] = validated_color
-                game_state['color_queue'].put(validated_color)
-                print(f"Couleur validée : {validated_color}")
-            game_state['pending_color'] = None
-            game_state['empty_data_received'] = True
-    else:  # Si la liste contient des données
-        position_data = [data[0]['birthX'], data[0]['birthY']]
-        current_color = get_color(position_data)
+        # Création de l'état du jeu
+        self.etat = EtatJeu()
         
-        if current_color != 'inconnu':
-            game_state['pending_color'] = current_color
-            game_state['empty_data_received'] = False
-            print(f"Couleur en attente : {current_color}")
+        # Configuration des événements socket
+        self._config_socket()
 
-def get_player_input(sequence_length):
-    """Obtient l'entrée du joueur"""
-    player_sequence = []
-    game_state['waiting_for_input'].set()
-    game_state['last_detected_color'] = None
-    game_state['pending_color'] = None
-    game_state['empty_data_received'] = False
-    
-    print("En attente de votre séquence...")
-    print("Attendez la validation de chaque couleur avant de passer à la suivante.")
-    
-    while len(player_sequence) < sequence_length:
+    def _config_socket(self):
+        """Configure les événements de connexion socket."""
+        
+        @self.socket.event
+        def connect():
+            """Appelé quand la connexion est établie."""
+            print("Connecté au serveur SensFloor")
+            self.demarrer_jeu()
+
+        @self.socket.event
+        def disconnect():
+            """Appelé quand la connexion est perdue."""
+            print("Déconnecté du serveur")
+
+        @self.socket.on('step')
+        def on_pas(x, y):
+            """Appelé quand un pas est détecté sur le SensFloor."""
+            self.traiter_pas(x, y)
+
+    def creer_sequence(self, seq_precedente):
+        """
+        Crée une nouvelle séquence de couleurs.
+        Ajoute une couleur aléatoire à la séquence précédente.
+        """
+        couleurs = ['rouge', 'vert', 'bleu', 'jaune']
+        if seq_precedente:
+            # Évite de répéter la dernière couleur
+            couleurs = [c for c in couleurs if c != seq_precedente[-1]]
+        return seq_precedente + [random.choice(couleurs)]
+
+    def afficher_sequence(self, sequence):
+        """Affiche la séquence que le joueur doit reproduire."""
+        print("\nSéquence à reproduire :")
+        for i, couleur in enumerate(sequence, 1):
+            print(f"{i}. {couleur}")
+        print("\n")
+
+    def detecter_couleur(self, x, y):
+        """
+        Convertit les coordonnées du pas en couleur.
+        Le SensFloor est divisé en 4 zones de couleur.
+        """
+        if 0 <= x <= 0.5:
+            return 'vert' if 1 <= y <= 1.5 else 'rouge'
+        elif 0.5 < x <= 1:
+            return 'jaune' if 1 <= y <= 1.5 else 'bleu'
+        return 'inconnu'
+
+    def traiter_pas(self, x, y):
+        """Traite un nouveau pas détecté sur le SensFloor."""
+        if not self.etat.peut_jouer:
+            return
+
         try:
-            color = game_state['color_queue'].get(timeout=20.0)
-            player_sequence.append(color)
-
-        except:
-            print("Temps écoulé!")
-            break
-    
-    game_state['waiting_for_input'].clear()
-    return player_sequence
-
-def start_game():
-    """Boucle principale du jeu"""
-    game_state['score'] = 0
-    game_state['sequence'] = []
-    
-    
-    while True:
-        game_state['sequence'] = generate_sequence(game_state['sequence'])
-        print("\nNouvelle séquence à reproduire:")
-        display_sequence(game_state['sequence'])
-        
-        print("À vous de jouer!")
-        player_sequence = get_player_input(len(game_state['sequence']))
-        
-        if not player_sequence:
-            print("Temps écoulé - Fin de la partie!")
-            break
+            x, y = float(x), float(y)
+            print(f"Pas détecté en : ({x}, {y})")
             
-        if player_sequence != game_state['sequence']:
-            print(f"\nIncorrect! La séquence attendue était: {' '.join(game_state['sequence'])}")
-            print(f"Votre séquence était: {' '.join(player_sequence)}")
-            print(f"\nPartie terminée! Score final: {game_state['score']}")
-            break
+            # Active la détection de la prochaine couleur
+            if not self.etat.pret:
+                self.etat.pret = True
+                print("Prêt pour la prochaine couleur")
             
-        game_state['score'] += 1
-        print(f"\nBravo! Score actuel: {game_state['score']}")
+            # Détecte et traite la couleur
+            couleur = self.detecter_couleur(x, y)
+            self.etat.ajouter_couleur(couleur)
+                    
+        except Exception as e:
+            print(f"Erreur : {str(e)}")
+
+        # Réinitialise le timer à chaque pas
+        self.etat.pas_en_cours.set()
+
+    def attendre_fin_pas(self, timeout=1.0):
+        """Attend que le joueur ne soit plus sur une zone."""
+        self.etat.pas_en_cours.clear()
+        # Attend un court instant pour voir si un nouveau pas est détecté
+        is_stepping = self.etat.pas_en_cours.wait(timeout)
+        return not is_stepping
+
+    def lire_sequence_joueur(self, taille):
+        """
+        Attend et enregistre la séquence de couleurs du joueur.
+        Retourne la liste des couleurs détectées.
+        """
+        sequence = []
+        self.etat.preparer_tour()
+        
+        print("Reproduisez la séquence...")
+        print(f"Nombre de couleurs à reproduire : {taille}")
+        
+        while len(sequence) < taille:
+            try:
+                # Attend la prochaine couleur avec un timeout de 60 secondes
+                couleur = self.etat.couleurs.get(timeout=60.0)
+                sequence.append(couleur)
+                print(f"Couleur {len(sequence)}/{taille} : {couleur}")
+                
+                # Attend que le joueur ne soit plus sur une zone
+                while not self.attendre_fin_pas():
+                    pass
+                
+            except Exception as e:
+                print("Temps écoulé!")
+                break
+        
+        self.etat.peut_jouer = False
+        return sequence
+
+    def demarrer_jeu(self):
+        """Boucle principale du jeu."""
+        self.etat.reinitialiser()
+        
+        while True:
+            # Crée et affiche une nouvelle séquence
+            self.etat.sequence = self.creer_sequence(self.etat.sequence)
+            self.afficher_sequence(self.etat.sequence)
+            
+            # Attend la réponse du joueur
+            sequence_joueur = self.lire_sequence_joueur(len(self.etat.sequence))
+            
+            if not sequence_joueur:
+                print("Partie terminée - Temps écoulé!")
+                break
+                
+            # Vérifie si la séquence est correcte
+            if sequence_joueur != self.etat.sequence:
+                print(f"\nIncorrect!")
+                print(f"Séquence attendue : {' '.join(self.etat.sequence)}")
+                print(f"Votre séquence   : {' '.join(sequence_joueur)}")
+                print(f"\nScore final : {self.etat.score}")
+                break
+                
+            self.etat.score += 1
+            print(f"\nBravo! Score : {self.etat.score}")
+
+    def demarrer(self):
+        """Lance le jeu en se connectant au serveur."""
+        try:
+            print("Connexion au serveur...")
+            self.socket.connect(
+                'http://192.168.5.5:8000',
+                transports=['websocket'],
+                wait=True,
+                wait_timeout=10
+            )
+            self.socket.wait()
+        except Exception as e:
+            print(f"Erreur de connexion : {str(e)}")
+
+class EtatJeu:
+    def __init__(self):
+        self.sequence = []
+        self.score = 0
+        self.couleurs = Queue()
+        self.peut_jouer = False
+        self.derniere = None
+        self.position = 0
+        self.pret = False
+        self.pas_en_cours = Event()  # Ajout d'un Event pour suivre les pas
+        self.pas_en_cours.clear()    # Initialisation à False
+
+    def reinitialiser(self):
+        """Remet à zéro l'état pour une nouvelle partie."""
+        self.score = 0
+        self.sequence = []
+        self.preparer_tour()
+
+    def preparer_tour(self):
+        """Prépare le jeu pour un nouveau tour."""
+        self.peut_jouer = True
+        self.derniere = None
+        self.position = 0
+        self.pret = False
+        self.pas_en_cours.clear()
+
+    def ajouter_couleur(self, couleur):
+        """
+        Ajoute une nouvelle couleur détectée à la file.
+        Ne prend en compte que les changements de couleur.
+        """
+        if couleur == 'inconnu':
+            return
+
+        self.pas_en_cours.set()  # Indique qu'un pas est en cours
+        
+        if couleur != self.derniere and self.pret:
+            print(f"Nouvelle couleur : {couleur}")
+            self.derniere = couleur
+            self.couleurs.put(couleur)
+            self.position += 1
+            self.pret = False
+
 
 if __name__ == "__main__":
-    try:
-        print("Connexion au serveur SensFloor...")
-        sio.connect(
-            'http://192.168.5.5:8000',
-            transports=['websocket'],
-            wait=True,
-            wait_timeout=10
-        )
-        sio.wait()
-    except Exception as e:
-        logging.error(f"Erreur de connexion: {str(e)}")
-        print(f"Erreur de connexion: {str(e)}")
+    jeu = JeuSimon()
+    jeu.demarrer()
