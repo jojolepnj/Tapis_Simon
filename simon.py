@@ -118,6 +118,7 @@ class JeuSimon:
         """
         Attend et enregistre la séquence de couleurs du joueur.
         Retourne la liste des couleurs détectées.
+        S'arrête immédiatement si une erreur est détectée dans la séquence.
         """
         sequence = []
         self.etat.preparer_tour()
@@ -132,6 +133,12 @@ class JeuSimon:
                 sequence.append(couleur)
                 print(f"Couleur {len(sequence)}/{taille} : {couleur}")
                 
+                # Vérifie si la couleur est correcte
+                if couleur != self.etat.sequence[len(sequence)-1]:
+                    print(f"\nErreur! Couleur attendue : {self.etat.sequence[len(sequence)-1]}")
+                    print(f"Couleur reçue : {couleur}")
+                    return sequence  # Retourne la séquence incomplète
+                
                 # Attend que le joueur ne soit plus sur une zone
                 while not self.attendre_fin_pas():
                     pass
@@ -139,10 +146,9 @@ class JeuSimon:
             except Exception as e:
                 print("Temps écoulé!")
                 break
-        
+            
         self.etat.peut_jouer = False
         return sequence
-
     def demarrer_jeu(self):
         """Boucle principale du jeu."""
         self.etat.reinitialiser()
@@ -159,17 +165,16 @@ class JeuSimon:
                 print("Partie terminée - Temps écoulé!")
                 break
                 
-            # Vérifie si la séquence est correcte
-            if sequence_joueur != self.etat.sequence:
-                print(f"\nIncorrect!")
+            # Vérifie si la séquence est complète et correcte
+            if len(sequence_joueur) < len(self.etat.sequence):
+                print(f"\nPartie terminée!")
                 print(f"Séquence attendue : {' '.join(self.etat.sequence)}")
-                print(f"Votre séquence   : {' '.join(sequence_joueur)}")
+                print(f"Votre séquence   : {' '.join(sequence_joueur)} ❌")
                 print(f"\nScore final : {self.etat.score}")
                 break
                 
             self.etat.score += 1
             print(f"\nBravo! Score : {self.etat.score}")
-
     def demarrer(self):
         """Lance le jeu en se connectant au serveur."""
         try:
