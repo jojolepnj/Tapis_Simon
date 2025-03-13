@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Game</title>
+    <style>
+        :root {
+            --primary: #5d43b5;
+            --secondary: #f39c12;
+            --dark: #1a1a2e;
+            --light: #f6f6f6;
+            --simon-green: #00cc66;
+            --simon-red: #ff3333;
+            --simon-yellow: #ffcc00;
+            --simon-blue: #3399ff;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --radius: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md) var(--spacing-xs);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: var(--spacing-sm);
+            text-shadow: 0 0 15px rgba(93, 67, 181, 0.6);
+            animation: glow 3s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(93, 67, 181, 0.6); }
+            50% { text-shadow: 0 0 20px rgba(93, 67, 181, 0.9); }
+        }
+
+        .lead {
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            color: rgba(246, 246, 246, 0.8);
+            max-width: 90%;
+            margin: 0 auto var(--spacing-md);
+        }
+
+        .card {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            margin-bottom: var(--spacing-md);
+            border: 1px solid rgba(93, 67, 181, 0.2);
+            width: 100%;
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, var(--primary), #7e57c2);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+
+        .card-header h2 {
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: var(--spacing-sm);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border-radius: var(--radius);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--light);
+            font-size: 1rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), #7e57c2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            color: var(--light);
+        }
+
+        .table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            background-color: rgba(93, 67, 181, 0.2);
+        }
+
+        .table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .position-1 { color: gold; font-weight: bold; }
+        .position-2 { color: silver; font-weight: bold; }
+        .position-3 { color: #cd7f32; font-weight: bold; }
+
+        /* Mobile optimization for score table */
+        @media (max-width: 767px) {
+            .table {
+                font-size: 0.85rem;
+            }
+            
+            .table th, .table td {
+                padding: 10px 5px;
+            }
+            
+            /* Prioritize which columns to show on small screens */
+            .table th:nth-child(5), 
+            .table td:nth-child(5) {
+                display: none; /* Hide date column on very small screens */
+            }
+            
+            /* Make position column smaller */
+            .table th:first-child, 
+            .table td:first-child {
+                width: 15%;
+                text-align: center;
+            }
+            
+            /* Compact display for mobile */
+            .card-body {
+                padding: var(--spacing-xs);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .table {
+                font-size: 0.75rem;
+            }
+            
+            .table th, .table td {
+                padding: 8px 4px;
+            }
+            
+            /* Further optimize on very small screens */
+            .table th:nth-child(4), 
+            .table td:nth-child(4) {
+                display: none; /* Hide difficulty column on extra small screens */
+            }
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Responsive layout with better grid system */
+        .row > div {
+            width: 100%;
+            max-width: 100%;
+            padding: 0 var(--spacing-xs);
+        }
+
+        @media (min-width: 768px) {
+            .row > div.col-md-6 {
+                width: 50%;
+            }
+            
+            .row > div.col-md-8 {
+                width: 66.66%;
+            }
+            
+            .row > div.col-md-4 {
+                width: 33.33%;
+            }
+            
+            .container {
+                padding: var(--spacing-md);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { 
+                font-size: 1.8rem; 
+            }
+            
+            .lead { 
+                font-size: 1rem; 
+            }
+            
+            .card-header h2 {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 { 
+                font-size: 1.5rem; 
+            }
+            
+            .lead { 
+                font-size: 0.9rem; 
+            }
+            
+            .container { 
+                padding: var(--spacing-xs); 
+                width: 95%;
+            }
+            
+            .card {
+                margin-bottom: var(--spacing-sm);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row fade-in">
+            <div style="width: 100%; text-align: center;">
+                <h1>Simon Game</h1>
+                <p class="lead">Test your memory and reflexes with the Simon Game! Follow the sequence of colors and sounds, then repeat it to progress.</p>
+            </div>
+        </div>
+
+        <div class="row fade-in">
+            <div class="col-md-6" style="width: 100%; max-width: 500px; margin: 0 auto;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Choose your level</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="difficulty-form">
+                            <select class="form-select" name="difficulty" required>
+                                <option value="" selected disabled>Select difficulty</option>
+                                <option value="easy">Easy - Normal speed</option>
+                                <option value="medium">Medium - Fast speed</option>
+                                <option value="hard">Hard - Very fast speed</option>
+                            </select>
+                            <button type="submit" class="btn-primary">Start Game</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row fade-in">
+            <div class="col-md-8" style="width: 100%; max-width: 800px; margin: 0 auto;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>High Scores</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Position</th>
+                                        <th>Player</th>
+                                        <th>Score</th>
+                                        <th>Difficulty</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="position-1">1</td>
+                                        <td>Player 1</td>
+                                        <td>15</td>
+                                        <td>Hard</td>
+                                        <td>27/02/2025</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="position-2">2</td>
+                                        <td>Player 2</td>
+                                        <td>12</td>
+                                        <td>Medium</td>
+                                        <td>27/02/2025</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="position-3">3</td>
+                                        <td>Player 3</td>
+                                        <td>10</td>
+                                        <td>Easy</td>
+                                        <td>27/02/2025</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: var(--spacing-md); text-align: center; opacity: 0.7; font-size: 0.8rem;">
+            © 2025 Simon Game - Test your limits
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.fade-in').forEach((el, i) => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 100 * (i + 1));
+            });
+
+            document.getElementById('difficulty-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const difficulty = this.querySelector('select[name="difficulty"]').value;
+                alert('Selected difficulty: ' + difficulty + '\nThe game will be implemented in a next step.');
+            });
+        });
+    </script>
+</body>
+</html>
