@@ -260,6 +260,33 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .language-selector {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .language-selector select {
+            padding: 8px 12px;
+            border-radius: var(--radius);
+            background-color: rgba(26, 26, 46, 0.9);
+            border: 1px solid rgba(93, 67, 181, 0.3);
+            color: var(--light);
+            font-size: 1rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .language-selector select:hover {
+            border-color: var(--primary);
+        }
+
+        .language-selector select option {
+            background-color: rgba(26, 26, 46, 0.9);
+            padding: 8px;
+        }
     </style>
 </head>
 <body>
@@ -343,6 +370,14 @@
         <div style="margin-top: var(--spacing-md); text-align: center; opacity: 0.7; font-size: 0.8rem;">
             © 2025 Simon Game - Test your limits
         </div>
+
+        <div class="language-selector">
+            <select id="languageSelect" onchange="changeLanguage(this.value)">
+                <option value="fr">🇫🇷 Français</option>
+                <option value="en" selected>🇬🇧 English</option>
+                <option value="de">🇩🇪 Deutsch</option>
+            </select>
+        </div>
     </div>
 
     <script>
@@ -358,9 +393,78 @@
             document.getElementById('difficulty-form').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const difficulty = this.querySelector('select[name="difficulty"]').value;
-                alert('Selected difficulty: ' + difficulty + '\nThe game will be implemented in a next step.');
+                this.submit();
             });
         });
+
+        function changeLanguage(lang) {
+                const translations = {
+                    'en': {
+                        'title': 'Simon Game',
+                        'subtitle': 'Test your memory and reflexes with the Simon Game! Follow the sequence of colors and sounds, then repeat it to progress.',
+                        'chooseLevelTitle': 'Choose your level',
+                        'selectDifficulty': 'Select difficulty',
+                        'easy': 'Easy - Normal speed',
+                        'medium': 'Medium - Fast speed',
+                        'hard': 'Hard - Very fast speed',
+                        'startGame': 'Start Game',
+                        'highScores': 'High Scores',
+                        'position': 'Position',
+                        'player': 'Player',
+                        'score': 'Score',
+                        'difficulty': 'Difficulty',
+                        'date': 'Date'
+                    },
+                    'fr': {
+                        'title': 'Jeu Simon',
+                        'subtitle': 'Testez votre mémoire et vos réflexes avec le jeu Simon ! Suivez la séquence de couleurs et de sons, puis répétez-la pour progresser.',
+                        'chooseLevelTitle': 'Choisissez votre niveau',
+                        'selectDifficulty': 'Sélectionnez la difficulté',
+                        'easy': 'Facile - Vitesse normale',
+                        'medium': 'Moyen - Vitesse rapide',
+                        'hard': 'Difficile - Vitesse très rapide',
+                        'startGame': 'Commencer le jeu',
+                        'highScores': 'Meilleurs scores',
+                        'position': 'Position',
+                        'player': 'Joueur',
+                        'score': 'Score',
+                        'difficulty': 'Difficulté',
+                        'date': 'Date'
+                    },
+                    'de': {
+                        'title': 'Simon Spiel',
+                        'subtitle': 'Testen Sie Ihr Gedächtnis und Ihre Reflexe mit dem Simon-Spiel! Folgen Sie der Sequenz von Farben und Tönen und wiederholen Sie diese, um voranzukommen.',
+                        'chooseLevelTitle': 'Wählen Sie Ihr Level',
+                        'selectDifficulty': 'Schwierigkeit auswählen',
+                        'easy': 'Einfach - Normale Geschwindigkeit',
+                        'medium': 'Mittel - Schnelle Geschwindigkeit',
+                        'hard': 'Schwer - Sehr schnelle Geschwindigkeit',
+                        'startGame': 'Spiel starten',
+                        'highScores': 'Bestenliste',
+                        'position': 'Position',
+                        'player': 'Spieler',
+                        'score': 'Punktzahl',
+                        'difficulty': 'Schwierigkeit',
+                        'date': 'Datum'
+                    }
+                };
+
+                const t = translations[lang];
+                document.querySelector('h1').textContent = t.title;
+                document.querySelector('.lead').textContent = t.subtitle;
+                document.querySelector('.card-header h2').textContent = t.chooseLevelTitle;
+                document.querySelector('select[name="difficulty"] option[disabled]').textContent = t.selectDifficulty;
+                document.querySelector('select[name="difficulty"] option[value="easy"]').textContent = t.easy;
+                document.querySelector('select[name="difficulty"] option[value="medium"]').textContent = t.medium;
+                document.querySelector('select[name="difficulty"] option[value="hard"]').textContent = t.hard;
+                document.querySelector('.btn-primary').textContent = t.startGame;
+                document.querySelectorAll('.card-header h2')[1].textContent = t.highScores;
+                document.querySelectorAll('th')[0].textContent = t.position;
+                document.querySelectorAll('th')[1].textContent = t.player;
+                document.querySelectorAll('th')[2].textContent = t.score;
+                document.querySelectorAll('th')[3].textContent = t.difficulty;
+                document.querySelectorAll('th')[4].textContent = t.date;
+            }
     </script>
 </body>
 </html>
