@@ -53,6 +53,17 @@ class JeuSimon:
         def on_pas(x, y):
             """Appelé quand un pas est détecté sur le SensFloor."""
             self.traiter_pas(x, y)
+            
+        @self.socket.on('objects-update')
+        def on_objects_update(objects):
+            """
+            Appelé quand une mise à jour des objets est reçue.
+            Si la liste est vide, active la détection des pas pour la prochaine séquence.
+            """
+            if isinstance(objects, list) and len(objects) == 0:
+                #print("Liste d'objets vide reçue, activation de la détection des pas")
+                self.etat.peut_jouer = True
+                logging.info("Détection des pas activée pour nouvelle séquence")
 
     def creer_sequence(self, seq_precedente):
         """
@@ -86,20 +97,24 @@ class JeuSimon:
     def traiter_pas(self, x, y):
         """Traite un nouveau pas détecté sur le SensFloor."""
         if not self.etat.peut_jouer:
+            print("Détection des pas désactivée, en attente de l'événement objects-update")
             return
 
         try:
             x, y = float(x), float(y)
             print(f"Pas détecté en : ({x}, {y})")
             
-            # Active la détection de la prochaine couleur
-            if not self.etat.pret:
-                self.etat.pret = True
-                print("Prêt pour la prochaine couleur")
-            
-            # Détecte et traite la couleur
+            # Détecte la couleur
             couleur = self.detecter_couleur(x, y)
-            self.etat.ajouter_couleur(couleur)
+            if couleur == 'inconnu':
+                return
+                
+            print(f"Couleur détectée : {couleur}")
+            
+            # Ne traite la couleur que si elle est différente de la dernière couleur ajoutée
+            if couleur != self.etat.derniere_couleur_ajoutee:
+                print(f"Nouvelle couleur : {couleur}")
+                self.etat.ajouter_couleur(couleur)
                     
         except Exception as e:
             print(f"Erreur : {str(e)}")
@@ -147,8 +162,12 @@ class JeuSimon:
                 print("Temps écoulé!")
                 break
             
+        # Désactive la détection des pas après chaque séquence
         self.etat.peut_jouer = False
+        print("Séquence terminée, détection des pas désactivée")
+        logging.info("Détection des pas désactivée après séquence")
         return sequence
+
     def demarrer_jeu(self):
         """Boucle principale du jeu."""
         self.etat.reinitialiser()
@@ -157,6 +176,16 @@ class JeuSimon:
             # Crée et affiche une nouvelle séquence
             self.etat.sequence = self.creer_sequence(self.etat.sequence)
             self.afficher_sequence(self.etat.sequence)
+            
+            # Désactive la détection des pas jusqu'à l'événement objects-update
+            self.etat.peut_jouer = False
+            print("En attente de l'événement objects-update pour activer la prochaine séquence...")
+            logging.info("En attente de l'événement objects-update")
+            
+            # Continue seulement quand etat.peut_jouer est mis à True par l'événement objects-update
+            while not self.etat.peut_jouer:
+                # Attend un court instant pour éviter de surcharger le CPU
+                self.etat.pas_en_cours.wait(0.5)
             
             # Attend la réponse du joueur
             sequence_joueur = self.lire_sequence_joueur(len(self.etat.sequence))
@@ -175,6 +204,7 @@ class JeuSimon:
                 
             self.etat.score += 1
             print(f"\nBravo! Score : {self.etat.score}")
+
     def demarrer(self):
         """Lance le jeu en se connectant au serveur."""
         try:
@@ -195,11 +225,10 @@ class EtatJeu:
         self.score = 0
         self.couleurs = Queue()
         self.peut_jouer = False
-        self.derniere = None
         self.position = 0
-        self.pret = False
-        self.pas_en_cours = Event()  # Ajout d'un Event pour suivre les pas
-        self.pas_en_cours.clear()    # Initialisation à False
+        self.pas_en_cours = Event()  # Event pour suivre les pas
+        self.pas_en_cours.clear()
+        self.derniere_couleur_ajoutee = None  # Pour empêcher les doublons
 
     def reinitialiser(self):
         """Remet à zéro l'état pour une nouvelle partie."""
@@ -209,28 +238,19 @@ class EtatJeu:
 
     def preparer_tour(self):
         """Prépare le jeu pour un nouveau tour."""
-        self.peut_jouer = True
-        self.derniere = None
+        # Note: peut_jouer est maintenant géré via l'événement objects-update
         self.position = 0
-        self.pret = False
         self.pas_en_cours.clear()
+        self.derniere_couleur_ajoutee = None  # Réinitialise la dernière couleur
 
     def ajouter_couleur(self, couleur):
         """
-        Ajoute une nouvelle couleur détectée à la file.
-        Ne prend en compte que les changements de couleur.
+        Ajoute une nouvelle couleur à la file.
+        Ne prend pas en compte les couleurs identiques consécutives.
         """
-        if couleur == 'inconnu':
-            return
-
-        self.pas_en_cours.set()  # Indique qu'un pas est en cours
-        
-        if couleur != self.derniere and self.pret:
-            print(f"Nouvelle couleur : {couleur}")
-            self.derniere = couleur
-            self.couleurs.put(couleur)
-            self.position += 1
-            self.pret = False
+        self.derniere_couleur_ajoutee = couleur
+        self.couleurs.put(couleur)
+        self.position += 1
 
 
 if __name__ == "__main__":
