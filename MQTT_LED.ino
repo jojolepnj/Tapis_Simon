@@ -9,7 +9,7 @@ const char* ssid = "Simon";
 const char* password = "Simon1234";
 
 // Configuration MQTT
-const char* mqtt_server = "192.168.1.113";
+const char* mqtt_server = "192.168.1.102";
 const int mqtt_port = 1883;
 const char* subscribe_topic = "Tapis/sequence";
 const char* publish_topic = "LED/status";
@@ -27,6 +27,9 @@ const uint8_t MATRIX_HEIGHT = 16;
 const uint16_t MATRIX_SIZE = 256;       
 const int DISPLAY_TIME = 1000;             // Temps d'affichage pour chaque couleur (en ms)
 
+// Variables globales pour le contrôle de l'état
+bool pas = false;
+uint8_t etat = 0;
 // Tableau pour stocker l'état des LEDs
 CRGB leds[NUM_LEDS];
 
@@ -88,12 +91,17 @@ void callback(char* topic, byte* payload, unsigned int length) {
         Serial.println("Erreur de parsing JSON");
         return;
     }
-
-    if (!doc.containsKey("couleur")) {
-        M5.Lcd.println("Pas de séquence dans le JSON");
-        Serial.println("Pas de séquence dans le JSON");
+    
+    // Vérifier la présence des deux champs requis
+    if (!doc.containsKey("couleur") || !doc.containsKey("pas")) {
+        M5.Lcd.println("JSON invalide");
+        Serial.println("JSON invalide - champs manquants");
         return;
     }
+    
+    // Traitement du champ "pas"
+    pas = doc["pas"].as<bool>();
+    etat = pas ? 1 : 0;  // Mise à jour de l'état en fonction de pas
 
     colorSequence.clear();
 
@@ -104,7 +112,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
     M5.Lcd.fillScreen(BLACK);
     M5.Lcd.setCursor(0, 0);
-    M5.Lcd.println("Nouvelle sequence:");
+    M5.Lcd.println(pas ? "Sequence a reproduire:" : "Sequence jouee:");
     M5.Lcd.print("[ ");
     for (int color : colorSequence) {
         M5.Lcd.print(color);
@@ -237,7 +245,7 @@ void splash(CRGB color, uint16_t matrixOffset) {
     }
     FastLED.show();
     delay(50);
-    FastLED.clear();
+    
   }
 
   // Remplir la matrice entière à la fin de l'animation
@@ -276,24 +284,38 @@ void displayColor(int colorChoice) {
       Anim_Erreur();
       delay(5000);
       break;
+    case 5:
+     FastLED.setBrightness(5);
+      fill_solid(leds, NUM_LEDS, CRGB::White);
+      FastLED.show();
+      delay(2000);
+      clearAllMatrices();
+      break;
     default:
       return;
   }
 
-  if (colorChoice != 4) {
-        splash(color, matrixOffset);
-        FastLED.show();
+  if (colorChoice < 4) {
+      splash(color, matrixOffset);
+      FastLED.show();
     }// Utiliser splash au lieu de remplir directement
-  
+
 }
 
 void playSequence() {
     client.publish(publish_topic, "true");
 
+    // Jouer la séquence de couleurs
     for (int color : colorSequence) {
         displayColor(color);
         delay(DISPLAY_TIME);
         clearAllMatrices();
+    }
+
+    // Afficher le blanc uniquement après une séquence à reproduire
+    if (pas) {  // On utilise directement pas au lieu de etat
+        displayColor(5);  // Affichage en blanc
+        delay(DISPLAY_TIME);
     }
 
     isPlayingSequence = false;
