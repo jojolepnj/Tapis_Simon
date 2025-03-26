@@ -1,11 +1,12 @@
 from datetime import datetime
 from queue import Queue
-from threading import Event
+from threading import Event, Thread
 import logging
 import random
 import socketio
 import paho.mqtt.client as mqtt
 import json
+import sys
 
 class JeuSimon:
     """
@@ -13,13 +14,16 @@ class JeuSimon:
     Gère la logique du jeu et la communication avec le SensFloor.
     """
 
-    def __init__(self):
+    def __init__(self, mode_test=False):
         # Configuration du fichier de log pour suivre les événements
         logging.basicConfig(
             filename='journal.txt',
             level=logging.INFO,
             format='%(asctime)s - %(message)s'
         )
+        self.mode_test = mode_test
+        self.current_mode = "test" if mode_test else "normal"
+        
         self.couleur_vers_chiffre = {
             'vert': 0,
             'rouge': 1,
@@ -34,10 +38,10 @@ class JeuSimon:
         }
         # Configuration MQTT
         self.mqtt_client = mqtt.Client()
-        self.mqtt_broker = "10.0.200.6"
+        self.mqtt_broker = "192.168.1.102"
         self.mqtt_port = 1883
         self.mqtt_topic = "Tapis/sequence"
-        self.led_status_topic = "LED/status"  # Ajout du nouveau topic
+        self.led_status_topic = "LED/status"
         
         # Configure le callback pour la réception des messages
         self.mqtt_client.on_message = self.on_mqtt_message
@@ -45,7 +49,6 @@ class JeuSimon:
         # Initialize MQTT connection
         try:
             self.mqtt_client.connect(self.mqtt_broker, self.mqtt_port)
-            # S'abonne au topic LED/status
             self.mqtt_client.subscribe(self.led_status_topic)
             self.mqtt_client.loop_start()
             print("Connected to MQTT broker")
@@ -68,6 +71,119 @@ class JeuSimon:
         
         # Configuration des événements socket
         self._config_socket()
+
+        # Démarrage du thread de surveillance des commandes
+        self.running = True
+        self.command_thread = Thread(target=self.mode_switch_monitor, daemon=True)
+        self.command_thread.start()
+    def mode_switch_monitor(self):
+        """Monitor for mode switch commands"""
+        while self.running:
+            try:
+                if self.mode_test:
+                    command = input("\nEnter 'm' to switch to normal mode, 'q' to quit: ").lower()
+                    if command == 'm':
+                        self.switch_mode()
+                    elif command == 'q':
+                        self.running = False
+                        sys.exit(0)
+                else:
+                    command = input("\nEnter 'q' to quit: ").lower()
+                    if command == 'q':
+                        self.running = False
+                        sys.exit(0)
+            except Exception as e:
+                print(f"Command error: {e}")
+                break
+    def switch_mode(self):
+        """Switch between test and normal mode"""
+        self.mode_test = not self.mode_test
+        self.current_mode = "test" if self.mode_test else "normal"
+        
+        if self.mode_test:
+            if hasattr(self, 'socket') and self.socket.connected:
+                self.socket.disconnect()
+            print("Switched to TEST mode")
+        else:
+            try:
+                self.socket.connect(
+                    'http://192.168.5.5:8000',
+                    transports=['websocket'],
+                    wait=True,
+                    wait_timeout=10
+                )
+                print("Switched to NORMAL mode")
+            except Exception as e:
+                print(f"Failed to connect to server: {e}")
+                print("Falling back to TEST mode")
+                self.mode_test = True
+                self.current_mode = "test"
+
+    # Add method for test mode simulation
+    def mode_test_simuler_pas(self):
+        """Simulate steps in test mode via terminal input"""
+        print("\nTest Mode - Séquence à reproduire :")
+        for i, couleur in enumerate(self.etat.sequence, 1):
+            print(f"{i}. {couleur} ({self.couleur_vers_chiffre[couleur]})")
+        
+        self.etat.preparer_tour()
+        derniere_couleur = None
+        sequence_joueur = []
+        
+        while self.etat.position < len(self.etat.sequence):
+            try:
+                print(f"\nEntrez la couleur {self.etat.position + 1}/{len(self.etat.sequence)}")
+                print("(0:vert, 1:rouge, 2:bleu, 3:jaune, q:quit)")
+                choix = input("> ").lower()
+                
+                if choix == 'q':
+                    raise Exception("Test mode terminated")
+                
+                if choix in ['0', '1', '2', '3']:
+                    couleur = self.chiffre_vers_couleur[int(choix)]
+                    
+                    if couleur == derniere_couleur:
+                        print("Même couleur que la précédente, ignorée")
+                        continue
+                        
+                    derniere_couleur = couleur
+                    sequence_joueur.append(couleur)
+                    self.etat.ajouter_couleur(couleur)
+                    print(f"Couleur ajoutée : {couleur}")
+                    
+                    # Publier vers MQTT avec pas=false pour une couleur individuelle
+                    message = {
+                        "couleur": self.couleur_vers_chiffre[couleur],
+                        "pas": False
+                    }
+                    self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
+                    print(f"Published to MQTT: {message}")
+                    
+                    # Vérifier si la couleur est correcte
+                    if couleur != self.etat.sequence[self.etat.position - 1]:
+                        print(f"\nErreur! Couleur attendue : {self.etat.sequence[self.etat.position - 1]}")
+                        return False  # Sortir immédiatement en cas d'erreur
+                        
+                else:
+                    print("Entrée invalide. Utilisez 0-3 ou q pour quitter")
+                    
+            except Exception as e:
+                print(f"Erreur mode test : {e}")
+                return False
+        
+        # Publier la séquence complète à la fin si tout est correct
+        if sequence_joueur == self.etat.sequence:
+            message = {
+                "couleur": [self.couleur_vers_chiffre[c] for c in sequence_joueur],
+                "pas": True
+            }
+            self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
+            print(f"Final sequence published to MQTT: {message}")
+            print("\nBravo! Séquence complétée avec succès!")
+            return True
+        return False
+
+
     def convertir_sequence_en_chiffres(self, sequence):
         """Convertit une séquence de couleurs en séquence de chiffres"""
         return [self.couleur_vers_chiffre[couleur] for couleur in sequence]
@@ -97,7 +213,8 @@ class JeuSimon:
         try:
             if tmp == 3:  # Error case
                 error_message = {
-                    "sequence": [4]  # Always send [4] for errors
+                    "couleur": [4],
+                    "pas": False
                 }
                 self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_message))
                 print(f"Error sequence published to MQTT: {error_message}")
@@ -106,11 +223,13 @@ class JeuSimon:
             sequence_chiffres = self.convertir_sequence_en_chiffres(sequence)
             if tmp == 2:  # Full sequence case
                 message = {
-                    "sequence": sequence_chiffres
+                    "couleur": sequence_chiffres,
+                    "pas": True
                 }
             elif tmp == 1:  # Single color case
                 message = {
-                    "sequence": sequence_chiffres[index-1]
+                    "couleur": sequence_chiffres[0],  # Toujours prendre le premier élément car on envoie une seule couleur
+                    "pas": False
                 }
             
             self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
@@ -118,7 +237,8 @@ class JeuSimon:
             
         except Exception as e:
             error_message = {
-                "sequence": [4]  # Send [4] on any error
+                "couleur": [4],
+                "pas": False
             }
             self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_message))
             print(f"Failed to publish to MQTT: {e}")
@@ -183,9 +303,9 @@ class JeuSimon:
         Le SensFloor est divisé en 4 zones de couleur.
         """
         if 0 <= x <= 0.5:
-            return 'vert' if 1 <= y <= 1.5 else 'rouge'
+            return 'vert' if 0 <= y <= 0.5 else 'rouge'
         elif 0.5 < x <= 1:
-            return 'jaune' if 1 <= y <= 1.5 else 'bleu'
+            return 'jaune' if 0 <= y <= 0.5 else 'bleu'
         return 'inconnu'
 
     def traiter_pas(self, x, y):
@@ -224,7 +344,27 @@ class JeuSimon:
         return not is_stepping
 
     def lire_sequence_joueur(self, taille):
-        """Lit la séquence du joueur et la publie via MQTT."""
+        """Lit la séquence du joueur."""
+        if self.mode_test:
+            # Mode test via terminal
+            sequence = []
+            if self.mode_test_simuler_pas():
+                while not self.etat.couleurs.empty():
+                    sequence.append(self.etat.couleurs.get())
+            else:
+                # En cas d'erreur, on termine la partie
+                message = {
+                    "couleur": [4],
+                    "pas": False
+                }
+                self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
+                print("\nPartie terminée - Erreur dans la séquence!")
+                print(f"Séquence attendue : {' '.join(self.etat.sequence)}")
+                sequence = []  # Retourne une séquence vide pour indiquer l'erreur
+                
+            return sequence
+
+        # Code original pour le mode normal
         sequence = []
         self.etat.preparer_tour()
         
@@ -238,12 +378,22 @@ class JeuSimon:
                 print(f"Couleur {len(sequence)}/{taille} : {couleur}")
                 
                 # Publie la séquence partielle du joueur
-                self.publier_sequence_mqtt(sequence,1,len(sequence), "player")
+                message = {
+                    "couleur": self.couleur_vers_chiffre[couleur],
+                    "pas": False
+                }
+                self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
                 
                 if couleur != self.etat.sequence[len(sequence)-1]:
                     print(f"\nErreur! Couleur attendue : {self.etat.sequence[len(sequence)-1]}")
                     print(f"Couleur reçue : {couleur}")
-                    return sequence
+                    # Envoyer le message d'erreur
+                    message = {
+                        "couleur": [4],
+                        "pas": False
+                    }
+                    self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
+                    return []  # Retourne une séquence vide pour indiquer l'erreur
                 
                 while not self.attendre_fin_pas():
                     pass
@@ -267,30 +417,14 @@ class JeuSimon:
                 self.etat.sequence = self.creer_sequence(self.etat.sequence)
                 self.afficher_sequence(self.etat.sequence)
                 
-                # Désactive la détection des pas jusqu'à l'événement objects-update
-                self.etat.peut_jouer = False
-                print("En attente de l'événement objects-update pour activer la prochaine séquence...")
-                logging.info("En attente de l'événement objects-update")
-                
-                # Add timeout for waiting for objects-update
-                wait_start_time = datetime.now()
-                max_wait_time = 5  # Maximum wait time in seconds
-                
-                while not self.etat.peut_jouer:
-                    current_time = datetime.now()
-                    elapsed_time = (current_time - wait_start_time).total_seconds()
-                    
-                    if elapsed_time > max_wait_time:
-                        print("Délai d'attente dépassé pour objects-update, reprise du jeu...")
-                        self.etat.peut_jouer = True
-                        break
-                    
-                    # Attend avec un timeout court pour rester réactif
-                    self.etat.pas_en_cours.wait(0.2)
-                
-                # Si on a dépassé le timeout, on passe au tour suivant
-                if elapsed_time > max_wait_time:
-                    continue
+                if self.mode_test:
+                    # En mode test, active immédiatement la séquence
+                    self.etat.peut_jouer = True
+                else:
+                    # Désactive la détection des pas jusqu'à l'événement objects-update
+                    self.etat.peut_jouer = False
+                    print("En attente de l'événement objects-update pour activer la prochaine séquence...")
+                    logging.info("En attente de l'événement objects-update")
                 
                 # Attend la réponse du joueur
                 sequence_joueur = self.lire_sequence_joueur(len(self.etat.sequence))
@@ -301,8 +435,9 @@ class JeuSimon:
                     
                 # Vérifie si la séquence est complète et correcte
                 if len(sequence_joueur) < len(self.etat.sequence):
-                    error_sequence = {'sequence': [4]}
-                    self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_sequence))
+                    if not self.mode_test:
+                        error_sequence = {'sequence': [4]}
+                        self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_sequence))
                     print("\nPartie terminée!")
                     print(f"Séquence attendue : {' '.join(self.etat.sequence)}")
                     print(f"Votre séquence   : {' '.join(sequence_joueur)} ❌")
@@ -315,24 +450,34 @@ class JeuSimon:
             except Exception as e:
                 print(f"Erreur dans la boucle de jeu: {str(e)}")
                 logging.error(f"Erreur dans la boucle de jeu: {str(e)}")
-                error_sequence = {'sequence': [4]}
-                self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_sequence))
+                if not self.mode_test:
+                    error_sequence = {'sequence': [4]}
+                    self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_sequence))
                 return  # Sortie propre en cas d'erreur
 
 
     def demarrer(self):
-        """Lance le jeu en se connectant au serveur."""
+        """Launch the game, falling back to test mode if server connection fails"""
         try:
-            print("Connexion au serveur...")
-            self.socket.connect(
-                'http://192.168.5.5:8000',
-                transports=['websocket'],
-                wait=True,
-                wait_timeout=10
-            )
-            self.socket.wait()
+            if not self.mode_test:
+                print("Connecting to server...")
+                self.socket.connect(
+                    'http://192.168.5.5:8000',
+                    transports=['websocket'],
+                    wait=True,
+                    wait_timeout=10
+                )
+                print("Connected in NORMAL mode")
+                self.socket.wait()
+            else:
+                print("Starting in TEST mode")
+                self.demarrer_jeu()
+                
         except Exception as e:
-            print(f"Erreur de connexion : {str(e)}")
+            print(f"Connection error: {str(e)}")
+            print("Falling back to TEST mode")
+            self.mode_test = True
+            self.demarrer_jeu()
 
 class EtatJeu:
     def __init__(self):
@@ -369,5 +514,6 @@ class EtatJeu:
 
 
 if __name__ == "__main__":
-    jeu = JeuSimon()
+    # Start in normal mode first, will fall back to test if connection fails
+    jeu = JeuSimon(mode_test=False)
     jeu.demarrer()
