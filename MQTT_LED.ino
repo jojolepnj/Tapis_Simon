@@ -13,7 +13,9 @@ const char* mqtt_server = "192.168.1.102";
 const int mqtt_port = 1883;
 const char* subscribe_topic = "Tapis/sequence";
 const char* publish_topic = "LED/status";
-uint8_t gHue = 0;  // Teinte variable pour les animations
+int brightness = 5; 
+// Teinte variable pour les animations
+uint8_t gHue = 0; 
 
 // Configuration des LEDs
 #define NUM_LEDS 1024     // 4 matrices de 256 LEDs
@@ -279,8 +281,7 @@ void displayColor(int colorChoice) {
       color = CRGB::Yellow;
       matrixOffset = MATRIX_SIZE * 3;
       break;
-    case 4:  // Mode arc-en-ciel sur toutes les matrices
-      FastLED.setBrightness(25);
+    case 4:  // Croix /erreur
       Anim_Erreur();
       delay(5000);
       break;
@@ -297,6 +298,7 @@ void displayColor(int colorChoice) {
 
   if (colorChoice < 4) {
       splash(color, matrixOffset);
+      FastLED.setBrightness(brightness);
       FastLED.show();
     }// Utiliser splash au lieu de remplir directement
 
@@ -321,6 +323,7 @@ void playSequence() {
     isPlayingSequence = false;
     colorSequence.clear();
     client.publish(publish_topic, "false");
+    FastLED.setBrightness(brightness);
 }
 
 void Anim_Erreur() {
