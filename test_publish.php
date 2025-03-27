@@ -17,9 +17,10 @@ $mqtt = new MqttClient($server, $port, $clientId);
 try {
     $mqtt->connect();
     $mqtt->publish($topic, $message, 0);
+    $mqtt->publish($topic, $message, 0, true);
     $mqtt->disconnect();
     echo "message start envoyé!\n";
-    header("location:" . "retour.php");
+    header("Location: simon.php");
 } catch (MqttClientException $e) {
     echo "Error: " . $e->getMessage() . "\n";
   
