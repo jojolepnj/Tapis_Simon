@@ -13,7 +13,7 @@ const char* mqtt_server = "192.168.1.102";
 const int mqtt_port = 1883;
 const char* subscribe_topic = "Tapis/sequence";
 const char* publish_topic = "LED/status";
-int brightness = 5; 
+uint8_t brightness = 5; 
 // Teinte variable pour les animations
 uint8_t gHue = 0; 
 
@@ -169,7 +169,7 @@ void setup() {
 
     FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS)
         .setCorrection(TypicalLEDStrip);
-    FastLED.setBrightness(25);
+    FastLED.setBrightness(brightness);
     clearAllMatrices();
 
     setup_wifi();
@@ -186,7 +186,7 @@ void loop() {
     client.loop();
 
     if (M5.BtnB.wasPressed()) {
-        uint8_t brightness = FastLED.getBrightness();
+        brightness = FastLED.getBrightness();
         brightness = brightness + 10 > 255 ? 255 : brightness + 10;
         FastLED.setBrightness(brightness);
         M5.Lcd.fillRect(0, 120, 320, 20, BLACK);
@@ -196,7 +196,7 @@ void loop() {
     }
 
     if (M5.BtnC.wasPressed()) {
-        uint8_t brightness = FastLED.getBrightness();
+        brightness = FastLED.getBrightness();
         brightness = brightness - 10 < 0 ? 0 : brightness - 10;
         FastLED.setBrightness(brightness);
         M5.Lcd.fillRect(0, 120, 320, 20, BLACK);
@@ -265,19 +265,19 @@ void displayColor(int colorChoice) {
   uint16_t matrixOffset;
 
   switch (colorChoice) {
-    case 0:  // Vert
+    case 0:  // Vert (bas droite)
       color = CRGB::Green;
       matrixOffset = 0;
       break;
-    case 1:  // Rouge
+    case 1:  // Rouge (haut droite)
       color = CRGB::Red;
       matrixOffset = MATRIX_SIZE;
       break;
-    case 2:  // Bleu
+    case 2:  // Bleu (haut gauche)
       color = CRGB::Blue;
       matrixOffset = MATRIX_SIZE * 2;
       break;
-    case 3:  // Jaune
+    case 3:  // Jaune (bas gauche)
       color = CRGB::Yellow;
       matrixOffset = MATRIX_SIZE * 3;
       break;
@@ -286,7 +286,6 @@ void displayColor(int colorChoice) {
       delay(5000);
       break;
     case 5:
-     FastLED.setBrightness(5);
       fill_solid(leds, NUM_LEDS, CRGB::White);
       FastLED.show();
       delay(2000);
@@ -298,7 +297,6 @@ void displayColor(int colorChoice) {
 
   if (colorChoice < 4) {
       splash(color, matrixOffset);
-      FastLED.setBrightness(brightness);
       FastLED.show();
     }// Utiliser splash au lieu de remplir directement
 
@@ -323,13 +321,11 @@ void playSequence() {
     isPlayingSequence = false;
     colorSequence.clear();
     client.publish(publish_topic, "false");
-    FastLED.setBrightness(brightness);
 }
 
 void Anim_Erreur() {
     // Effacer toutes les LEDs
     FastLED.clear();
-    FastLED.setBrightness(25);
     
     // Pour les matrices 3 et 4 (diagonales montantes)
     for(int matrix : {2, 3}) {
