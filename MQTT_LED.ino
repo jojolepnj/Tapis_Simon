@@ -46,12 +46,19 @@ bool isPlayingSequence = false;
 void clearAllMatrices();
 void displayColor(int colorChoice);
 void playSequence();
-void Anim_Erreur();
+
 uint16_t XY(uint8_t x, uint8_t y, uint16_t matrixOffset = 0);
 void setup_wifi();
 void callback(char* topic, byte* payload, unsigned int length);
 void reconnect();
+
+//Fonctions d'animation
 void splash(CRGB color, uint16_t matrixOffset);
+void Anim_Erreur();
+void horizontalLinesAnimation(CRGB lineColor, uint16_t matrixOffset);
+void squareWaveAnimation(CRGB squareColor, uint16_t matrixOffset);
+void snailAnimation(CRGB lineColor, uint16_t matrixOffset);
+
 
 void setup_wifi() {
     M5.Lcd.fillScreen(BLACK);
@@ -264,42 +271,41 @@ void displayColor(int colorChoice) {
   CRGB color;
   uint16_t matrixOffset;
 
-  switch (colorChoice) {
-    case 0:  // Vert (bas droite)
-      color = CRGB::Green;
-      matrixOffset = 0;
-      break;
-    case 1:  // Rouge (haut droite)
-      color = CRGB::Red;
-      matrixOffset = MATRIX_SIZE;
-      break;
-    case 2:  // Bleu (haut gauche)
-      color = CRGB::Blue;
-      matrixOffset = MATRIX_SIZE * 2;
-      break;
-    case 3:  // Jaune (bas gauche)
-      color = CRGB::Yellow;
-      matrixOffset = MATRIX_SIZE * 3;
-      break;
-    case 4:  // Croix /erreur
-      Anim_Erreur();
-      delay(5000);
-      break;
-    case 5:
-      fill_solid(leds, NUM_LEDS, CRGB::White);
-      FastLED.show();
-      delay(2000);
-      clearAllMatrices();
-      break;
-    default:
-      return;
+    switch (colorChoice) {
+        case 0:  // Vert (bas droite)
+            color = CRGB::Green;
+            matrixOffset = 0;
+            horizontalLinesAnimation(color, matrixOffset);
+            break;
+        case 1:  // Rouge (haut droite)
+            color = CRGB::Red;
+            matrixOffset = MATRIX_SIZE;
+            squareWaveAnimation(color, matrixOffset);
+            break;
+        case 2:  // Bleu (haut gauche)
+            color = CRGB::Blue;
+            matrixOffset = MATRIX_SIZE * 2;
+            snailAnimation(color, matrixOffset);
+            // Pas besoin d'appeler FastLED.show() ici car déjà fait dans snailAnimation
+            break;
+        case 3:  // Jaune (bas gauche)
+            color = CRGB::Yellow;
+            matrixOffset = MATRIX_SIZE * 3;
+            splash(color, matrixOffset);
+            break;
+        case 4:  // Croix /erreur
+            Anim_Erreur();
+            delay(5000);
+            break;
+        case 5:
+            fill_solid(leds, NUM_LEDS, CRGB::White);
+            FastLED.show();
+            delay(2000);
+            clearAllMatrices();
+            break;
+        default:
+            return;
   }
-
-  if (colorChoice < 4) {
-      splash(color, matrixOffset);
-      FastLED.show();
-    }// Utiliser splash au lieu de remplir directement
-
 }
 
 void playSequence() {
@@ -325,7 +331,7 @@ void playSequence() {
 
 void Anim_Erreur() {
     // Effacer toutes les LEDs
-    FastLED.clear();
+    clearAllMatrices();
     
     // Pour les matrices 3 et 4 (diagonales montantes)
     for(int matrix : {2, 3}) {
@@ -382,4 +388,92 @@ void Anim_Erreur() {
     }
     
     FastLED.show();
+}
+void horizontalLinesAnimation(CRGB lineColor, uint16_t matrixOffset) {
+    // Calcul du délai pour une durée totale de 0.4s (400ms)
+    // Nombre total d'étapes = MATRIX_WIDTH (16)
+    // Donc delay = 400ms / 16 = 25ms par étape
+    const int ANIMATION_DELAY = 25; // 400ms / 16 étapes = 25ms par étape
+    
+    clearAllMatrices();
+
+    // Animation sur une seule matrice
+    // Pour chaque colonne (de gauche à droite)
+    for(int x = 0; x < MATRIX_WIDTH; x++) {
+        // Dessiner toutes les lignes horizontales en même temps
+        for(int y = 0; y < MATRIX_HEIGHT; y += 4) {
+            // Allumer 2 lignes consécutives
+            for(int thickness = 0; thickness < 2; thickness++) {
+                if((y + thickness) < MATRIX_HEIGHT) {
+                    leds[XY(x, y + thickness, matrixOffset)] = lineColor;
+                }
+            }
+        }
+        FastLED.show();
+        delay(ANIMATION_DELAY);
+    }
+}
+void squareWaveAnimation(CRGB squareColor, uint16_t matrixOffset) {
+    // Effacer la matrice
+    clearAllMatrices();
+    
+    const uint8_t SQUARE_SIZE = 2;      // Taille de chaque carré
+    const uint8_t SPACING = 4;          // Espacement entre les carrés
+    const uint8_t BORDER_OFFSET = 1;    // Décalage par rapport au bord
+    const int TOTAL_STEPS = 16;         // Nombre total d'étapes
+    const int STEP_DELAY = 400 / TOTAL_STEPS;  // Délai entre chaque étape
+    
+    // Animation diagonale
+    for(uint8_t step = 0; step < TOTAL_STEPS; step++) {
+        for(uint8_t y = BORDER_OFFSET; y < MATRIX_HEIGHT - BORDER_OFFSET; y += SPACING) {
+            for(uint8_t x = BORDER_OFFSET; x < MATRIX_WIDTH - BORDER_OFFSET; x += SPACING) {
+                // Si cette position doit être allumée dans cette étape
+                if(((x-BORDER_OFFSET)/SPACING + (y-BORDER_OFFSET)/SPACING) == step/2) {
+                    // Dessiner un carré 2x2
+                    for(uint8_t dx = 0; dx < SQUARE_SIZE; dx++) {
+                        for(uint8_t dy = 0; dy < SQUARE_SIZE; dy++) {
+                            if((x + dx < MATRIX_WIDTH - BORDER_OFFSET) && 
+                               (y + dy < MATRIX_HEIGHT - BORDER_OFFSET)) {
+                                leds[Coord_LEDs_Erreur(x + dx, y + dy, matrixOffset)] = squareColor;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        FastLED.show();
+        delay(STEP_DELAY);
+    }
+}
+// Version corrigée de snailAnimation
+void snailAnimation(CRGB lineColor, uint16_t matrixOffset) {
+    // Effacer la matrice
+    clearAllMatrices();
+
+    // Réduire le nombre de points et le délai pour une animation plus rapide
+    const uint8_t totalPoints = 50;    // Légèrement réduit de 60 à 50
+    const int delayTime = 2;          // Réduit de 25 à 15ms
+
+    // Centre de la matrice
+    const uint8_t centerX = 8;
+    const uint8_t centerY = 8;
+
+    float radius = 0.0;
+    float angle = 0.0;
+
+    for(uint8_t i = 0; i < totalPoints; i++) {
+        // Calculer les coordonnées du point actuel
+        uint8_t x = centerX + (uint8_t)(radius * cos(angle));
+        uint8_t y = centerY + (uint8_t)(radius * sin(angle));
+
+        // Vérifier les limites
+        if(x < MATRIX_WIDTH && y < MATRIX_HEIGHT) {
+            leds[Coord_LEDs_Erreur(x, y, matrixOffset)] = lineColor;
+            FastLED.show();
+            delay(delayTime);
+        }
+        // Garder les mêmes valeurs pour la forme de la spirale
+        angle += 0.4;
+        radius += 0.12;
+    }
 }
