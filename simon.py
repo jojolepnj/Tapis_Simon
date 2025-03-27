@@ -1,5 +1,5 @@
 from datetime import datetime
-from queue import Queue
+from queue import Queue, Empty 
 from threading import Event, Thread
 import logging
 import random
@@ -7,6 +7,7 @@ import socketio
 import paho.mqtt.client as mqtt
 import json
 import sys
+import time
 
 class JeuSimon:
     """
@@ -21,6 +22,28 @@ class JeuSimon:
             level=logging.INFO,
             format='%(asctime)s - %(message)s'
         )
+        self.difficulte = "facile"
+        
+        self.config_difficulte = {
+            "facile": {
+                "temps_attente": 10.0,     # 20 secondes par couleur (augmenté)
+                "nouvelles_couleurs": 1,    # Ajoute 1 couleur par tour
+                "temps_sequence": 0.0,      # Pas de délai entre les couleurs
+                "delai_entre_tours": 1.0    # Pas de délai entre les tours
+            },
+            "moyen": {
+                "temps_attente": 7.0,      # 15 secondes par couleur (augmenté)
+                "nouvelles_couleurs": 1,    # Ajoute 1 couleur par tour
+                "temps_sequence": 0.0,      # Pas de délai entre les couleurs
+                "delai_entre_tours": 1.0    # Pas de délai entre les tours
+            },
+            "difficile": {
+                "temps_attente": 5.0,      # 10 secondes par couleur (augmenté)
+                "nouvelles_couleurs": 2,    # Ajoute 2 couleurs par tour
+                "temps_sequence": 0.0,      # Pas de délai entre les couleurs
+                "delai_entre_tours": 1.0    # Pas de délai entre les tours
+            }
+        }
         self.mode_test = mode_test
         self.current_mode = "test" if mode_test else "normal"
         
@@ -38,7 +61,7 @@ class JeuSimon:
         }
         # Configuration MQTT
         self.mqtt_client = mqtt.Client()
-        self.mqtt_broker = "192.168.1.102"
+        self.mqtt_broker = "192.168.1.103"
         self.mqtt_port = 1883
         self.mqtt_topic = "Tapis/sequence"
         self.led_status_topic = "LED/status"
@@ -76,6 +99,15 @@ class JeuSimon:
         self.running = True
         self.command_thread = Thread(target=self.mode_switch_monitor, daemon=True)
         self.command_thread.start()
+    def afficher_parametres_difficulte(self):
+        """Affiche les paramètres du niveau de difficulté actuel"""
+        config = self.config_difficulte[self.difficulte]
+        print("\nParamètres actuels :")
+        print(f"- Temps pour reproduire chaque couleur : {config['temps_attente']} secondes")
+        print(f"- Nouvelles couleurs par tour : {config['nouvelles_couleurs']}")
+        print(f"- Temps entre chaque couleur : {config['temps_sequence']} secondes")
+        print(f"- Délai entre les tours : {config['delai_entre_tours']} secondes")
+
     def mode_switch_monitor(self):
         """Monitor for mode switch commands"""
         while self.running:
@@ -121,8 +153,9 @@ class JeuSimon:
 
     # Add method for test mode simulation
     def mode_test_simuler_pas(self):
-        """Simulate steps in test mode via terminal input"""
-        print("\nTest Mode - Séquence à reproduire :")
+        """Version modifiée pour prendre en compte la difficulté"""
+        config = self.config_difficulte[self.difficulte]
+        print("\nMode Test - Séquence à reproduire :")
         for i, couleur in enumerate(self.etat.sequence, 1):
             print(f"{i}. {couleur} ({self.couleur_vers_chiffre[couleur]})")
         
@@ -134,12 +167,22 @@ class JeuSimon:
             try:
                 print(f"\nEntrez la couleur {self.etat.position + 1}/{len(self.etat.sequence)}")
                 print("(0:vert, 1:rouge, 2:bleu, 3:jaune, q:quit)")
-                choix = input("> ").lower()
+                print("> ", end='', flush=True)  # Affiche le prompt sans nouvelle ligne
+                
+                # Démarre le chrono après avoir affiché le prompt
+                start_time = time.time()
+                choix = input().lower()  # Enlève le prompt ">" de input()
+                elapsed_time = time.time() - start_time
                 
                 if choix == 'q':
                     raise Exception("Test mode terminated")
                 
                 if choix in ['0', '1', '2', '3']:
+                    # Vérifie le temps APRÈS avoir reçu une réponse valide
+                    if elapsed_time > config['temps_attente']:
+                        print(f"\nTemps écoulé ! Vous avez dépassé {config['temps_attente']} secondes.")
+                        return False
+                    
                     couleur = self.chiffre_vers_couleur[int(choix)]
                     
                     if couleur == derniere_couleur:
@@ -151,18 +194,16 @@ class JeuSimon:
                     self.etat.ajouter_couleur(couleur)
                     print(f"Couleur ajoutée : {couleur}")
                     
-                    # Publier vers MQTT avec pas=false pour une couleur individuelle
                     message = {
-                        "couleur": self.couleur_vers_chiffre[couleur],
+                        "couleur": [self.couleur_vers_chiffre[couleur]],
                         "pas": False
                     }
                     self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
-                    print(f"Published to MQTT: {message}")
+                    print(f"MQTT >>> [Tapis/sequence] Mode test - Couleur jouée : {json.dumps(message)}")
                     
-                    # Vérifier si la couleur est correcte
                     if couleur != self.etat.sequence[self.etat.position - 1]:
                         print(f"\nErreur! Couleur attendue : {self.etat.sequence[self.etat.position - 1]}")
-                        return False  # Sortir immédiatement en cas d'erreur
+                        return False
                         
                 else:
                     print("Entrée invalide. Utilisez 0-3 ou q pour quitter")
@@ -171,22 +212,15 @@ class JeuSimon:
                 print(f"Erreur mode test : {e}")
                 return False
         
-        # Publier la séquence complète à la fin si tout est correct
         if sequence_joueur == self.etat.sequence:
-            message = {
-                "couleur": [self.couleur_vers_chiffre[c] for c in sequence_joueur],
-                "pas": True
-            }
-            self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
-            print(f"Final sequence published to MQTT: {message}")
             print("\nBravo! Séquence complétée avec succès!")
             return True
         return False
-
-
+        
     def convertir_sequence_en_chiffres(self, sequence):
         """Convertit une séquence de couleurs en séquence de chiffres"""
         return [self.couleur_vers_chiffre[couleur] for couleur in sequence]
+
     def on_mqtt_message(self, client, userdata, message):
         """Callback appelé quand un message MQTT est reçu"""
         try:
@@ -194,11 +228,11 @@ class JeuSimon:
             payload = message.payload.decode()
             
             if topic == self.led_status_topic:
-                print(f"Received LED status: {payload}")
+                #print(f"Received LED status: {payload}")
                 # Vous pouvez traiter le message ici selon vos besoins
                 try:
                     led_status = json.loads(payload)
-                    print(f"LED status decoded: {led_status}")
+                    #print(f"LED status decoded: {led_status}")
                     # Ajoutez ici le traitement spécifique pour le status LED
                 except json.JSONDecodeError as e:
                     print(f"Error decoding LED status JSON: {e}")
@@ -226,11 +260,13 @@ class JeuSimon:
                     "couleur": sequence_chiffres,
                     "pas": True
                 }
+                print(f"MQTT >>> [Tapis/sequence] Séquence complète : {json.dumps(message)}")
             elif tmp == 1:  # Single color case
                 message = {
-                    "couleur": sequence_chiffres[0],  # Toujours prendre le premier élément car on envoie une seule couleur
+                    "couleur": [self.couleur_vers_chiffre[couleur]],  # Mettre le nombre dans une liste
                     "pas": False
                 }
+                print(f"MQTT >>> [Tapis/sequence] Couleur unique : {json.dumps(message)}")
             
             self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
             print(f"Sequence published to MQTT: {message}")
@@ -243,6 +279,18 @@ class JeuSimon:
             self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_message))
             print(f"Failed to publish to MQTT: {e}")
             print(f"Sent error sequence: {error_message}")
+    def montrer_sequence(self, temps_sequence):
+        """Montre la séquence de couleurs"""
+        print("\nAttention ! Voici la séquence :")
+        for i, couleur in enumerate(self.etat.sequence, 1):
+            message = {
+                "couleur": [self.couleur_vers_chiffre[couleur]],
+                "pas": False
+            }
+            #self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
+            #print(f"MQTT >>> [Tapis/sequence] Affichage couleur : {json.dumps(message)}")
+            print(f"{i}. {couleur} ({self.couleur_vers_chiffre[couleur]})")
+            time.sleep(1) 
 
     def _config_socket(self):
         """Configure les événements de connexion socket."""
@@ -251,15 +299,12 @@ class JeuSimon:
         def connect():
             """Appelé quand la connexion est établie."""
             print("Connecté au serveur SensFloor")
-            # Configure timeout for faster detection of connection issues
             self.socket.eio.ping_timeout = 2000  # 2 seconds
-            self.demarrer_jeu()
 
         @self.socket.event
         def disconnect():
             """Appelé quand la connexion est perdue."""
             print("Déconnecté du serveur")
-            # Force peut_jouer to True if we've been waiting too long
             if not self.etat.peut_jouer:
                 self.etat.peut_jouer = True
                 print("Forçage de la reprise du jeu après déconnexion")
@@ -271,14 +316,9 @@ class JeuSimon:
             
         @self.socket.on('objects-update')
         def on_objects_update(objects):
-            """
-            Appelé quand une mise à jour des objets est reçue.
-            Si la liste est vide, active la détection des pas pour la prochaine séquence.
-            """
-            if isinstance(objects, list):  # Remove len check to process all updates
+            if isinstance(objects, list):
                 self.etat.peut_jouer = True
                 logging.info("Détection des pas activée pour nouvelle séquence")
-
     def creer_sequence(self, seq_precedente):
         """Crée une nouvelle séquence de couleurs et la publie via MQTT."""
         couleurs = ['vert', 'rouge', 'bleu', 'jaune']
@@ -307,34 +347,42 @@ class JeuSimon:
         elif 0.5 < x <= 1:
             return 'jaune' if 0 <= y <= 0.5 else 'bleu'
         return 'inconnu'
-
+    def reinitialiser_queue_couleurs(self):
+        """Vide la queue des couleurs"""
+        while not self.etat.couleurs.empty():
+            self.etat.couleurs.get()
     def traiter_pas(self, x, y):
         """Traite un nouveau pas détecté sur le SensFloor."""
         if not self.etat.peut_jouer:
-            print("Détection des pas désactivée, en attente de l'événement objects-update")
             return
 
         try:
             x, y = float(x), float(y)
             print(f"Pas détecté en : ({x}, {y})")
             
-            # Détecte la couleur
             couleur = self.detecter_couleur(x, y)
             if couleur == 'inconnu':
                 return
                 
             print(f"Couleur détectée : {couleur}")
             
-            # Ne traite la couleur que si elle est différente de la dernière couleur ajoutée
-            if couleur != self.etat.derniere_couleur_ajoutee:
+            # Mettre à jour la dernière couleur seulement après l'avoir ajoutée
+            derniere_couleur = self.etat.derniere_couleur_ajoutee
+            if couleur != derniere_couleur:
                 print(f"Nouvelle couleur : {couleur}")
                 self.etat.ajouter_couleur(couleur)
-                    
+                self.etat.derniere_couleur_ajoutee = couleur
+                
+                # Envoyer la couleur détectée en MQTT
+                message = {
+                    "couleur": [self.couleur_vers_chiffre[couleur]],
+                    "pas": False
+                }
+                self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
+                print(f"MQTT >>> [Tapis/sequence] Détection pas : {json.dumps(message)}")
+                
         except Exception as e:
             print(f"Erreur : {str(e)}")
-
-        # Réinitialise le timer à chaque pas
-        self.etat.pas_en_cours.set()
 
     def attendre_fin_pas(self, timeout=1.0):
         """Attend que le joueur ne soit plus sur une zone."""
@@ -342,141 +390,363 @@ class JeuSimon:
         # Attend un court instant pour voir si un nouveau pas est détecté
         is_stepping = self.etat.pas_en_cours.wait(timeout)
         return not is_stepping
-
-    def lire_sequence_joueur(self, taille):
-        """Lit la séquence du joueur."""
-        if self.mode_test:
-            # Mode test via terminal
-            sequence = []
-            if self.mode_test_simuler_pas():
-                while not self.etat.couleurs.empty():
-                    sequence.append(self.etat.couleurs.get())
-            else:
-                # En cas d'erreur, on termine la partie
-                message = {
-                    "couleur": [4],
-                    "pas": False
-                }
-                self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
-                print("\nPartie terminée - Erreur dans la séquence!")
-                print(f"Séquence attendue : {' '.join(self.etat.sequence)}")
-                sequence = []  # Retourne une séquence vide pour indiquer l'erreur
+    def envoyer_erreur_mqtt(self, type_erreur="sequence"):
+        """Envoie un message d'erreur via MQTT"""
+        error_message = {
+            "couleur": [4],  # 4 représente une erreur
+            "pas": False
+        }
+        time.sleep(1)
+        self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_message))
+        
+        print(f"MQTT >>> Envoi signal d'erreur : {error_message}")
+    def lire_sequence_tapis(self, longueur_sequence, temps_total):
+        """Gère la lecture de la séquence avec le tapis"""
+        sequence_joueur = []
+        sequence_start_time = time.time()
+        
+        # Vider la queue avant de commencer
+        self.reinitialiser_queue_couleurs()
+        self.etat.peut_jouer = True
+        
+        # Attendre un court instant pour s'assurer que le système est prêt
+        time.sleep(0.2)
+        
+        while len(sequence_joueur) < longueur_sequence:
+            # Vérifier le temps total écoulé
+            temps_ecoule = time.time() - sequence_start_time
+            temps_restant = temps_total - temps_ecoule
+            
+            if temps_restant <= 0:
+                self.envoyer_erreur_mqtt("timeout")
+                print(f"\nTemps écoulé ! Vous avez dépassé {temps_total} secondes.")
+                return None
                 
-            return sequence
-
-        # Code original pour le mode normal
-        sequence = []
-        self.etat.preparer_tour()
-        
-        print("Reproduisez la séquence...")
-        print(f"Nombre de couleurs à reproduire : {taille}")
-        
-        while len(sequence) < taille:
+            # Afficher le temps restant périodiquement
+            print(f"\rTemps restant : {temps_restant:.1f} secondes", end='', flush=True)
+            
+            # Attendre une nouvelle couleur de la queue
             try:
-                couleur = self.etat.couleurs.get(timeout=60.0)
-                sequence.append(couleur)
-                print(f"Couleur {len(sequence)}/{taille} : {couleur}")
+                couleur = self.etat.couleurs.get(timeout=0.5)
+                if couleur:  # Vérifier que la couleur n'est pas None
+                    sequence_joueur.append(couleur)
+                    print(f"\nCouleur {len(sequence_joueur)}: {couleur} détectée")
+                    
+                    # Vérifier si la couleur est correcte
+                    position = len(sequence_joueur) - 1
+                    if couleur != self.etat.sequence[position]:
+                        self.envoyer_erreur_mqtt("wrong_color")
+                        print(f"\nErreur ! Couleur attendue : {self.etat.sequence[position]}")
+                        print(f"Couleur reçue : {couleur}")
+                        return None
+                    
+            except Empty:
+                continue
                 
-                # Publie la séquence partielle du joueur
+        return sequence_joueur
+    def lire_sequence_test(self, longueur_sequence, temps_total):
+        """Gestion du mode test"""
+        sequence_joueur = []
+        sequence_start_time = time.time()
+        
+        for position in range(longueur_sequence):
+            # Vérifier le temps total écoulé
+            temps_ecoule = time.time() - sequence_start_time
+            temps_restant = temps_total - temps_ecoule
+            
+            if temps_restant <= 0:
+                self.envoyer_erreur_mqtt("timeout")
+                print(f"\nTemps écoulé ! Vous avez dépassé {temps_total} secondes.")
+                return None
+                
+            print(f"\nEntrez la couleur {position + 1}/{longueur_sequence}")
+            print(f"Temps restant : {temps_restant:.1f} secondes")
+            print("(0:vert, 1:rouge, 2:bleu, 3:jaune, q:quit)")
+            print("> ", end='', flush=True)
+            
+            choix = input().lower()
+            
+            if choix == 'q':
+                self.envoyer_erreur_mqtt("abandon")
+                print("\nPartie abandonnée.")
+                return None
+                
+            if choix not in ['0', '1', '2', '3']:
+                self.envoyer_erreur_mqtt("invalid_input")
+                print("Entrée invalide. Séquence annulée.")
+                return None
+                
+            couleur = self.chiffre_vers_couleur[int(choix)]
+            sequence_joueur.append(couleur)
+            
+            # Vérifier si la couleur est correcte
+            if couleur != self.etat.sequence[position]:
                 message = {
-                    "couleur": self.couleur_vers_chiffre[couleur],
+                    "couleur": [self.couleur_vers_chiffre[couleur]],
                     "pas": False
                 }
                 self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
+                self.envoyer_erreur_mqtt("wrong_color")
+                print(f"\nErreur ! Couleur attendue : {self.etat.sequence[position]}")
+                print(f"Couleur reçue : {couleur}")
+                return None
                 
-                if couleur != self.etat.sequence[len(sequence)-1]:
-                    print(f"\nErreur! Couleur attendue : {self.etat.sequence[len(sequence)-1]}")
-                    print(f"Couleur reçue : {couleur}")
-                    # Envoyer le message d'erreur
+            # Si la couleur est correcte, envoie la confirmation
+            message = {
+                "couleur": [self.couleur_vers_chiffre[couleur]],
+                "pas": False
+            }
+            self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
+            print(f"MQTT >>> [Tapis/sequence] Lecture test : {json.dumps(message)}")
+        return sequence_joueur
+
+    def lire_sequence_normal(self, longueur_sequence, config, sequence_start_time):
+        """Gestion du mode normal avec le tapis"""
+        sequence_joueur = []
+        self.etat.peut_jouer = True
+        position = 0
+        
+        def verifier_temps():
+            current_time = time.time()
+            return (current_time - sequence_start_time) > config['temps_attente']
+        
+        while position < longueur_sequence:
+            if verifier_temps():
+                self.envoyer_erreur_mqtt("timeout")
+                print(f"\nTemps total écoulé ! Vous avez dépassé {config['temps_attente']} secondes.")
+                return None
+                
+            if len(self.etat.couleurs.queue) > 0:
+                couleur = self.etat.couleurs.get()
+                sequence_joueur.append(couleur)
+                
+                # Vérifier si la couleur est correcte
+                if couleur != self.etat.sequence[position]:
                     message = {
-                        "couleur": [4],
+                        "couleur": [self.couleur_vers_chiffre[couleur]],
                         "pas": False
                     }
                     self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
-                    return []  # Retourne une séquence vide pour indiquer l'erreur
+                    print(f"MQTT >>> [Tapis/sequence] Lecture normale : {json.dumps(message)}")
+                    self.envoyer_erreur_mqtt("wrong_color")
+                    print(f"\nErreur ! Couleur attendue : {self.etat.sequence[position]}")
+                    print(f"Couleur reçue : {couleur}")
+                    return None
+                    
+                position += 1
                 
-                while not self.attendre_fin_pas():
-                    pass
-                
-            except Exception as e:
-                print("Temps écoulé!")
-                break
+            time.sleep(0.1)  # Petite pause pour ne pas surcharger le CPU
             
-        self.etat.peut_jouer = False
-        print("Séquence terminée, détection des pas désactivée")
-        logging.info("Détection des pas désactivée après séquence")
-        return sequence
-    
+        return sequence_joueur
+    def lire_sequence_joueur(self, longueur_sequence):
+        """Lit la séquence entrée par le joueur selon le mode de jeu"""
+        config = self.config_difficulte[self.difficulte]
+        
+        # Le temps d'attente total est le temps par couleur multiplié par le nombre de couleurs
+        temps_total = config['temps_attente'] * longueur_sequence
+        
+        print(f"\nTemps disponible pour cette séquence : {temps_total} secondes")
+        
+        # On garde le temps_attente original et on crée un temps_total pour cette séquence
+        if self.mode_test:
+            return self.lire_sequence_test(longueur_sequence, temps_total)
+        else:
+            return self.lire_sequence_tapis(longueur_sequence, temps_total)
+    def changer_difficulte(self, nouvelle_difficulte):
+        """Change le niveau de difficulté du jeu"""
+        if nouvelle_difficulte in self.config_difficulte:
+            self.difficulte = nouvelle_difficulte
+            print(f"\nNiveau de difficulté changé à : {nouvelle_difficulte}")
+            self.afficher_parametres_difficulte()
+        else:
+            print("Niveau de difficulté invalide. Choisissez entre : facile, moyen, difficile")
+
+
     def demarrer_jeu(self):
-        """Boucle principale du jeu."""
-        self.etat.reinitialiser()
+        """Gère une partie avec les paramètres de difficulté"""
+        config = self.config_difficulte[self.difficulte]
+        self.etat.sequence = []
+        score = 0
+        derniere_couleur = None
+        
+        print("\n=== Début des messages MQTT ===")
         
         while True:
-            try:
-                # Crée et affiche une nouvelle séquence
-                self.etat.sequence = self.creer_sequence(self.etat.sequence)
-                self.afficher_sequence(self.etat.sequence)
+            # Réinitialiser pour la nouvelle séquence
+            self.etat.peut_jouer = False
+            self.reinitialiser_queue_couleurs()
+            
+            # Générer la nouvelle séquence
+            for _ in range(config['nouvelles_couleurs']):
+                couleurs_disponibles = [c for c in self.couleur_vers_chiffre.keys()
+                                    if c != derniere_couleur]
+                nouvelle_couleur = random.choice(couleurs_disponibles)
+                derniere_couleur = nouvelle_couleur
+                self.etat.sequence.append(nouvelle_couleur)
+            
+            # Envoyer la séquence
+            sequence_message = {
+                "couleur": [self.couleur_vers_chiffre[c] for c in self.etat.sequence],
+                "pas": True
+            }
+            self.mqtt_client.publish(self.mqtt_topic, json.dumps(sequence_message))
+            print(f"MQTT >>> [Tapis/sequence] Nouvelle séquence : {json.dumps(sequence_message)}")
+            
+            print("\nNouvelle séquence :")
+            self.montrer_sequence(config['temps_sequence'])
+            time.sleep(config['delai_entre_tours'])
+            
+            # Lire la séquence du joueur
+            sequence_joueur = self.lire_sequence_joueur(len(self.etat.sequence))
+            if sequence_joueur is None:
+                break
                 
-                if self.mode_test:
-                    # En mode test, active immédiatement la séquence
-                    self.etat.peut_jouer = True
-                else:
-                    # Désactive la détection des pas jusqu'à l'événement objects-update
-                    self.etat.peut_jouer = False
-                    print("En attente de l'événement objects-update pour activer la prochaine séquence...")
-                    logging.info("En attente de l'événement objects-update")
+            if sequence_joueur == self.etat.sequence:
+                score += len(sequence_joueur)
+                print(f"\nBravo ! Score actuel : {score}")
+            else:
+                break
+        
+        print(f"\nPartie terminée. Score final : {score}")
+    def choisir_difficulte_avec_tapis(self):
+        """Permet de choisir la difficulté en utilisant le tapis"""
+        print("\nChoisissez la difficulté en marchant sur une couleur :")
+        print("VERT   : Mode Facile")
+        print("ROUGE  : Mode Moyen")
+        print("BLEU   : Mode Difficile")
+        
+        self.etat.peut_jouer = True
+        choix_fait = Event()
+        self.difficulte = None
+        
+        # Créer une fonction pour gérer la détection des couleurs
+        def on_couleur_detectee(x, y):
+            if not choix_fait.is_set():
+                couleur = self.detecter_couleur(x, y)
+                if couleur == 'vert':
+                    self.difficulte = "facile"
+                    choix_fait.set()
+                elif couleur == 'rouge':
+                    self.difficulte = "moyen"
+                    choix_fait.set()
+                elif couleur == 'bleu':
+                    self.difficulte = "difficile"
+                    choix_fait.set()
                 
-                # Attend la réponse du joueur
-                sequence_joueur = self.lire_sequence_joueur(len(self.etat.sequence))
-                
-                if not sequence_joueur:
-                    print("Partie terminée - Temps écoulé!")
-                    return  # Sortie propre du jeu
-                    
-                # Vérifie si la séquence est complète et correcte
-                if len(sequence_joueur) < len(self.etat.sequence):
-                    if not self.mode_test:
-                        error_sequence = {'sequence': [4]}
-                        self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_sequence))
-                    print("\nPartie terminée!")
-                    print(f"Séquence attendue : {' '.join(self.etat.sequence)}")
-                    print(f"Votre séquence   : {' '.join(sequence_joueur)} ❌")
-                    print(f"\nScore final : {self.etat.score}")
-                    return  # Sortie propre du jeu
-                    
-                self.etat.score += 1
-                print(f"\nBravo! Score : {self.etat.score}")
-
-            except Exception as e:
-                print(f"Erreur dans la boucle de jeu: {str(e)}")
-                logging.error(f"Erreur dans la boucle de jeu: {str(e)}")
-                if not self.mode_test:
-                    error_sequence = {'sequence': [4]}
-                    self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_sequence))
-                return  # Sortie propre en cas d'erreur
-
-
+                if choix_fait.is_set():
+                    # Envoyer la couleur choisie en MQTT
+                    message = {
+                        "couleur": [self.couleur_vers_chiffre[couleur]],
+                        "pas": False
+                    }
+                    self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
+                    print(f"MQTT >>> [Tapis/sequence] Choix difficulté : {json.dumps(message)}")
+                    print(f"\nDifficulté choisie : {self.difficulte}")
+                    self.afficher_parametres_difficulte()
+        
+        # Enregistrer le handler temporaire pour les pas
+        @self.socket.on('step')
+        def on_step(x, y):
+            on_couleur_detectee(x, y)
+        
+        # Attendre le choix avec un timeout
+        try:
+            if not choix_fait.wait(timeout=30):  # Timeout de 30 secondes
+                print("\nAucun choix fait dans le temps imparti. Passage en mode facile par défaut.")
+                self.difficulte = "facile"
+        except Exception as e:
+            print(f"Erreur lors de la détection : {e}")
+            self.difficulte = "facile"  # Mode par défaut en cas d'erreur
+        finally:
+            # Réinitialiser le handler des pas pour le jeu normal
+            @self.socket.on('step')
+            def on_pas(x, y):
+                self.traiter_pas(x, y)
+        
+        return self.difficulte
     def demarrer(self):
-        """Launch the game, falling back to test mode if server connection fails"""
+        """Lance le jeu avec les paramètres de difficulté"""
+        print("\nBienvenue dans le Jeu Simon!")
+        
+        # Créer un Event pour signaler que la connexion est établie
+        connexion_etablie = Event()
+        
+        @self.socket.event
+        def connect():
+            connexion_etablie.set()
+        
         try:
             if not self.mode_test:
-                print("Connecting to server...")
+                print("Connexion au serveur...")
                 self.socket.connect(
                     'http://192.168.5.5:8000',
                     transports=['websocket'],
-                    wait=True,
-                    wait_timeout=10
+                    wait=False
                 )
-                print("Connected in NORMAL mode")
-                self.socket.wait()
-            else:
-                print("Starting in TEST mode")
-                self.demarrer_jeu()
+                # Attendre la connexion avec un timeout
+                if not connexion_etablie.wait(timeout=10):
+                    raise Exception("Timeout de connexion")
+                print("Connecté en mode NORMAL")
                 
+                # Choix de la difficulté avec le tapis en mode normal
+                print("\nMode de sélection de la difficulté par le tapis activé")
+                self.choisir_difficulte_avec_tapis()
+                
+            else:
+                print("Démarrage en mode TEST")
+                # En mode test, choix manuel
+                print("Choisissez votre niveau de difficulté :")
+                print("1. Facile - Recommandé pour débuter")
+                print("2. Moyen  - Pour les joueurs habitués")
+                print("3. Difficile - Pour les experts")
+                
+                while True:
+                    choix = input("\nVotre choix (1-3) : ").strip()
+                    if choix == "1":
+                        self.difficulte = "facile"
+                        break
+                    elif choix == "2":
+                        self.difficulte = "moyen"
+                        break
+                    elif choix == "3":
+                        self.difficulte = "difficile"
+                        break
+                    else:
+                        print("Choix invalide. Veuillez choisir 1, 2 ou 3.")
+        
         except Exception as e:
-            print(f"Connection error: {str(e)}")
-            print("Falling back to TEST mode")
+            print(f"Erreur de connexion : {str(e)}")
+            print("Passage en mode TEST")
             self.mode_test = True
+            # En cas d'erreur, choix manuel
+            print("Choisissez votre niveau de difficulté :")
+            print("1. Facile - Recommandé pour débuter")
+            print("2. Moyen  - Pour les joueurs habitués")
+            print("3. Difficile - Pour les experts")
+            
+            while True:
+                choix = input("\nVotre choix (1-3) : ").strip()
+                if choix == "1":
+                    self.difficulte = "facile"
+                    break
+                elif choix == "2":
+                    self.difficulte = "moyen"
+                    break
+                elif choix == "3":
+                    self.difficulte = "difficile"
+                    break
+                else:
+                    print("Choix invalide. Veuillez choisir 1, 2 ou 3.")
+
+        self.afficher_parametres_difficulte()
+        time.sleep(2)  # Pause pour lire les paramètres
+        
+        # Démarrer le jeu après avoir choisi la difficulté
+        if not self.mode_test:
+            game_thread = Thread(target=self.demarrer_jeu, daemon=True)
+            game_thread.start()
+            self.socket.wait()  # Attendre les événements socket
+        else:
             self.demarrer_jeu()
 
 class EtatJeu:
@@ -514,6 +784,5 @@ class EtatJeu:
 
 
 if __name__ == "__main__":
-    # Start in normal mode first, will fall back to test if connection fails
     jeu = JeuSimon(mode_test=False)
     jeu.demarrer()
