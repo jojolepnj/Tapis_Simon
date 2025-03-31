@@ -1,3 +1,23 @@
+<?php
+
+
+session_start();
+
+if (!isset($_SESSION['partie_en_cours'])) {
+     $_SESSION['partie_en_cours']=false;
+ }
+	
+	if (!isset($_SESSION['joueur'])) {   // si la variable de session 'joueur' n'exite pas elle est créé
+		$_SESSION['joueur'] = [];
+        
+
+	}
+   echo($_SESSION['joueur']['pseudo']);
+
+
+
+    
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -46,12 +66,26 @@
         .btn:hover {
             background-color: #45a049;
         }
+        
+        h4 {
+            color:red;
+        }
     </style>
 </head>
 <body>
     <div class="game-container">
         <h1>Bienvenue dans le Jeu</h1>
-       
+        
+        <?php 
+        
+        if ( !empty($_SESSION['joueur'])) {
+
+            echo "<h4> le joueur ".$_SESSION['joueur']['pseudo']." est prêt </h4>";
+        }
+        else {
+            echo "<h4> pas de joueur pour l'instant</h4>";
+        }
+        ?>
         
        <form method = 'post' action = "test_publish.php">
         
