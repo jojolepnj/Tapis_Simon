@@ -434,20 +434,23 @@ client.onConnectionLost = (response) => {
 client.connect({
     onSuccess: () => {
         console.log("Connecté au broker MQTT");
-        client.subscribe("site/start");
     },
     onFailure: (err) => {
         console.error("Échec de la connexion :", err.errorMessage);
     }
 });
 
-client.onMessageArrived = (message) => {
-    if (message.destinationName === "site/start") {
-        console.log("Message reçu, démarrage du jeu...");
-        // Déclencher le démarrage du jeu
-        document.querySelector('.btn-primary').click(); // Déclenche le bouton "Start Game"
-    }
-};
+// Modifier le gestionnaire du formulaire pour publier un message MQTT
+document.getElementById('difficulty-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const difficulty = this.querySelector('select[name="difficulty"]').value;
+    
+    const message = new Paho.MQTT.Message(difficulty);
+    message.destinationName = "game/start";
+    client.send(message);
+    
+    console.log(`Démarrage du jeu en ${difficulty}`);
+});
 </script>
 </body>
 </html>
