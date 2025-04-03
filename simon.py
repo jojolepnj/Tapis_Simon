@@ -13,7 +13,7 @@ import pygame.mixer
 import msvcrt
 
 class Son:
-    def __init__(self, broker="192.168.1.102", port=1883, topic="Tapis/sequence"):
+    def __init__(self, broker="10.0.200.9", port=1883, topic="Tapis/sequence"):
         # Initialiser pygame.mixer pour l'audio
         pygame.mixer.init()
         pygame.mixer.set_num_channels(16)
@@ -104,6 +104,7 @@ class Son:
             if "couleur" in data and "pas" in data:
                 sequence = data["couleur"]
                 if data["pas"]:
+                    sequence.insert(0,5)
                     sequence.append(5)
                 self.play_sequence(sequence)
             else:
@@ -137,7 +138,11 @@ class JeuSimon:
 
     def __init__(self, mode_test=False):
         self.difficulte = "facile"
-        
+        self.difficulty_topic = "site/difficulte"
+        self.difficulty_timeout = 30  # 30 secondes pour choisir la difficulté
+        self.difficulty_received = False
+        self.waiting_for_difficulty = False
+        self.last_difficulty_time = time.time()
         self.config_difficulte = {
             "facile": {
                 "temps_attente": 100.0,     # 20 secondes par couleur (augmenté)
@@ -158,6 +163,12 @@ class JeuSimon:
                 "delai_entre_tours": 1.0    # Pas de délai entre les tours
             }
         }
+        # Mapping des valeurs de difficulté
+        self.difficulty_map = {
+            0: "facile",
+            1: "moyen", 
+            2: "difficile"
+        }
         self.mode_test = mode_test
         self.current_mode = "test" if mode_test else "normal"
         
@@ -175,7 +186,7 @@ class JeuSimon:
         }
         # Configuration MQTT
         self.mqtt_client = mqtt.Client()
-        self.mqtt_broker = "192.168.1.102"
+        self.mqtt_broker = "10.0.200.9"
         self.mqtt_port = 1883
         self.mqtt_topic = "Tapis/sequence"
         self.led_status_topic = "LED/status"
@@ -189,7 +200,11 @@ class JeuSimon:
 
         # Initialize MQTT connection
         self.mqtt_client.connect(self.mqtt_broker, self.mqtt_port)
-        self.mqtt_client.subscribe([(self.led_status_topic, 0), (self.start_topic, 0)])
+        # Modifier la souscription MQTT
+        self.mqtt_client.subscribe([
+            (self.start_topic, 0),
+            (self.difficulty_topic, 0)
+        ])
         self.mqtt_client.loop_start()
 
         # Création du client socket pour la communication réseau
@@ -359,43 +374,163 @@ class JeuSimon:
         return [self.couleur_vers_chiffre[couleur] for couleur in sequence]
 
     def on_mqtt_message(self, client, userdata, message):
-        """Callback appelé quand un message MQTT est reçu"""
+        """Callback pour les messages MQTT"""
         try:
             topic = message.topic
             payload = message.payload.decode()
-            timestamp = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
             
-            if topic == self.start_topic:
-                print(f"[{timestamp}] Message reçu sur {topic}:")
-                print(f"  └─ Payload: {payload}")
-                print(f"  └─ QoS: {message.qos}")
-                print(f"  └─ Retain Flag: {message.retain}")
+            if topic == self.start_topic and payload.lower() == "true":
+                self.handle_start_message()
                 
-                try:
-                    if payload.lower() == "true" and not self.game_started:
-                        print(f"  └─ Action: Démarrage du jeu")
-                        self.game_started = True
-                        game_thread = Thread(target=self.demarrer, daemon=True)
-                        game_thread.start()
-                    elif payload.lower() == "true" and self.game_started:
-                        print(f"  └─ Action: Ignoré (jeu déjà en cours)")
-                    else:
-                        print(f"  └─ Action: Aucune (payload différent de 'true')")
-                except Exception as e:
-                    print(f"  └─ Erreur lors du traitement du message: {e}")
-                    
-            elif topic == self.led_status_topic:
-                try:
-                    if payload.lower() == "true" and not self.game_started:
-                        print("\nMessage de démarrage reçu sur site/start")
-                        self.game_started = True
-                        game_thread = Thread(target=self.demarrer, daemon=True)
-                        game_thread.start()
-                except Exception as e:
-                    print(f"Error processing start message: {e}")
-            
+            elif topic == self.difficulty_topic and self.waiting_for_difficulty:
+                self.handle_difficulty_message(payload)
+                
         except Exception as e:
-            print(f"Error processing MQTT message: {e}")
+            print(f"Erreur traitement message MQTT: {e}")
+    def handle_start_message(self):
+        """Déclenche l'attente de la difficulté"""
+        if not self.game_started:
+            print("\nMessage de démarrage reçu - En attente de la difficulté...")
+            self.game_started = True
+            self.waiting_for_difficulty = True
+            self.last_difficulty_time = time.time()
+            
+            # Lancer le thread d'attente
+            Thread(target=self.wait_for_difficulty, daemon=True).start()
+    def start_game(self):
+        """Démarre le jeu après avoir reçu la difficulté"""
+        if not self.difficulty_received:
+            print("\nEn attente de la difficulté... (envoyez {'dif': x} sur site/difficulte)")
+            self.wait_for_difficulty()
+        
+        print(f"\nDémarrage du jeu en mode {self.difficulte}")
+        self.demarrer_jeu()
+    def wait_for_difficulty(self):
+        """Attend la difficulté avec timeout"""
+        start_time = time.time()
+        print("\n[SYSTEM] En attente de la difficulté (format: {'dif': 0-2})")
+        
+        while time.time() - start_time < self.difficulty_timeout:
+            remaining = int(self.difficulty_timeout - (time.time() - start_time))
+            print(f"\rTemps restant: {remaining}s", end='')
+            
+            if self.difficulty_received:
+                print("\nDifficulté reçue avec succès!")
+                return True
+                
+            time.sleep(0.5)
+        
+        print("\n[WARNING] Timeout - Difficulté par défaut 'facile' appliquée")
+        self.difficulte = "facile"
+        return False
+
+
+    def send_difficulty_reminder(self):
+        """Envoie un rappel pour la difficulté"""
+        reminder = {
+            "message": "Veuillez envoyer la difficulté",
+            "format": {"dif": "0=facile, 1=moyen, 2=difficile"},
+            "timeout": int(self.difficulty_timeout - (time.time() - self.last_difficulty_time))
+        }
+        self.mqtt_client.publish(self.difficulty_topic, json.dumps(reminder))
+
+    def send_difficulty_error(self):
+        """Envoie un message d'erreur pour difficulté invalide"""
+        error_msg = {
+            "error": True,
+            "message": "Format attendu: {'dif': 0-2}",
+            "example": {"dif": 1}
+        }
+        self.mqtt_client.publish(self.difficulty_topic, json.dumps(error_msg))
+    def handle_difficulty_message(self, payload):
+        """Traite le message de difficulté au format {'dif': 0-2}"""
+        try:
+            print(f"Reception difficulté: {payload}")  # Debug
+            
+            data = json.loads(payload)
+            
+            # Validation stricte du format
+            if not isinstance(data, dict):
+                raise ValueError("Le message doit être un objet JSON")
+                
+            if 'dif' not in data:
+                raise ValueError("Clé 'dif' manquante")
+                
+            dif_value = data['dif']
+            
+            # Conversion en int si nécessaire
+            if isinstance(dif_value, str):
+                if not dif_value.isdigit():
+                    raise ValueError("La valeur doit être numérique")
+                dif_value = int(dif_value)
+            elif not isinstance(dif_value, int):
+                raise ValueError("Type de valeur invalide")
+            
+            # Vérification plage de valeurs
+            if dif_value not in [0, 1, 2]:
+                raise ValueError("La valeur doit être 0, 1 ou 2")
+            
+            # Mapping des valeurs
+            difficulty_map = {
+                0: "facile",
+                1: "moyen", 
+                2: "difficile"
+            }
+            
+            self.difficulte = difficulty_map[dif_value]
+            self.difficulty_received = True
+            self.waiting_for_difficulty = False
+            
+            print(f"Difficulté appliquée: {self.difficulte}")
+            
+            # Démarrer le jeu dans un nouveau thread
+            game_thread = Thread(target=self.demarrer_jeu, daemon=True)
+            game_thread.start()
+            
+            # Envoi confirmation
+            confirmation = {
+                "status": "ok",
+                "received_dif": dif_value,
+                "applied_difficulty": self.difficulte,
+                "timestamp": datetime.now().isoformat()
+            }
+            self.mqtt_client.publish(self.difficulty_topic, json.dumps(confirmation))
+            
+        except json.JSONDecodeError:
+            error_msg = "Erreur: Format JSON invalide"
+            print(error_msg)
+            self.send_difficulty_error("invalid_json", error_msg)
+        except ValueError as e:
+            error_msg = f"Erreur validation: {str(e)}"
+            print(error_msg)
+            self.send_difficulty_error("validation_error", error_msg)
+        except Exception as e:
+            error_msg = f"Erreur inattendue: {str(e)}"
+            print(error_msg)
+            self.send_difficulty_error("unexpected_error", error_msg)
+    def send_difficulty_error(self, error_type, message):
+        """Envoie un message d'erreur structuré"""
+        error_msg = {
+            "status": "error",
+            "error_type": error_type,
+            "message": message,
+            "expected_format": {
+                "dif": {
+                    "type": "integer",
+                    "values": {
+                        0: "facile",
+                        1: "moyen",
+                        2: "difficile"
+                    }
+                }
+            },
+            "example": {
+                "valid_message": {"dif": 1},
+                "description": "1 = moyen"
+            }
+        }
+        self.mqtt_client.publish(self.difficulty_topic, json.dumps(error_msg))    
+    
     def publier_sequence_mqtt(self, sequence, tmp, index, type_sequence="generated"):
         """
         Publie la séquence sur le topic MQTT
@@ -506,9 +641,9 @@ class JeuSimon:
         Le SensFloor est divisé en 4 zones de couleur.
         """
         if 0 <= x <= 0.5:
-            return 'vert' if 0 <= y <= 0.5 else 'rouge'
+            return 'vert' if 1 <= y <= 1.5 else 'rouge'
         elif 0.5 < x <= 1:
-            return 'jaune' if 0 <= y <= 0.5 else 'bleu'
+            return 'jaune' if 1 <= y <= 1.5 else 'bleu'
         return 'inconnu'
     def reinitialiser_queue_couleurs(self):
         """Vide la queue des couleurs"""
@@ -714,17 +849,49 @@ class JeuSimon:
         else:
             return self.lire_sequence_tapis(longueur_sequence, temps_total)
     def changer_difficulte(self, nouvelle_difficulte):
-        """Change le niveau de difficulté du jeu"""
+        """Change la difficulté et notifie via MQTT"""
         if nouvelle_difficulte in self.config_difficulte:
             self.difficulte = nouvelle_difficulte
             print(f"\nNiveau de difficulté changé à : {nouvelle_difficulte}")
             self.afficher_parametres_difficulte()
+            # Envoyer la confirmation MQTT
+            confirmation = {
+                "difficulte": nouvelle_difficulte,
+                "statut": "appliquee"
+            }
+            self.mqtt_client.publish(self.difficulty_topic, json.dumps(confirmation))
         else:
-            print("Niveau de difficulté invalide. Choisissez entre : facile, moyen, difficile")
+            print("Niveau de difficulté invalide")
 
+    # Ajouter dans la configuration de difficulté
+    config_difficulte = {
+        "facile": {
+            "temps_attente": 100.0,
+            "nouvelles_couleurs": 1,
+            "temps_sequence": 0.0,
+            "delai_entre_tours": 1.0,
+            "couleurs_actives": ['vert', 'rouge']  # Exemple de paramètre supplémentaire
+        },
+        "moyen": {
+            "temps_attente": 70.0,
+            "nouvelles_couleurs": 1,
+            "temps_sequence": 0.0,
+            "delai_entre_tours": 1.0,
+            "couleurs_actives": ['vert', 'rouge', 'bleu']
+        },
+        "difficile": {
+            "temps_attente": 50.0,
+            "nouvelles_couleurs": 2,
+            "temps_sequence": 0.0,
+            "delai_entre_tours": 1.0,
+            "couleurs_actives": ['vert', 'rouge', 'bleu', 'jaune']
+        }
+    }
 
     def demarrer_jeu(self):
         """Gère une partie avec les paramètres de difficulté"""
+        print(f"\n=== Début de partie - Difficulté {self.difficulte} ===")
+        
         config = self.config_difficulte[self.difficulte]
         self.etat.sequence = []
         score = 0
@@ -769,30 +936,22 @@ class JeuSimon:
                 break
         
         print(f"\nPartie terminée. Score final : {score}")      
+
     def choisir_difficulte_avec_tapis(self):
-        """Permet de choisir la difficulté en utilisant le tapis"""
+        """Adapté pour envoyer des valeurs numériques"""
         print("\nChoisissez la difficulté en marchant sur une couleur :")
-        print("VERT   : Mode Facile")
-        print("ROUGE  : Mode Moyen")
-        print("BLEU   : Mode Difficile")
+        print("VERT   : Mode Facile (0)")
+        print("ROUGE  : Mode Moyen (1)")
+        print("BLEU   : Mode Difficile (2)")
         
-        self.etat.peut_jouer = True
-        choix_fait = Event()
-        self.difficulte = None
-        
-        # Créer une fonction pour gérer la détection des couleurs
         def on_couleur_detectee(x, y):
-            if not choix_fait.is_set():
-                couleur = self.detecter_couleur(x, y)
-                if couleur == 'vert':
-                    self.difficulte = "facile"
-                    choix_fait.set()
-                elif couleur == 'rouge':
-                    self.difficulte = "moyen"
-                    choix_fait.set()
-                elif couleur == 'bleu':
-                    self.difficulte = "difficile"
-                    choix_fait.set()
+            couleur = self.detecter_couleur(x, y)
+            if couleur == 'vert':
+                self.handle_difficulty_mqtt(json.dumps({"dif": 0}))
+            elif couleur == 'rouge':
+                self.handle_difficulty_mqtt(json.dumps({"dif": 1}))
+            elif couleur == 'bleu':
+                self.handle_difficulty_mqtt(json.dumps({"dif": 2}))
                 
                 if choix_fait.is_set():
                     # Envoyer la couleur choisie en MQTT
@@ -825,26 +984,75 @@ class JeuSimon:
                 self.traiter_pas(x, y)
         
         return self.difficulte
+    def handle_difficulty_mqtt(self, payload):
+        """Gère la réception de la difficulté via MQTT avec le format {'dif': x}"""
+        try:
+            data = json.loads(payload)
+            if 'dif' in data:
+                dif_value = data['dif']
+                if dif_value in self.difficulty_map:
+                    new_dif = self.difficulty_map[dif_value]
+                    self.difficulte = new_dif
+                    self.difficulty_received = True
+                    print(f"\nDifficulté reçue via MQTT: {new_dif} (valeur: {dif_value})")
+                    self.afficher_parametres_difficulte()
+                    
+                    # Envoyer une confirmation
+                    confirmation = {
+                        "dif": dif_value,
+                        "status": "ok",
+                        "message": f"Difficulte set to {new_dif}"
+                    }
+                    self.mqtt_client.publish(self.difficulty_topic, json.dumps(confirmation))
+                else:
+                    print(f"Valeur de difficulté invalide: {dif_value}")
+                    self.envoyer_erreur_difficulte()
+            else:
+                print("Format de difficulté incorrect - champ 'dif' manquant")
+                self.envoyer_erreur_difficulte()
+                
+        except json.JSONDecodeError:
+            print("Erreur: Message JSON mal formé")
+            self.envoyer_erreur_difficulte()
+        except Exception as e:
+            print(f"Erreur traitement difficulté: {e}")
+            self.envoyer_erreur_difficulte()  
+    def envoyer_erreur_difficulte(self):
+        """Envoie un message d'erreur pour difficulté invalide"""
+        error_msg = {
+            "dif": -1,
+            "status": "error",
+            "message": "Valeur de difficulté invalide. Utiliser 0=facile, 1=moyen, 2=difficile"
+        }
+        self.mqtt_client.publish(self.difficulty_topic, json.dumps(error_msg))
+
     def choisir_difficulte_manuelle(self):
-        """Permet de choisir la difficulté manuellement"""
+        """Adapté pour le format numérique"""
         print("Choisissez votre niveau de difficulté :")
-        print("1. Facile - Recommandé pour débuter")
-        print("2. Moyen  - Pour les joueurs habitués")
-        print("3. Difficile - Pour les experts")
+        print("0. Facile - Recommandé pour débuter")
+        print("1. Moyen  - Pour les joueurs habitués")
+        print("2. Difficile - Pour les experts")
         
         while True:
-            choix = input("\nVotre choix (1-3) : ").strip()
-            if choix == "1":
-                self.difficulte = "facile"
-                break
-            elif choix == "2":
-                self.difficulte = "moyen"
-                break
-            elif choix == "3":
-                self.difficulte = "difficile"
+            choix = input("\nVotre choix (0-2) : ").strip()
+            if choix in ['0', '1', '2']:
+                self.handle_difficulty_mqtt(json.dumps({"dif": int(choix)}))
                 break
             else:
-                print("Choix invalide. Veuillez choisir 1, 2 ou 3.")
+                print("Choix invalide. Veuillez choisir 0, 1 ou 2.")
+
+    def publier_rappel_difficulte(self):
+        """Message de rappel au format numérique"""
+        rappel = {
+            "dif": -1,  # Valeur spéciale pour rappel
+            "options": [
+                {"value": 0, "label": "facile"},
+                {"value": 1, "label": "moyen"},
+                {"value": 2, "label": "difficile"}
+            ],
+            "timeout": self.difficulty_timeout - int(time.time() - self.last_difficulty_time)
+        }
+        self.mqtt_client.publish(self.difficulty_topic, json.dumps(rappel))    
     def demarrer(self):
         """Lance le jeu avec les paramètres de difficulté"""
         print("\nBienvenue dans le Jeu Simon!")
@@ -894,6 +1102,25 @@ class JeuSimon:
             self.socket.wait()  # Attendre les événements socket
         else:
             self.demarrer_jeu()
+    def attendre_difficulte(self):
+        """Attend la réception de la difficulté avec timeout"""
+        print("\nEn attente du niveau de difficulté...")
+        start_time = time.time()
+        
+        while not self.difficulty_received:
+            # Vérifier le timeout
+            if time.time() - start_time > self.difficulty_timeout:
+                print("\nTimeout dépassé, difficulté par défaut: facile")
+                self.difficulte = "facile"
+                break
+            
+            # Envoyer un rappel toutes les 5 secondes
+            if int(time.time() - start_time) % 5 == 0:
+                print(f"Temps restant: {self.difficulty_timeout - int(time.time() - start_time)}s")
+                self.publier_rappel_difficulte()
+            
+            time.sleep(0.1)
+
 
 class EtatJeu:
     def __init__(self):
