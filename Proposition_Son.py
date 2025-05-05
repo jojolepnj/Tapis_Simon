@@ -73,20 +73,23 @@ class Son:
 
     def _play_sounds(self, sequence):
         """Joue une séquence de sons"""
+        # Calculer un délai constant pour toute la séquence en fonction de la difficulté
         current_display_time = self.base_display_time
-        for idx, number in enumerate(sequence):
+
+        if self.difficulty_level == 1:  # Mode progressif
+            sequence_multiple = len(sequence) // 5
+            animation_speed_factor = 1.0 / (1 + (sequence_multiple * 0.2))  # Réduction de 20% tous les 5 sons
+            current_display_time = self.base_display_time * animation_speed_factor
+        elif self.difficulty_level == 2:  # Mode accéléré
+            animation_speed_factor = 1.0 / (1 + (len(sequence) * 0.1))  # Réduction de 10% par son dans la séquence
+            current_display_time = self.base_display_time * animation_speed_factor
+
+        print(f"Délai constant pour cette séquence: {current_display_time:.2f} secondes")
+
+        for number in sequence:
             if number in self.sounds:
                 try:
-                    # Ajuster le délai en fonction de la difficulté
-                    if self.difficulty_level == 1:  # Mode progressif
-                        sequence_multiple = idx // 5
-                        animation_speed_factor = 1.0 / (1 + (sequence_multiple * 0.2))  # Réduction de 20% tous les 5 sons
-                        current_display_time = self.base_display_time * animation_speed_factor
-                    elif self.difficulty_level == 2:  # Mode accéléré
-                        animation_speed_factor = 1.0 / (1 + (idx * 0.1))  # Réduction de 10% à chaque son
-                        current_display_time = self.base_display_time * animation_speed_factor
-
-                    print(f"Lecture du son {number} avec un délai de {current_display_time:.2f} secondes")
+                    print(f"Lecture du son {number}")
                     pygame.mixer.stop()
                     self.sounds[number].play()
                     time.sleep(current_display_time)
