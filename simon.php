@@ -409,65 +409,47 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Configuration MQTT
-        const clientId = "simon-client-" + Math.random().toString(16).substr(2, 8);
-        let client;
+    <?php
+// Fonction pour envoyer les messages MQTT
+function sendMqttMessages($difficulty) {
+    // Conversion des niveaux de difficulté de l'interface vers les valeurs numériques
+    $difficultyMap = [
+        'easy' => 0,
+        'medium' => 1,
+        'hard' => 2
+    ];
+    
+    // Récupérer la valeur numérique de la difficulté
+    $difficultyValue = isset($difficultyMap[$difficulty]) ? $difficultyMap[$difficulty] : 0;
+    
+    // Requiert la bibliothèque phpMQTT
+    require_once('phpMQTT.php');
+    
+    $server = "10.0.200.9";
+    $port = 1883;
+    $client_id = "simon-php-client-" . rand(1, 999999);
+    $mqtt = new phpMQTT($server, $port, $client_id);
+    
+    if ($mqtt->connect()) {
+        // Publier le message de démarrage
+        $mqtt->publish("site/start", "true", 0);
         
-        try {
-            client = new Paho.MQTT.Client("localhost", 9001, clientId);
-            
-            client.onConnectionLost = (response) => {
-                console.error("Connexion perdue :", response.errorMessage);
-            };
-
-            client.connect({
-                onSuccess: () => {
-                    console.log("Connecté au broker MQTT");
-                },
-                onFailure: (err) => {
-                    console.error("Échec de la connexion :", err.errorMessage);
-                },
-                // Ajouter un timeout pour la connexion MQTT
-                timeout: 5
-            });
-        } catch (e) {
-            console.warn("MQTT non disponible:", e);
-        }
-
-        // Gestionnaire d'envoi du formulaire
-        document.getElementById('difficulty-form').addEventListener('submit', function(e) {
-            // Empêcher la soumission immédiate du formulaire
-            e.preventDefault(); 
-            
-            const difficulty = this.querySelector('select[name="difficulty"]').value;
-            console.log(`Starting game with ${difficulty} difficulty`);
-            
-            // Envoyer un message MQTT si disponible
-            if (typeof client !== 'undefined' && client.isConnected()) {
-                try {
-                    const message = new Paho.MQTT.Message(difficulty);
-                    message.destinationName = "game/start";
-                    client.send(message);
-                    console.log("Message MQTT envoyé avec succès");
-                    
-                    // Attendre un court instant pour s'assurer que le message MQTT est traité
-                    setTimeout(() => {
-                        // Puis soumettre le formulaire pour rediriger vers retour.php
-                        this.submit();
-                    }, 300);
-                } catch (e) {
-                    console.warn("Impossible d'envoyer le message MQTT:", e);
-                    // En cas d'erreur MQTT, soumettre quand même le formulaire
-                    this.submit();
-                }
-            } else {
-                console.warn("Client MQTT non disponible, redirection directe");
-                // Si pas de client MQTT, soumettre le formulaire directement
-                this.submit();
-            }
-        });
-
+        // Attendre un peu avant d'envoyer la difficulté
+        usleep(1000000); // 1 seconde en microsecondes
+        
+        // Préparer et publier le message de difficulté
+        $difficultyMessage = json_encode(['dif' => $difficultyValue]);
+        $mqtt->publish("site/difficulte", $difficultyMessage, 0);
+        
+        // Déconnexion
+        $mqtt->close();
+        
+        return true;
+    } else {
+        return false;
+    }
+}
+?>
         const userLang = navigator.language || navigator.userLanguage;
         const defaultLang = userLang.startsWith('fr') ? 'fr' : userLang.startsWith('de') ? 'de' : 'en';
         document.getElementById('languageSelect').value = defaultLang;
