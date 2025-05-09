@@ -281,7 +281,7 @@
         <main class="game-panel">
             <div class="control-panel panel">
                 <h2 data-translate="game_launched">Le jeu a été lancé</h2>
-                <a href="jeu.php" class="btn-primary" data-translate="return_to_game">Retour au jeu</a>
+                <a href="simon.php" class="btn-primary" data-translate="return_to_game">Retour au jeu</a>
             </div>
         </main>
 
