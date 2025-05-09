@@ -427,7 +427,9 @@
                 },
                 onFailure: (err) => {
                     console.error("Échec de la connexion :", err.errorMessage);
-                }
+                },
+                // Ajouter un timeout pour la connexion MQTT
+                timeout: 5
             });
         } catch (e) {
             console.warn("MQTT non disponible:", e);
@@ -435,8 +437,8 @@
 
         // Gestionnaire d'envoi du formulaire
         document.getElementById('difficulty-form').addEventListener('submit', function(e) {
-            // Ne pas empêcher la soumission du formulaire pour permettre la redirection
-            // e.preventDefault(); 
+            // Empêcher la soumission immédiate du formulaire
+            e.preventDefault(); 
             
             const difficulty = this.querySelector('select[name="difficulty"]').value;
             console.log(`Starting game with ${difficulty} difficulty`);
@@ -447,12 +449,23 @@
                     const message = new Paho.MQTT.Message(difficulty);
                     message.destinationName = "game/start";
                     client.send(message);
+                    console.log("Message MQTT envoyé avec succès");
+                    
+                    // Attendre un court instant pour s'assurer que le message MQTT est traité
+                    setTimeout(() => {
+                        // Puis soumettre le formulaire pour rediriger vers retour.php
+                        this.submit();
+                    }, 300);
                 } catch (e) {
                     console.warn("Impossible d'envoyer le message MQTT:", e);
+                    // En cas d'erreur MQTT, soumettre quand même le formulaire
+                    this.submit();
                 }
+            } else {
+                console.warn("Client MQTT non disponible, redirection directe");
+                // Si pas de client MQTT, soumettre le formulaire directement
+                this.submit();
             }
-            
-            // Le formulaire sera soumis normalement, ce qui redirigera vers retour.php
         });
 
         const userLang = navigator.language || navigator.userLanguage;
