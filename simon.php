@@ -11,12 +11,14 @@ $client_id = 'simon_game_' . uniqid(); // Identifiant unique pour le client MQTT
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['difficulty'])) {
     $difficulty = $_POST['difficulty']; // Récupérer le niveau de difficulté (0, 1 ou 2)
 
+    $payload = json_encode(["dif" => $difficulty]); // Créer le message JSON
+
     // Publier un message MQTT
     $mqtt = new phpMQTT($host, $port, $client_id);
     if ($mqtt->connect(true, NULL, $username, $password)) {
-        $mqtt->publish('site/difficulte', $difficulty, 0); // Publier dans le topic avec QoS 0
+        $mqtt->publish('site/difficulte', $payload, 0); // Publier dans le topic avec QoS 0
         $mqtt->close();
-        echo "Difficulté $difficulty envoyée avec succès.";
+        echo "Difficulté envoyée avec succès : $payload";
     } else {
         echo "Échec de la connexion au serveur MQTT.";
     }
