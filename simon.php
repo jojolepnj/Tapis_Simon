@@ -282,7 +282,6 @@
                         <option value="hard" data-translate="hard">Hard - Very fast speed</option>
                     </select>
                     <button type="submit" class="btn-primary" data-translate="start_game">Start Game</button>
-                    <button href="retour.php" class="btn-primary" data-translate="start_game">Start Game</button>
                 </form>
             </div>
 
