@@ -282,6 +282,7 @@
                         <option value="hard" data-translate="hard">Hard - Very fast speed</option>
                     </select>
                     <button type="submit" class="btn-primary" data-translate="start_game">Start Game</button>
+                    <button href="retour.php" class="btn-primary" data-translate="start_game">Start Game</button>
                 </form>
             </div>
 
@@ -480,8 +481,6 @@ document.getElementById('difficulty-form').addEventListener('submit', function(e
     client.send(message);
     
     console.log(`Démarrage du jeu en ${difficulty}`);
-
-     window.location.href = 'retour.php';
 });
 </script>
 </body>
