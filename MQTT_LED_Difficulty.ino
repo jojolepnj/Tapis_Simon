@@ -73,94 +73,113 @@ void displayProgressivePlus(CRGB color, uint16_t matrixOffset);
 void setAnimationDelays(float speed_factor) {
     // Ajuster les délais dans les fonctions d'animation
     ANIMATION_DELAY = base_animation_delay * speed_factor;
-    // Vous pouvez ajouter d'autres ajustements de délai ici pour les autres animations
 }
 
 void setup_wifi() {
+    // Efface l'écran LCD et positionne le curseur au début
     M5.Lcd.fillScreen(BLACK);
     M5.Lcd.setCursor(0, 0);
+
+    // Affiche le message de connexion au WiFi avec le SSID
     M5.Lcd.println("Connecting to WiFi...");
     M5.Lcd.print("SSID: ");
     M5.Lcd.println(ssid);
 
+    // Démarre la connexion WiFi avec les identifiants fournis
     WiFi.begin(ssid, password);
 
+    // Boucle jusqu'à ce que l'appareil soit connecté au réseau WiFi
     while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        M5.Lcd.print(".");
+        delay(500);              
+        M5.Lcd.print(".");         
     }
 
+    // Une fois connecté, affiche les informations de connexion
     M5.Lcd.println("\nWiFi connected!");
     M5.Lcd.println("-------------------");
     M5.Lcd.print("IP address: ");
     M5.Lcd.println(WiFi.localIP().toString());
     M5.Lcd.println("-------------------");
-    delay(2000);
+    delay(2000); // Pause de 2 secondes pour laisser le temps de lire les infos
 
+    // Nettoie l'écran et affiche le titre de l'application
     M5.Lcd.fillScreen(BLACK);
     M5.Lcd.setCursor(0, 20);
     M5.Lcd.println("LED Matrix MQTT Controller");
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
+    // Convertit le payload brut en une chaîne de caractères
     String message;
     for (int i = 0; i < length; i++) {
         message += (char)payload[i];
     }
 
+    // Déclare un document JSON statique pour parser le message
     StaticJsonDocument<200> doc;
     DeserializationError error = deserializeJson(doc, message);
 
+    // Si le message JSON est invalide, afficher une erreur et sortir
     if (error) {
         M5.Lcd.println("Erreur de parsing JSON");
         Serial.println("Erreur de parsing JSON");
         return;
     }
 
-    // Gestion des messages de difficulté
+    // Si le message est reçu sur le topic de la difficulté
     if (String(topic) == difficulty_topic) {
-       Serial.println("Message reçu sur le topic difficulté");
-       Serial.println("Message: " + message);
+        Serial.println("Message reçu sur le topic difficulté");
+        Serial.println("Message: " + message);
     
-    if (doc.containsKey("dif")) {
-        int new_difficulty = doc["dif"].as<int>();
-        // Validation de la valeur de difficulté
-        if (new_difficulty >= 0 && new_difficulty <= 2) {
-            difficulty_level = new_difficulty;
-            M5.Lcd.fillScreen(BLACK);
-            M5.Lcd.setCursor(0, 0);
-            M5.Lcd.printf("Niveau de difficulte: %d\n", difficulty_level);
-            Serial.printf("Difficulté mise à jour: %d\n", difficulty_level);
-        } else {
-            Serial.println("Valeur de difficulté invalide");
-            M5.Lcd.println("Difficulté invalide");
-        }
-    } else {
-        Serial.println("Champ 'dif' manquant dans le JSON");
-        M5.Lcd.println("Format JSON invalide");
-    }
-    return;
-}
+        // Si le champ "dif" existe dans le JSON
+        if (doc.containsKey("dif")) {
+            int new_difficulty = doc["dif"].as<int>();
 
-    // Gestion des messages de séquence (code existant)
+            // Vérifie que la difficulté est dans la plage valide [0, 2]
+            if (new_difficulty >= 0 && new_difficulty <= 2) {
+                difficulty_level = new_difficulty;
+
+                // Affiche la nouvelle difficulté sur l’écran et sur le port série
+                M5.Lcd.fillScreen(BLACK);
+                M5.Lcd.setCursor(0, 0);
+                M5.Lcd.printf("Niveau de difficulte: %d\n", difficulty_level);
+                Serial.printf("Difficulté mise à jour: %d\n", difficulty_level);
+            } else {
+                // En cas de valeur invalide
+                Serial.println("Valeur de difficulté invalide");
+                M5.Lcd.println("Difficulté invalide");
+            }
+        } else {
+            // Si le champ "dif" est absent
+            Serial.println("Champ 'dif' manquant dans le JSON");
+            M5.Lcd.println("Format JSON invalide");
+        }
+        return; // On retourne car ce message est spécifique à la difficulté
+    }
+
+    // Si le message est reçu sur le topic de séquence
     if (String(topic) == subscribe_topic) {
-        // Vérifier la présence des deux champs requis
+        // Vérifie la présence des deux champs requis : "couleur" et "pas"
         if (!doc.containsKey("couleur") || !doc.containsKey("pas")) {
             M5.Lcd.println("JSON invalide");
             Serial.println("JSON invalide - champs manquants");
             return;
         }
-        
+
+        // Récupère la valeur booléenne de "pas" (indique si c'est à reproduire ou non)
         pas = doc["pas"].as<bool>();
         etat = pas ? 1 : 0;
 
+        // Vide la séquence précédente
         colorSequence.clear();
 
+        // Récupère et stocke la séquence de couleurs
         JsonArray array = doc["couleur"].as<JsonArray>();
         for (JsonVariant v : array) {
             colorSequence.push_back(v.as<int>());
         }
 
+        // Affiche la séquence sur l’écran
         M5.Lcd.fillScreen(BLACK);
         M5.Lcd.setCursor(0, 0);
         M5.Lcd.println(pas ? "Sequence a reproduire:" : "Sequence jouee:");
@@ -171,35 +190,48 @@ void callback(char* topic, byte* payload, unsigned int length) {
         }
         M5.Lcd.println("]");
 
+        // Si aucune séquence n'est en cours, on lance la lecture
         if (!isPlayingSequence && colorSequence.size() > 0) {
             isPlayingSequence = true;
+
+            // Notifie via MQTT que la séquence va être jouée
             client.publish(publish_topic, "false");
             playSequence();
         }
     }
 }
 
+
 void reconnect() {
     int tentatives = 0;
+
+    // Tant que le client MQTT n'est pas connecté et qu'on a fait moins de 3 tentatives
     while (!client.connected() && tentatives < 3) {
         tentatives++;
+
+        // Affiche la tentative de connexion sur l'écran
         M5.Lcd.fillScreen(BLACK);
         M5.Lcd.setCursor(0, 0);
         M5.Lcd.printf("Tentative MQTT %d/3...\n", tentatives);
 
+        // Génère un ID client aléatoire pour éviter les conflits
         String clientId = "M5Stack-";
         clientId += String(random(0xffff), HEX);
 
+        // Tente de se connecter au serveur MQTT avec cet ID
         if (client.connect(clientId.c_str())) {
             M5.Lcd.println("Connecté au MQTT!");
-            // Souscrire aux deux topics
+
+            // Souscription aux topics requis
             client.subscribe(subscribe_topic);
-            client.subscribe(difficulty_topic);  // Ajout de la souscription au topic de difficulté
-            
+            client.subscribe(difficulty_topic);  // Topic pour la gestion de la difficulté
+
+            // Confirmation à l'utilisateur
             M5.Lcd.println("Abonné aux topics:");
             M5.Lcd.println(subscribe_topic);
             M5.Lcd.println(difficulty_topic);
         } else {
+            // En cas d'échec, afficher le code d'erreur et attendre 5 secondes
             M5.Lcd.printf("Échec, erreur: %d\n", client.state());
             M5.Lcd.println("Nouvelle tentative...");
             delay(5000);
@@ -208,52 +240,68 @@ void reconnect() {
 }
 
 void setup() {
+    // Initialisation de la carte M5Stack (LCD, boutons, haut-parleur, etc.)
     M5.begin();
+
+    // Initialisation du port série pour le debug
     Serial.begin(115200);
 
-    M5.Lcd.fillScreen(BLACK);
-    M5.Lcd.setTextColor(WHITE);
-    M5.Lcd.setTextSize(2);
-    M5.Lcd.setCursor(0, 20);
-    M5.Lcd.println("LED Matrix MQTT Controller");
+    // Configuration initiale de l'écran LCD
+    M5.Lcd.fillScreen(BLACK);        // Efface l'écran
+    M5.Lcd.setTextColor(WHITE);      // Couleur du texte
+    M5.Lcd.setTextSize(2);           // Taille du texte
+    M5.Lcd.setCursor(0, 20);         // Position du curseur
+    M5.Lcd.println("LED Matrix MQTT Controller");  // Message d’accueil
 
+    // Initialisation de la bande LED avec FastLED
     FastLED.addLeds<LED_TYPE, DATA_PIN, COLOR_ORDER>(leds, NUM_LEDS)
-        .setCorrection(TypicalLEDStrip);
-    FastLED.setBrightness(brightness);
-    clearAllMatrices();
+           .setCorrection(TypicalLEDStrip);        // Correction des couleurs standard
+    FastLED.setBrightness(brightness);             // Définition de la luminosité
+    clearAllMatrices();                            // Éteint toutes les LED au démarrage
 
+    // Connexion au WiFi
     setup_wifi();
+
+    // Configuration du serveur MQTT et de la fonction de callback
     client.setServer(mqtt_server, mqtt_port);
     client.setCallback(callback);
     
-    // Souscrire aux deux topics
-    client.subscribe(subscribe_topic);
-    client.subscribe(difficulty_topic);  // Ajout de la souscription au topic de difficulté
+    // Souscriptions aux topics MQTT nécessaires
+    client.subscribe(subscribe_topic);             // Topic pour la séquence LED
+    client.subscribe(difficulty_topic);            // Topic pour le niveau de difficulté
 }
 
-void loop() {
-    M5.update();
 
+void loop() {
+    M5.update();  // Met à jour l'état des boutons et de l'écran M5Stack
+
+    // Vérifie si la connexion MQTT est toujours active, sinon tente une reconnexion
     if (!client.connected()) {
         reconnect();
     }
-    client.loop();
+    client.loop();  // Traite les messages entrants MQTT
 
+    // Si le bouton B a été pressé, augmenter la luminosité
     if (M5.BtnB.wasPressed()) {
-        brightness = FastLED.getBrightness();
-        brightness = brightness + 10 > 255 ? 255 : brightness + 10;
-        FastLED.setBrightness(brightness);
-        M5.Lcd.fillRect(0, 120, 320, 20, BLACK);
+        brightness = FastLED.getBrightness();                   // Récupère la luminosité actuelle
+        brightness = brightness + 10 > 255 ? 255 : brightness + 10; // Incrémente sans dépasser 255
+        FastLED.setBrightness(brightness);                      // Applique la nouvelle luminosité
+
+        // Rafraîchit l’affichage de la luminosité sur l’écran
+        M5.Lcd.fillRect(0, 120, 320, 20, BLACK);  // Efface l’ancienne valeur
         M5.Lcd.setCursor(0, 120);
         M5.Lcd.print("Luminosite: ");
         M5.Lcd.print(brightness);
     }
 
+    // Si le bouton C a été pressé, diminuer la luminosité
     if (M5.BtnC.wasPressed()) {
-        brightness = FastLED.getBrightness();
-        brightness = brightness - 10 < 0 ? 0 : brightness - 10;
-        FastLED.setBrightness(brightness);
-        M5.Lcd.fillRect(0, 120, 320, 20, BLACK);
+        brightness = FastLED.getBrightness();                   // Récupère la luminosité actuelle
+        brightness = brightness - 10 < 0 ? 0 : brightness - 10; // Décrémente sans aller sous 0
+        FastLED.setBrightness(brightness);                      // Applique la nouvelle luminosité
+
+        // Rafraîchit l’affichage de la luminosité sur l’écran
+        M5.Lcd.fillRect(0, 120, 320, 20, BLACK);  // Efface l’ancienne valeur
         M5.Lcd.setCursor(0, 120);
         M5.Lcd.print("Luminosite: ");
         M5.Lcd.print(brightness);
@@ -265,52 +313,69 @@ void clearAllMatrices() {
     FastLED.show();
 }
 
+// Fonction qui calcule l'index linéaire d'une LED dans une matrice câblée en lignes classiques (gauche → droite)
 uint16_t XY(uint8_t x, uint8_t y, uint16_t matrixOffset) {
+    // Si les coordonnées dépassent les dimensions de la matrice, retourner 0 (sécurité)
     if (x >= MATRIX_WIDTH || y >= MATRIX_HEIGHT) return 0;
+
+    // Calcul de l'index linéaire en ligne classique, avec un décalage optionnel pour gérer plusieurs matrices
     return (y * MATRIX_WIDTH + x) + matrixOffset;
 }
+
+// Fonction qui calcule l'index linéaire d'une LED dans une matrice câblée en zig-zag (lignes paires →, lignes impaires ←)
 uint16_t Coord_LEDs_Erreur(uint8_t x, uint8_t y, uint16_t matrixOffset) {
+    // Vérifie que les coordonnées sont valides, sinon retourne 0
     if (x >= MATRIX_WIDTH || y >= MATRIX_HEIGHT) return 0;
-    
+
     uint16_t i;
-    if(y & 0x01) {  // Lignes impaires
-        uint8_t reverseX = (MATRIX_WIDTH - 1) - x;
-        i = (y * MATRIX_WIDTH) + reverseX;
-    } else {        // Lignes paires
+
+    // Si la ligne est impaire (y % 2 == 1), inverser l'ordre des colonnes (zig-zag)
+    if (y & 0x01) {
+        uint8_t reverseX = (MATRIX_WIDTH - 1) - x;  // Inversion de la colonne
+        i = (y * MATRIX_WIDTH) + reverseX;          // Calcul de l'index linéaire inversé
+    } else {
+        // Si la ligne est paire, parcours normal (gauche à droite)
         i = (y * MATRIX_WIDTH) + x;
     }
-    
+
+    // Applique le décalage pour prendre en compte une éventuelle matrice précédente
     return i + matrixOffset;
 }
-// Animation d'expansion pour l'affichage des couleurs
+// Animation d'expansion pour afficher une couleur en "splash" depuis le centre
 void splash(CRGB color, uint16_t matrixOffset) {
+  // Boucle pour agrandir progressivement un carré centré
   for (uint8_t size = 2; size <= MATRIX_WIDTH; size += 2) {
+    // Coordonnées du centre de la matrice
     int centerX = MATRIX_WIDTH / 2;
     int centerY = MATRIX_HEIGHT / 2;
+
+    // Calcul des coins supérieur gauche et inférieur droit du carré
     int startX = centerX - size / 2;
     int startY = centerY - size / 2;
     int endX = startX + size;
     int endY = startY + size;
 
+    // Remplit le carré actuel avec la couleur spécifiée
     for (int x = startX; x < endX; ++x) {
       for (int y = startY; y < endY; ++y) {
+        // Vérifie que les coordonnées sont valides
         if (x >= 0 && x < MATRIX_WIDTH && y >= 0 && y < MATRIX_HEIGHT) {
-          leds[XY(x, y, matrixOffset)] = color;
+          leds[XY(x, y, matrixOffset)] = color;  // Affecte la couleur à la LED correspondante
         }
       }
     }
-    FastLED.show();
-    delay(50);
-    
+
+    FastLED.show(); // Affiche les modifications sur la matrice
+    delay(50);      // Pause pour créer l'effet d'expansion visuelle
   }
 
-  // Remplir la matrice entière à la fin de l'animation
+  // À la fin de l'animation, remplissage complet de la matrice avec la couleur
   for (int i = 0; i < MATRIX_SIZE; i++) {
     leds[i + matrixOffset] = color;
   }
-  FastLED.show();
+  FastLED.show();  // Affiche la couleur finale sur toute la matrice
 }
-// Modifier la fonction displayColor pour utiliser splash
+
 void displayColor(int colorChoice) {
   clearAllMatrices();
 
@@ -513,38 +578,7 @@ void squareWaveAnimation(CRGB squareColor, uint16_t matrixOffset) {
         delay(STEP_DELAY);
     }
 }
-// Version corrigée de snailAnimation
-void snailAnimation(CRGB lineColor, uint16_t matrixOffset) {
-    // Effacer la matrice
-    clearAllMatrices();
 
-    // Réduire le nombre de points et le délai pour une animation plus rapide
-    const uint8_t totalPoints = 50;    // Légèrement réduit de 60 à 50
-    const int delayTime = 2;          // Réduit de 25 à 15ms
-
-    // Centre de la matrice
-    const uint8_t centerX = 8;
-    const uint8_t centerY = 8;
-
-    float radius = 0.0;
-    float angle = 0.0;
-
-    for(uint8_t i = 0; i < totalPoints; i++) {
-        // Calculer les coordonnées du point actuel
-        uint8_t x = centerX + (uint8_t)(radius * cos(angle));
-        uint8_t y = centerY + (uint8_t)(radius * sin(angle));
-
-        // Vérifier les limites
-        if(x < MATRIX_WIDTH && y < MATRIX_HEIGHT) {
-            leds[Coord_LEDs_Erreur(x, y, matrixOffset)] = lineColor;
-            FastLED.show();
-            delay(delayTime);
-        }
-        // Garder les mêmes valeurs pour la forme de la spirale
-        angle += 0.4;
-        radius += 0.12;
-    }
-}
 void displayProgressivePlus(CRGB color, uint16_t matrixOffset) {
     const uint8_t MATRIX_SIZE = 16;
     const uint8_t LINE_THICKNESS = 4;
