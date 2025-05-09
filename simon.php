@@ -336,90 +336,120 @@
     </div>
 
     <script>
-        const translations = {
-            en: {
-                title: "Simon",
-                choose_level: "Choose Level",
-                select_difficulty: "Select difficulty",
-                easy: "Easy - Normal speed",
-                medium: "Medium - Fast speed",
-                hard: "Hard - Very fast speed",
-                start_game: "Start Game",
-                high_scores: "High Scores",
-                position: "Position",
-                player: "Player",
-                score: "Score",
-                difficulty: "Difficulty",
-                hard_badge: "Hard",
-                medium_badge: "Medium",
-                easy_badge: "Easy",
-                footer: "© 2025 Simon Game - Test your memory skills"
-            },
-            fr: {
-                title: "Simon",
-                choose_level: "Choisir le niveau",
-                select_difficulty: "Sélectionner la difficulté",
-                easy: "Facile - Vitesse normale",
-                medium: "Moyen - Vitesse rapide",
-                hard: "Difficile - Vitesse très rapide",
-                start_game: "Commencer le jeu",
-                high_scores: "Meilleurs scores",
-                position: "Position",
-                player: "Joueur",
-                score: "Score",
-                difficulty: "Difficulté",
-                hard_badge: "Difficile",
-                medium_badge: "Moyen",
-                easy_badge: "Facile",
-                footer: "© 2025 Jeu Simon - Testez votre mémoire"
-            },
-            de: {
-                title: "Simon",
-                choose_level: "Level wählen",
-                select_difficulty: "Schwierigkeit wählen",
-                easy: "Einfach - Normale Geschwindigkeit",
-                medium: "Mittel - Schnelle Geschwindigkeit",
-                hard: "Schwer - Sehr schnelle Geschwindigkeit",
-                start_game: "Spiel starten",
-                high_scores: "Bestenliste",
-                position: "Position",
-                player: "Spieler",
-                score: "Punktzahl",
-                difficulty: "Schwierigkeit",
-                hard_badge: "Schwer",
-                medium_badge: "Mittel",
-                easy_badge: "Einfach",
-                footer: "© 2025 Simon Spiel - Testen Sie Ihr Gedächtnis"
+        <script>
+    const translations = {
+        en: {
+            title: "Simon",
+            choose_level: "Choose Level",
+            select_difficulty: "Select difficulty",
+            easy: "Easy - Normal speed",
+            medium: "Medium - Fast speed",
+            hard: "Hard - Very fast speed",
+            start_game: "Start Game",
+            high_scores: "High Scores",
+            position: "Position",
+            player: "Player",
+            score: "Score",
+            difficulty: "Difficulty",
+            hard_badge: "Hard",
+            medium_badge: "Medium",
+            easy_badge: "Easy",
+            footer: "© 2025 Simon Game - Test your memory skills"
+        },
+        fr: {
+            title: "Simon",
+            choose_level: "Choisir le niveau",
+            select_difficulty: "Sélectionner la difficulté",
+            easy: "Facile - Vitesse normale",
+            medium: "Moyen - Vitesse rapide",
+            hard: "Difficile - Vitesse très rapide",
+            start_game: "Commencer le jeu",
+            high_scores: "Meilleurs scores",
+            position: "Position",
+            player: "Joueur",
+            score: "Score",
+            difficulty: "Difficulté",
+            hard_badge: "Difficile",
+            medium_badge: "Moyen",
+            easy_badge: "Facile",
+            footer: "© 2025 Jeu Simon - Testez votre mémoire"
+        },
+        de: {
+            title: "Simon",
+            choose_level: "Level wählen",
+            select_difficulty: "Schwierigkeit wählen",
+            easy: "Einfach - Normale Geschwindigkeit",
+            medium: "Mittel - Schnelle Geschwindigkeit",
+            hard: "Schwer - Sehr schnelle Geschwindigkeit",
+            start_game: "Spiel starten",
+            high_scores: "Bestenliste",
+            position: "Position",
+            player: "Spieler",
+            score: "Punktzahl",
+            difficulty: "Schwierigkeit",
+            hard_badge: "Schwer",
+            medium_badge: "Mittel",
+            easy_badge: "Einfach",
+            footer: "© 2025 Simon Spiel - Testen Sie Ihr Gedächtnis"
+        }
+    };
+
+    function changeLanguage(lang) {
+        document.documentElement.lang = lang;
+        const elements = document.querySelectorAll('[data-translate]');
+        elements.forEach(element => {
+            const key = element.getAttribute('data-translate');
+            if (translations[lang] && translations[lang][key]) {
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = translations[lang][key];
+                } else {
+                    element.textContent = translations[lang][key];
+                }
             }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('difficulty-form');
+
+        // Configuration MQTT
+        const clientId = "simon-client-" + Math.random().toString(16).substr(2, 8);
+        const client = new Paho.MQTT.Client("localhost", 9001, clientId);
+
+        client.onConnectionLost = (response) => {
+            console.error("Connexion perdue :", response.errorMessage);
         };
 
-        function changeLanguage(lang) {
-            document.documentElement.lang = lang;
-            const elements = document.querySelectorAll('[data-translate]');
-            elements.forEach(element => {
-                const key = element.getAttribute('data-translate');
-                if (translations[lang] && translations[lang][key]) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = translations[lang][key];
-                    } else {
-                        element.textContent = translations[lang][key];
-                    }
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('difficulty-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const difficulty = this.querySelector('select[name="difficulty"]').value;
-                console.log(`Starting game with ${difficulty} difficulty`);
-            });
-
-            const userLang = navigator.language || navigator.userLanguage;
-            const defaultLang = userLang.startsWith('fr') ? 'fr' : userLang.startsWith('de') ? 'de' : 'en';
-            document.getElementById('languageSelect').value = defaultLang;
-            changeLanguage(defaultLang);
+        client.connect({
+            onSuccess: () => {
+                console.log("Connecté au broker MQTT");
+            },
+            onFailure: (err) => {
+                console.error("Échec de la connexion :", err.errorMessage);
+            }
         });
+
+        // Gestionnaire d'envoi du formulaire
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const difficulty = this.querySelector('select[name="difficulty"]').value;
+
+            // Logique de démarrage du jeu
+            console.log(`Starting game with ${difficulty} difficulty`);
+
+            // Publier un message MQTT
+            const message = new Paho.MQTT.Message(difficulty);
+            message.destinationName = "game/start";
+            client.send(message);
+
+            console.log(`Démarrage du jeu en ${difficulty}`);
+        });
+
+        const userLang = navigator.language || navigator.userLanguage;
+        const defaultLang = userLang.startsWith('fr') ? 'fr' : userLang.startsWith('de') ? 'de' : 'en';
+        document.getElementById('languageSelect').value = defaultLang;
+        changeLanguage(defaultLang);
+    });
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
 <script>
