@@ -274,7 +274,7 @@
         <main class="game-panel">
             <div class="control-panel panel">
                 <h2 data-translate="choose_level">Choose Level</h2>
-                <form id="difficulty-form" class="difficulty-form">
+                <form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">
                     <select class="form-select" name="difficulty" required>
                         <option value="" selected disabled data-translate="select_difficulty">Select difficulty</option>
                         <option value="easy" data-translate="easy">Easy - Normal speed</option>
@@ -335,8 +335,8 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
     <script>
-        <script>
     const translations = {
         en: {
             title: "Simon",
@@ -410,39 +410,49 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('difficulty-form');
-
         // Configuration MQTT
         const clientId = "simon-client-" + Math.random().toString(16).substr(2, 8);
-        const client = new Paho.MQTT.Client("localhost", 9001, clientId);
+        let client;
+        
+        try {
+            client = new Paho.MQTT.Client("localhost", 9001, clientId);
+            
+            client.onConnectionLost = (response) => {
+                console.error("Connexion perdue :", response.errorMessage);
+            };
 
-        client.onConnectionLost = (response) => {
-            console.error("Connexion perdue :", response.errorMessage);
-        };
-
-        client.connect({
-            onSuccess: () => {
-                console.log("Connecté au broker MQTT");
-            },
-            onFailure: (err) => {
-                console.error("Échec de la connexion :", err.errorMessage);
-            }
-        });
+            client.connect({
+                onSuccess: () => {
+                    console.log("Connecté au broker MQTT");
+                },
+                onFailure: (err) => {
+                    console.error("Échec de la connexion :", err.errorMessage);
+                }
+            });
+        } catch (e) {
+            console.warn("MQTT non disponible:", e);
+        }
 
         // Gestionnaire d'envoi du formulaire
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+        document.getElementById('difficulty-form').addEventListener('submit', function(e) {
+            // Ne pas empêcher la soumission du formulaire pour permettre la redirection
+            // e.preventDefault(); 
+            
             const difficulty = this.querySelector('select[name="difficulty"]').value;
-
-            // Logique de démarrage du jeu
             console.log(`Starting game with ${difficulty} difficulty`);
-
-            // Publier un message MQTT
-            const message = new Paho.MQTT.Message(difficulty);
-            message.destinationName = "game/start";
-            client.send(message);
-
-            console.log(`Démarrage du jeu en ${difficulty}`);
+            
+            // Envoyer un message MQTT si disponible
+            if (typeof client !== 'undefined' && client.isConnected()) {
+                try {
+                    const message = new Paho.MQTT.Message(difficulty);
+                    message.destinationName = "game/start";
+                    client.send(message);
+                } catch (e) {
+                    console.warn("Impossible d'envoyer le message MQTT:", e);
+                }
+            }
+            
+            // Le formulaire sera soumis normalement, ce qui redirigera vers retour.php
         });
 
         const userLang = navigator.language || navigator.userLanguage;
@@ -451,36 +461,5 @@
         changeLanguage(defaultLang);
     });
     </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
-<script>
-// Configuration MQTT
-const clientId = "simon-client-" + Math.random().toString(16).substr(2, 8);
-const client = new Paho.MQTT.Client("localhost", 9001, clientId);
-
-client.onConnectionLost = (response) => {
-    console.error("Connexion perdue :", response.errorMessage);
-};
-
-client.connect({
-    onSuccess: () => {
-        console.log("Connecté au broker MQTT");
-    },
-    onFailure: (err) => {
-        console.error("Échec de la connexion :", err.errorMessage);
-    }
-});
-
-// Modifier le gestionnaire du formulaire pour publier un message MQTT
-document.getElementById('difficulty-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const difficulty = this.querySelector('select[name="difficulty"]').value;
-    
-    const message = new Paho.MQTT.Message(difficulty);
-    message.destinationName = "game/start";
-    client.send(message);
-    
-    console.log(`Démarrage du jeu en ${difficulty}`);
-});
-</script>
 </body>
 </html>
