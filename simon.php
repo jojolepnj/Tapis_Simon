@@ -480,6 +480,8 @@ document.getElementById('difficulty-form').addEventListener('submit', function(e
     client.send(message);
     
     console.log(`Démarrage du jeu en ${difficulty}`);
+
+     window.location.href = 'retour.php';
 });
 </script>
 </body>
