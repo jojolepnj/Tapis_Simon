@@ -2,25 +2,26 @@
 require('phpMQTT.php'); // Inclure la bibliothèque phpMQTT
 
 // Configuration MQTT
-$host = 'localhost'; // Adresse de votre broker MQTT
-$port = 1883; // Port de votre broker MQTT
-$username = ''; // Nom d'utilisateur (laisser vide si non requis)
-$password = ''; // Mot de passe (laisser vide si non requis)
-$client_id = 'simon_game_' . uniqid(); // Identifiant unique pour le client MQTT
+$host = 'localhost'; 
+$port = 1883;
+$username = '';
+$password = '';
+$client_id = 'simon_game_' . uniqid();
+
+$message = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['difficulty'])) {
-    $difficulty = $_POST['difficulty']; // Récupérer le niveau de difficulté (0, 1 ou 2)
+    $difficulty = $_POST['difficulty'];
+    $payload = json_encode(["dif" => $difficulty]);
 
-    $payload = json_encode(["dif" => $difficulty]); // Créer le message JSON
-
-    // Publier un message MQTT
     $mqtt = new phpMQTT($host, $port, $client_id);
     if ($mqtt->connect(true, NULL, $username, $password)) {
-        $mqtt->publish('site/difficulte', $payload, 0); // Publier dans le topic avec QoS 0
+        $mqtt->publish('site/difficulte', $payload, 0);
+        $mqtt->publish('site/start', 'start', 0);
         $mqtt->close();
-        echo "Difficulté envoyée avec succès : $payload";
+        $message = "✅ Difficulté envoyée : $payload";
     } else {
-        echo "Échec de la connexion au serveur MQTT.";
+        $message = "❌ Échec de la connexion au serveur MQTT.";
     }
 }
 ?>
