@@ -55,6 +55,7 @@
         
        
         
-        <a href = "jeu.php" class = "btn" > retour  au jeu</a>    </div>
+        <a href="simon.php" class="btn">Retour au jeu</a>
+        
 </body>
 </html>
