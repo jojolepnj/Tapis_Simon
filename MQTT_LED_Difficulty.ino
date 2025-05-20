@@ -3,10 +3,12 @@
 #include <PubSubClient.h>
 #include <FastLED.h>
 #include <ArduinoJson.h>
+#include <SD.h>
+#include <SPI.h>
 
 // Configuration WiFi
-const char* ssid = "Simon";
-const char* password = "Simon1234";
+String ssid;
+String password;
 
 // Configuration MQTT
 const char* mqtt_server = "192.168.1.106";
@@ -57,6 +59,29 @@ void clearAllMatrices();
 void displayColor(int colorChoice);
 void playSequence();
 
+bool lireWiFiDepuisSD(String &ssid, String &password) {
+    if (!SD.begin()) {
+        Serial.println("Erreur d'initialisation de la carte SD.");
+        return false;
+    }
+    File fichier = SD.open("/wifi.txt");
+    if (!fichier) {
+        Serial.println("Impossible d'ouvrir wifi.txt");
+        return false;
+    }
+    while (fichier.available()) {
+        String ligne = fichier.readStringUntil('\n');
+        ligne.trim();
+        if (ligne.startsWith("ssid=")) {
+            ssid = ligne.substring(5);
+        } else if (ligne.startsWith("password=")) {
+            password = ligne.substring(9);
+        }
+    }
+    fichier.close();
+    return true;
+}
+
 uint16_t XY(uint8_t x, uint8_t y, uint16_t matrixOffset = 0);
 void setup_wifi();
 void callback(char* topic, byte* payload, unsigned int length);
@@ -83,10 +108,15 @@ void setup_wifi() {
     // Affiche le message de connexion au WiFi avec le SSID
     M5.Lcd.println("Connecting to WiFi...");
     M5.Lcd.print("SSID: ");
-    M5.Lcd.println(ssid);
+    M5.Lcd.println(ssid.c_str());
+    
+    if (!lireWiFiDepuisSD(ssid, password)) {
+        M5.Lcd.println("Erreur lecture WiFi sur SD");
+        while (1); // Arrête le programme en cas d'erreur
+    }
 
     // Démarre la connexion WiFi avec les identifiants fournis
-    WiFi.begin(ssid, password);
+    WiFi.begin(ssid.c_str(), password.c_str());
 
     // Boucle jusqu'à ce que l'appareil soit connecté au réseau WiFi
     while (WiFi.status() != WL_CONNECTED) {
