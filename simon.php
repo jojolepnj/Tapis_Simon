@@ -409,52 +409,69 @@
         });
     }
 
-    <?php
-// Fonction pour envoyer les messages MQTT
-function sendMqttMessages($difficulty) {
-    // Conversion des niveaux de difficulté de l'interface vers les valeurs numériques
+   <?php
+require __DIR__ . '/vendor/autoload.php';
+
+use PhpMqtt\Client\MqttClient;
+use PhpMqtt\Client\ConnectionSettings;
+
+// Vérifier si le formulaire a été soumis
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['difficulty'])) {
+    $difficulty = $_POST['difficulty'];
+
+    // Mappage des niveaux de difficulté à des valeurs numériques
     $difficultyMap = [
         'easy' => 0,
         'medium' => 1,
         'hard' => 2
     ];
-    
-    // Récupérer la valeur numérique de la difficulté
-    $difficultyValue = isset($difficultyMap[$difficulty]) ? $difficultyMap[$difficulty] : 0;
-    
-    // Requiert la bibliothèque phpMQTT
-    require_once('phpMQTT.php');
-    
-    $server = "10.0.200.9";
-    $port = 1883;
-    $client_id = "simon-php-client-" . rand(1, 999999);
-    $mqtt = new phpMQTT($server, $port, $client_id);
-    
-    if ($mqtt->connect()) {
-        // Publier le message de démarrage
-        $mqtt->publish("site/start", "true", 0);
-        
-        // Attendre un peu avant d'envoyer la difficulté
-        usleep(1000000); // 1 seconde en microsecondes
-        
-        // Préparer et publier le message de difficulté
-        $difficultyMessage = json_encode(['dif' => $difficultyValue]);
-        $mqtt->publish("site/difficulte", $difficultyMessage, 0);
-        
-        // Déconnexion
-        $mqtt->close();
-        
-        return true;
-    } else {
-        return false;
+
+    // Vérifier si la difficulté sélectionnée est valide
+    if (!array_key_exists($difficulty, $difficultyMap)) {
+        die('Difficulté invalide sélectionnée.');
     }
+
+    $difficultyValue = $difficultyMap[$difficulty];
+
+    // Paramètres de connexion MQTT
+    $server = '10.0.200.9';
+    $port = 1883;
+    $clientId = 'simon-php-client-' . rand(1, 999999);
+    $mqttVersion = MqttClient::MQTT_3_1;
+
+    $connectionSettings = (new ConnectionSettings)
+        ->setKeepAliveInterval(60)
+        ->setLastWillTopic('site/lastwill')
+        ->setLastWillMessage('Client déconnecté')
+        ->setLastWillQualityOfService(0);
+
+    $mqtt = new MqttClient($server, $port, $clientId, $mqttVersion);
+
+    try {
+        $mqtt->connect($connectionSettings, true);
+
+        // Publier le message de démarrage
+        $mqtt->publish('site/start', 'true', 0);
+
+        // Attendre 1 seconde avant d'envoyer la difficulté
+        usleep(1000000); // 1 seconde en microsecondes
+
+        // Publier le message de difficulté
+        $difficultyMessage = json_encode(['dif' => $difficultyValue]);
+        $mqtt->publish('site/difficulte', $difficultyMessage, 0);
+
+        $mqtt->disconnect();
+
+        // Rediriger vers la page principale après le traitement
+        header('Location: index.html');
+        exit();
+    } catch (Exception $e) {
+        echo 'Erreur lors de la connexion au broker MQTT : ' . $e->getMessage();
+    }
+} else {
+    echo 'Aucune difficulté sélectionnée.';
 }
 ?>
-        const userLang = navigator.language || navigator.userLanguage;
-        const defaultLang = userLang.startsWith('fr') ? 'fr' : userLang.startsWith('de') ? 'de' : 'en';
-        document.getElementById('languageSelect').value = defaultLang;
-        changeLanguage(defaultLang);
-    });
     </script>
 </body>
 </html>
