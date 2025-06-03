@@ -107,6 +107,38 @@ def input_with_timeout(prompt, timeout):
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return None
+def get_single_char(timeout=None):
+    """Lit un caractère depuis le clavier (non bloquant, compatible Win/RPi)."""
+    if IS_WINDOWS:
+        start = None
+        if timeout is not None:
+            import time
+            start = time.time()
+        while True:
+            if msvcrt.kbhit():
+                ch = msvcrt.getch()
+                try:
+                    return ch.decode('utf-8').lower()
+                except Exception:
+                    continue
+            if timeout is not None and (time.time() - start) > timeout:
+                return None
+    else:
+        # Linux/RPi
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            if timeout is None:
+                timeout = 0.1
+            rlist, _, _ = select.select([fd], [], [], timeout)
+            if rlist:
+                ch = sys.stdin.read(1)
+                return ch.lower()
+            return None
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+            
 class Son:
     """
     Gestionnaire audio pour le jeu Simon.
