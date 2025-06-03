@@ -1,10 +1,13 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Simon Game</title>
     <style>
@@ -216,13 +219,6 @@ header('Content-Type: text/html; charset=UTF-8');
             -webkit-backdrop-filter: blur(5px);
         }
 
-        .flag-icon {
-            display: inline-block;
-            width: 1.2em;
-            margin-right: 0.5em;
-            vertical-align: middle;
-        }
-
         footer {
             text-align: center;
             font-size: clamp(0.8rem, 2vw, 1rem);
@@ -297,7 +293,7 @@ header('Content-Type: text/html; charset=UTF-8');
                         <option value="hard" data-translate="hard">Difficile</option>
                     </select>
                     <input type="hidden" name="selected_language" id="selected_language" value="fr">
-                    <button type="submit" class="btn-primary" data-translate="start_game">Démarrer le jeu</button>
+                    <button type="submit" class="btn-primary" data-translate="start_game">Demarrer le jeu</button>
                 </form>
             </div>
 
@@ -307,7 +303,7 @@ header('Content-Type: text/html; charset=UTF-8');
                         <tr>
                             <th data-translate="player">Joueur</th>
                             <th data-translate="score">Score</th>
-                            <th data-translate="difficulty">Difficulté</th>
+                            <th data-translate="difficulty">Difficulte</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -332,14 +328,14 @@ header('Content-Type: text/html; charset=UTF-8');
         </main>
 
         <footer>
-            <span data-translate="footer">© 2025 Simon Game - Testez votre mémoire</span>
+            <span data-translate="footer">2025 Simon Game - Testez votre memoire</span>
         </footer>
 
         <div class="language-selector">
             <select id="languageSelect" onchange="changeLanguage(this.value)">
-                <option value="fr">🇫🇷 Français</option>
-                <option value="en">🇬🇧 English</option>
-                <option value="de">🇩🇪 Deutsch</option>
+                <option value="fr">[FR] Francais</option>
+                <option value="en">[EN] English</option>
+                <option value="de">[DE] Deutsch</option>
             </select>
         </div>
     </div>
@@ -355,18 +351,18 @@ header('Content-Type: text/html; charset=UTF-8');
                 player: "Player",
                 score: "Score",
                 difficulty: "Difficulty",
-                footer: "© 2025 Simon Game - Test your memory skills"
+                footer: "2025 Simon Game - Test your memory skills"
             },
             fr: {
                 title: "Simon Game",
                 easy: "Facile",
                 medium: "Moyen",
                 hard: "Difficile",
-                start_game: "Démarrer le jeu",
+                start_game: "Demarrer le jeu",
                 player: "Joueur",
                 score: "Score",
-                difficulty: "Difficulté",
-                footer: "© 2025 Simon Game - Testez votre mémoire"
+                difficulty: "Difficulte",
+                footer: "2025 Simon Game - Testez votre memoire"
             },
             de: {
                 title: "Simon Spiel",
@@ -377,7 +373,7 @@ header('Content-Type: text/html; charset=UTF-8');
                 player: "Spieler",
                 score: "Punktzahl",
                 difficulty: "Schwierigkeit",
-                footer: "© 2025 Simon Spiel - Testen Sie Ihr Gedächtnis"
+                footer: "2025 Simon Spiel - Testen Sie Ihr Gedachtnis"
             }
         };
 
@@ -399,13 +395,13 @@ header('Content-Type: text/html; charset=UTF-8');
                 }
             });
 
-            // Met à jour le sélecteur de langue
+            // Met a jour le selecteur de langue
             document.getElementById('languageSelect').value = lang;
         }
 
         // Au chargement de la page
         document.addEventListener('DOMContentLoaded', function() {
-            // Récupère la langue sauvegardée ou utilise celle du navigateur
+            // Recupere la langue sauvegardee ou utilise celle du navigateur
             const savedLang = localStorage.getItem('selectedLanguage');
             const userLang = navigator.language || navigator.userLanguage;
             const initialLang = savedLang || (userLang.startsWith('fr') ? 'fr' : userLang.startsWith('de') ? 'de' : 'en');
