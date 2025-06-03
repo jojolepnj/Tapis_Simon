@@ -1,35 +1,24 @@
 <?php
-// Activer l'affichage des erreurs pour le débogage
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Fonction de log personnalisée
 function debug_log($message) {
     error_log($message);
     echo "<!-- Debug: " . htmlspecialchars($message) . " -->\n";
-}
-
-debug_log("Starting MQTT process...");
-
-// Vérifier si le fichier phpMQTT.php existe
-if (!file_exists("phpMQTT.php")) {
-    debug_log("Error: phpMQTT.php file is missing!");
-    die("Configuration error: Missing required files");
 }
 
 require("phpMQTT.php");
 
 $server = "10.0.200.7";
 $port = 1883;
-$username = "";
-$password = "";
-$client_id = "phpMQTT-simon-start-" . uniqid();
+$client_id = "phpMQTT-simon-" . uniqid();
 
-// Vérifier si nous avons reçu la difficulté
+// Récupérer la langue sélectionnée, par défaut 'fr'
+$selected_language = isset($_POST['selected_language']) ? $_POST['selected_language'] : 'fr';
+
 if (isset($_POST['difficulty'])) {
     $difficulty = $_POST['difficulty'];
-    debug_log("Received difficulty: " . $difficulty);
-
+    
     // Map difficulty to numeric value
     $difficulty_map = [
         'easy' => 0,
@@ -37,48 +26,45 @@ if (isset($_POST['difficulty'])) {
         'hard' => 2
     ];
 
-    if (isset($difficulty_map[$difficulty])) {
-        try {
-            $mqtt = new phpMQTT($server, $port, $client_id);
+    try {
+        debug_log("Tentative de connexion au broker MQTT ($server:$port)...");
+        
+        $mqtt = new phpMQTT($server, $port, $client_id);
+        
+        if ($mqtt->connect(true, NULL, "", "")) {
+            debug_log("Connexion MQTT réussie");
             
-            if ($mqtt->connect(true, NULL, $username, $password)) {
-                debug_log("Successfully connected to MQTT broker");
-                
-                // First send the difficulty
-                $difficulty_message = json_encode(['dif' => $difficulty_map[$difficulty]]);
-                $mqtt->publish("site/difficulte", $difficulty_message, 0);
-                debug_log("Published difficulty message: " . $difficulty_message);
-                
-                // Small delay to ensure messages are sent in order
-                usleep(100000); // 100ms delay
-                
-                // Then send the start signal
-                $mqtt->publish("site/start", "true", 0);
-                debug_log("Published start signal");
-                
-                $mqtt->close();
-                debug_log("MQTT connection closed successfully");
-            } else {
-                debug_log("Failed to connect to MQTT broker!");
+            // Envoi du message de difficulté
+            $difficulty_message = json_encode(['dif' => $difficulty_map[$difficulty]]);
+            if ($mqtt->publish("site/difficulte", $difficulty_message, 0)) {
+                debug_log("Message de difficulté envoyé: $difficulty_message");
             }
-        } catch (Exception $e) {
-            debug_log("MQTT Error: " . $e->getMessage());
+            
+            // Attente courte
+            usleep(500000); // 500ms
+            
+            // Envoi du signal de démarrage
+            if ($mqtt->publish("site/start", "true", 0)) {
+                debug_log("Signal de démarrage envoyé");
+            }
+            
+            $mqtt->close();
+            debug_log("Connexion MQTT fermée");
+        } else {
+            debug_log("ERREUR: Impossible de se connecter au broker MQTT");
         }
-    } else {
-        debug_log("Error: Invalid difficulty value: " . $difficulty);
+    } catch (Exception $e) {
+        debug_log("ERREUR MQTT: " . $e->getMessage());
     }
-} else {
-    debug_log("Error: No difficulty level received!");
 }
 ?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="<?php echo htmlspecialchars($selected_language); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Page de Jeu</title>
+    <title data-translate="title">Page de Jeu</title>
     <style>
-        /* Votre CSS existant reste inchangé */
         :root {
             --simon-green: #00cc66;
             --simon-red: #ff3333;
@@ -174,7 +160,25 @@ if (isset($_POST['difficulty'])) {
             box-shadow: 0 0 30px rgba(51, 153, 255, 0.2);
         }
 
-        /* Ajout des styles pour les messages de débogage */
+        .language-selector {
+            position: fixed;
+            bottom: clamp(10px, 2vw, 20px);
+            right: clamp(10px, 2vw, 20px);
+            z-index: 1000;
+        }
+
+        .language-selector select {
+            padding: clamp(6px, 1.5vw, 10px) clamp(8px, 2vw, 15px);
+            border-radius: var(--radius);
+            background: rgba(26, 26, 46, 0.95);
+            border: 2px solid var(--simon-yellow);
+            color: var(--light);
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
         .debug-messages {
             margin-top: 20px;
             padding: 10px;
@@ -182,23 +186,80 @@ if (isset($_POST['difficulty'])) {
             border-radius: var(--radius);
             font-family: monospace;
             white-space: pre-wrap;
-            display: none; /* Caché par défaut */
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="game-header">
-            <h1 class="game-title">Page de Jeu</h1>
+            <h1 class="game-title" data-translate="title">Page de Jeu</h1>
         </header>
 
         <main class="game-panel">
             <div class="control-panel panel">
-                <h2>Le jeu a été lancé</h2>
-                <a href="simon.php" class="btn-primary">Retour au jeu</a>
+                <h2 data-translate="game_launched">Le jeu a été lancé</h2>
+                <a href="simon.php" class="btn-primary" data-translate="return_to_game">Retour au jeu</a>
             </div>
         </main>
+
+        <footer>
+            <span data-translate="footer">© 2025 Simon Game - Testez votre mémoire</span>
+        </footer>
+
+        <div class="language-selector">
+            <select id="languageSelect" onchange="changeLanguage(this.value)">
+                <option value="fr">&#x1F1EB;&#x1F1F7; Français</option>
+                <option value="en">&#x1F1EC;&#x1F1E7; English</option>
+                <option value="de">&#x1F1E9;&#x1F1EA; Deutsch</option>
+            </select>
+        </div>
     </div>
+
+    <script>
+    const translations = {
+        en: {
+            title: "Game Page",
+            game_launched: "The game has been launched",
+            return_to_game: "Return to game",
+            footer: "© 2025 Simon Game - Test your memory skills"
+        },
+        fr: {
+            title: "Page de Jeu",
+            game_launched: "Le jeu a été lancé",
+            return_to_game: "Retour au jeu",
+            footer: "© 2025 Simon Game - Testez votre mémoire"
+        },
+        de: {
+            title: "Spielseite",
+            game_launched: "Das Spiel wurde gestartet",
+            return_to_game: "Zurück zum Spiel",
+            footer: "© 2025 Simon Spiel - Testen Sie Ihr Gedächtnis"
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Utiliser la langue transmise par le formulaire
+        const selectedLang = "<?php echo $selected_language; ?>";
+        document.getElementById('languageSelect').value = selectedLang;
+        changeLanguage(selectedLang);
+    });
+
+    function changeLanguage(lang) {
+        document.documentElement.lang = lang;
+        const elements = document.querySelectorAll('[data-translate]');
+        elements.forEach(element => {
+            const key = element.getAttribute('data-translate');
+            if (translations[lang] && translations[lang][key]) {
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = translations[lang][key];
+                } else {
+                    element.textContent = translations[lang][key];
+                }
+            }
+        });
+    }
+    </script>
 
     <?php if (isset($_GET['debug'])): ?>
     <div class="debug-messages">
@@ -208,6 +269,7 @@ if (isset($_POST['difficulty'])) {
         if (isset($_POST['difficulty'])) {
             echo "Difficulty: " . htmlspecialchars($_POST['difficulty']) . "\n";
         }
+        echo "Selected Language: " . htmlspecialchars($selected_language);
         ?>
     </div>
     <?php endif; ?>
