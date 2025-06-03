@@ -101,20 +101,20 @@ class phpMQTT {
 		if($this->username) $buffer .= $this->strwritestring($this->username,$i);
 		if($this->password) $buffer .= $this->strwritestring($this->password,$i);
 
-		$head = "  ";
-		$head{0} = chr(0x10);
-		$head{1} = chr($i);
+		$head = " ";
+		$head[0] = chr(0x10);
+		$head[1] = chr($i);
 
 		fwrite($this->socket, $head, 2);
 		fwrite($this->socket, $buffer);
 
 	  	$string = $this->read(4);
 
-		if(ord($string{0})>>4 == 2 && $string{3} == chr(0)){
+		if(ord($string[0])>>4 == 2 && $string[3] == chr(0)){
 			if($this->debug) echo "Connected to Broker\n"; 
 		}else{	
 			error_log(sprintf("Connection failed! (Error: 0x%02x 0x%02x)\n", 
-			                        ord($string{0}),ord($string{3})));
+			                        ord($string[0]),ord($string[3])));
 			return false;
 		}
 
@@ -162,7 +162,6 @@ class phpMQTT {
 		//$qos
 		$cmd +=	($qos << 1);
 
-
 		$head = chr($cmd);
 		$head .= chr($i);
 		
@@ -176,25 +175,25 @@ class phpMQTT {
 
 	/* ping: sends a keep alive ping */
 	function ping(){
-			$head = " ";
-			$head = chr(0xc0);		
-			$head .= chr(0x00);
-			fwrite($this->socket, $head, 2);
-			if($this->debug) echo "ping sent\n";
+		$head = " ";
+		$head[0] = chr(0xc0);		
+		$head[1] = chr(0x00);
+		fwrite($this->socket, $head, 2);
+		if($this->debug) echo "ping sent\n";
 	}
 
 	/* disconnect: sends a proper disconnect cmd */
 	function disconnect(){
-			$head = " ";
-			$head{0} = chr(0xe0);		
-			$head{1} = chr(0x00);
-			fwrite($this->socket, $head, 2);
+		$head = " ";
+		$head[0] = chr(0xe0);		
+		$head[1] = chr(0x00);
+		fwrite($this->socket, $head, 2);
 	}
 
 	/* close: sends a proper disconect, then closes the socket */
 	function close(){
 	 	$this->disconnect();
-		fclose($this->socket);
+		stream_socket_shutdown($this->socket, STREAM_SHUT_WR);
 	}
 
 	/* publish: publishes $content on $topic */
@@ -205,8 +204,6 @@ class phpMQTT {
 
 		$buffer .= $this->strwritestring($topic,$i);
 
-		//$buffer .= $this->strwritestring($content,$i);
-
 		if($qos){
 			$id = $this->msgid++;
 			$buffer .= chr($id >> 8);  $i++;
@@ -214,15 +211,14 @@ class phpMQTT {
 		}
 
 		$buffer .= $content;
-		$i+=strlen($content);
-
+		$i += strlen($content);
 
 		$head = " ";
 		$cmd = 0x30;
 		if($qos) $cmd += $qos << 1;
 		if($retain) $cmd += 1;
 
-		$head{0} = chr($cmd);		
+		$head[0] = chr($cmd);		
 		$head .= $this->setmsglength($i);
 
 		fwrite($this->socket, $head, strlen($head));
@@ -232,28 +228,27 @@ class phpMQTT {
 
 	/* message: processes a received topic */
 	function message($msg){
-		 	$tlen = (ord($msg{0})<<8) + ord($msg{1});
-			$topic = substr($msg,2,$tlen);
-			$msg = substr($msg,($tlen+2));
-			$found = 0;
-			foreach($this->topics as $key=>$top){
-				if( preg_match("/^".str_replace("#",".*",
+		$tlen = (ord($msg[0])<<8) + ord($msg[1]);
+		$topic = substr($msg,2,$tlen);
+		$msg = substr($msg,($tlen+2));
+		$found = 0;
+		foreach($this->topics as $key=>$top){
+			if( preg_match("/^".str_replace("#",".*",
 						str_replace("+","[^\/]*",
 							str_replace("/","\/",
 								str_replace("$",'\$',
 									$key))))."$/",$topic) ){
-					if(is_callable($top['function'])){
-						call_user_func($top['function'],$topic,$msg);
-						$found = 1;
-					}
+				if(is_callable($top['function'])){
+					call_user_func($top['function'],$topic,$msg);
+					$found = 1;
 				}
 			}
+		}
 
-			if($this->debug && !$found) echo "msg received but no match in subscriptions\n";
+		if($this->debug && !$found) echo "msg received but no match in subscriptions\n";
 	}
 
-	/* proc: the processing loop for an "always on" client 
-		set true when you are doing other stuff in the loop good for watching something else at the same time */	
+	/* proc: the processing loop for an "always on" client */	
 	function proc( $loop = true){
 
 		if(1){
@@ -261,7 +256,7 @@ class phpMQTT {
 			$w = $e = NULL;
 			$cmd = 0;
 			
-				//$byte = fgetc($this->socket);
+			//$byte = fgetc($this->socket);
 			if(feof($this->socket)){
 				if($this->debug) echo "eof receive going to reconnect for good measure\n";
 				fclose($this->socket);
@@ -330,7 +325,7 @@ class phpMQTT {
 		$multiplier = 1; 
 		$value = 0 ;
 		do{
-		  $digit = ord($msg{$i});
+		  $digit = ord($msg[$i]);
 		  $value += ($digit & 127) * $multiplier; 
 		  $multiplier *= 128;
 		  $i++;
@@ -360,8 +355,8 @@ class phpMQTT {
 		$len = strlen($str);
 		$msb = $len >> 8;
 		$lsb = $len % 256;
-		$ret = chr($msb);
-		$ret .= chr($lsb);
+		$ret[0] = chr($msb);
+		$ret[1] = chr($lsb);
 		$ret .= $str;
 		$i += ($len+2);
 		return $ret;
@@ -370,12 +365,11 @@ class phpMQTT {
 	function printstr($string){
 		$strlen = strlen($string);
 			for($j=0;$j<$strlen;$j++){
-				$num = ord($string{$j});
+				$num = ord($string[$j]);
 				if($num > 31) 
-					$chr = $string{$j}; else $chr = " ";
+					$chr = $string[$j]; else $chr = " ";
 				printf("%4d: %08b : 0x%02x : %s \n",$j,$num,$num,$chr);
 			}
 	}
 }
-
 ?>
