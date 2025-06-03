@@ -300,7 +300,7 @@
         <main class="game-panel">
             <div class="control-panel panel">
                 <h2 data-translate="choose_level">Choose Level</h2>
-                <form id="difficulty-form" class="difficulty-form" action="start_game.php" method="post">
+                <form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">
                     <select class="form-select" name="difficulty" required>
                         <option value="" selected disabled data-translate="select_difficulty">Select difficulty</option>
                         <option value="easy" data-translate="easy">Easy - Normal speed</option>
