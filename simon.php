@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Simon Game</title>
-<style>
-:root {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Simon Game</title>
+    <style>
+        :root {
             --simon-green: #00cc66;
             --simon-red: #ff3333;
             --simon-yellow: #ffcc00;
@@ -263,206 +263,172 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-</style>
+    </style>
 </head>
 <body>
-<div class="container">
-    <header class="game-header">
-        <h1 class="game-title" data-translate="title">Simon</h1>
-    </header>
+    <div class="container">
+        <header class="game-header">
+            <h1 class="game-title" data-translate="title">Simon</h1>
+        </header>
 
-    <main class="game-panel">
-        <div class="control-panel panel">
-            <h2 data-translate="choose_level">Choose Level</h2>
-            <form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">
-                <select class="form-select" name="difficulty" required>
-                    <option value="" selected disabled data-translate="select_difficulty">Select difficulty</option>
-                    <option value="easy" data-translate="easy">Easy - Normal speed</option>
-                    <option value="medium" data-translate="medium">Medium - Fast speed</option>
-                    <option value="hard" data-translate="hard">Hard - Very fast speed</option>
-                </select>
-                <button type="submit" class="btn-primary" data-translate="start_game">Start Game</button>
-            </form>
-        </div>
-
-        <div class="highscores-panel panel">
-            <h2 data-translate="high_scores">High Scores</h2>
-            <div style="overflow-x: auto;">
-                <table class="score-table">
-                    <thead>
-                        <tr>
-                            <th data-translate="position">Position</th>
-                            <th data-translate="player">Player</th>
-                            <th data-translate="score">Score</th>
-                            <th data-translate="difficulty">Difficulty</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>🥇</td>
-                            <td>Player 1</td>
-                            <td>15</td>
-                            <td><span class="difficulty-badge hard-badge" data-translate="hard_badge">Hard</span></td>
-                        </tr>
-                        <tr>
-                            <td>🥈</td>
-                            <td>Player 2</td>
-                            <td>12</td>
-                            <td><span class="difficulty-badge medium-badge" data-translate="medium_badge">Medium</span></td>
-                        </tr>
-                        <tr>
-                            <td>🥉</td>
-                            <td>Player 3</td>
-                            <td>10</td>
-                            <td><span class="difficulty-badge easy-badge" data-translate="easy_badge">Easy</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+        <main class="game-panel">
+            <div class="control-panel panel">
+                <h2 data-translate="choose_level">Choose Level</h2>
+                <form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">
+                    <select class="form-select" name="difficulty" required>
+                        <option value="" selected disabled data-translate="select_difficulty">Select difficulty</option>
+                        <option value="easy" data-translate="easy">Easy - Normal speed</option>
+                        <option value="medium" data-translate="medium">Medium - Fast speed</option>
+                        <option value="hard" data-translate="hard">Hard - Very fast speed</option>
+                    </select>
+                    <button type="submit" class="btn-primary" data-translate="start_game">Start Game</button>
+                </form>
             </div>
+
+            <div class="highscores-panel panel">
+                <h2 data-translate="high_scores">High Scores</h2>
+                <div style="overflow-x: auto;">
+                    <table class="score-table">
+                        <thead>
+                            <tr>
+                                <th data-translate="position">Position</th>
+                                <th data-translate="player">Player</th>
+                                <th data-translate="score">Score</th>
+                                <th data-translate="difficulty">Difficulty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🥇</td>
+                                <td>Player 1</td>
+                                <td>15</td>
+                                <td><span class="difficulty-badge hard-badge" data-translate="hard_badge">Hard</span></td>
+                            </tr>
+                            <tr>
+                                <td>🥈</td>
+                                <td>Player 2</td>
+                                <td>12</td>
+                                <td><span class="difficulty-badge medium-badge" data-translate="medium_badge">Medium</span></td>
+                            </tr>
+                            <tr>
+                                <td>🥉</td>
+                                <td>Player 3</td>
+                                <td>10</td>
+                                <td><span class="difficulty-badge easy-badge" data-translate="easy_badge">Easy</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <span data-translate="footer">© 2025 Simon Game - Test your memory skills</span>
+        </footer>
+
+        <div class="language-selector">
+            <select id="languageSelect" onchange="changeLanguage(this.value)">
+                <option value="fr">🇫🇷 Français</option>
+                <option value="en" selected>🇬🇧 English</option>
+                <option value="de">🇩🇪 Deutsch</option>
+            </select>
         </div>
-    </main>
-
-    <footer>
-        <span data-translate="footer">© 2025 Simon Game - Test your memory skills</span>
-    </footer>
-
-    <div class="language-selector">
-        <select id="languageSelect" onchange="changeLanguage(this.value)">
-            <option value="fr">🇫🇷 Français</option>
-            <option value="en" selected>🇬🇧 English</option>
-            <option value="de">🇩🇪 Deutsch</option>
-        </select>
     </div>
-</div>
 
-<script>
-const translations = {
-    en: {
-        title: "Simon",
-        choose_level: "Choose Level",
-        select_difficulty: "Select difficulty",
-        easy: "Easy - Normal speed",
-        medium: "Medium - Fast speed",
-        hard: "Hard - Very fast speed",
-        start_game: "Start Game",
-        high_scores: "High Scores",
-        position: "Position",
-        player: "Player",
-        score: "Score",
-        difficulty: "Difficulty",
-        hard_badge: "Hard",
-        medium_badge: "Medium",
-        easy_badge: "Easy",
-        footer: "© 2025 Simon Game - Test your memory skills"
-    },
-    fr: {
-        title: "Simon",
-        choose_level: "Choisir le niveau",
-        select_difficulty: "Sélectionner la difficulté",
-        easy: "Facile - Vitesse normale",
-        medium: "Moyen - Vitesse rapide",
-        hard: "Difficile - Vitesse très rapide",
-        start_game: "Commencer le jeu",
-        high_scores: "Meilleurs scores",
-        position: "Position",
-        player: "Joueur",
-        score: "Score",
-        difficulty: "Difficulté",
-        hard_badge: "Difficile",
-        medium_badge: "Moyen",
-        easy_badge: "Facile",
-        footer: "© 2025 Jeu Simon - Testez votre mémoire"
-    },
-    de: {
-        title: "Simon",
-        choose_level: "Level wählen",
-        select_difficulty: "Schwierigkeit wählen",
-        easy: "Einfach - Normale Geschwindigkeit",
-        medium: "Mittel - Schnelle Geschwindigkeit",
-        hard: "Schwer - Sehr schnelle Geschwindigkeit",
-        start_game: "Spiel starten",
-        high_scores: "Bestenliste",
-        position: "Position",
-        player: "Spieler",
-        score: "Punktzahl",
-        difficulty: "Schwierigkeit",
-        hard_badge: "Schwer",
-        medium_badge: "Mittel",
-        easy_badge: "Einfach",
-        footer: "© 2025 Simon Spiel - Testen Sie Ihr Gedächtnis"
-    }
-};
-
-function changeLanguage(lang) {
-    document.documentElement.lang = lang;
-    const elements = document.querySelectorAll('[data-translate]');
-    elements.forEach(el => {
-        const key = el.getAttribute('data-translate');
-        if (translations[lang] && translations[lang][key]) {
-            el.textContent = translations[lang][key];
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
+    <script>
+    const translations = {
+        en: {
+            title: "Simon",
+            choose_level: "Choose Level",
+            select_difficulty: "Select difficulty",
+            easy: "Easy - Normal speed",
+            medium: "Medium - Fast speed",
+            hard: "Hard - Very fast speed",
+            start_game: "Start Game",
+            high_scores: "High Scores",
+            position: "Position",
+            player: "Player",
+            score: "Score",
+            difficulty: "Difficulty",
+            hard_badge: "Hard",
+            medium_badge: "Medium",
+            easy_badge: "Easy",
+            footer: "© 2025 Simon Game - Test your memory skills"
+        },
+        fr: {
+            title: "Simon",
+            choose_level: "Choisir le niveau",
+            select_difficulty: "Sélectionner la difficulté",
+            easy: "Facile - Vitesse normale",
+            medium: "Moyen - Vitesse rapide",
+            hard: "Difficile - Vitesse très rapide",
+            start_game: "Commencer le jeu",
+            high_scores: "Meilleurs scores",
+            position: "Position",
+            player: "Joueur",
+            score: "Score",
+            difficulty: "Difficulté",
+            hard_badge: "Difficile",
+            medium_badge: "Moyen",
+            easy_badge: "Facile",
+            footer: "© 2025 Jeu Simon - Testez votre mémoire"
+        },
+        de: {
+            title: "Simon",
+            choose_level: "Level wählen",
+            select_difficulty: "Schwierigkeit wählen",
+            easy: "Einfach - Normale Geschwindigkeit",
+            medium: "Mittel - Schnelle Geschwindigkeit",
+            hard: "Schwer - Sehr schnelle Geschwindigkeit",
+            start_game: "Spiel starten",
+            high_scores: "Bestenliste",
+            position: "Position",
+            player: "Spieler",
+            score: "Punktzahl",
+            difficulty: "Schwierigkeit",
+            hard_badge: "Schwer",
+            medium_badge: "Mittel",
+            easy_badge: "Einfach",
+            footer: "© 2025 Simon Spiel - Testen Sie Ihr Gedächtnis"
         }
-    });
-}
+    };
 
-// Initialiser la langue par défaut à l’ouverture
-document.addEventListener('DOMContentLoaded', () => {
-    const select = document.getElementById('languageSelect');
-    changeLanguage(select.value);
-});
-</script>
+    function changeLanguage(lang) {
+        document.documentElement.lang = lang;
+        const elements = document.querySelectorAll('[data-translate]');
+        elements.forEach(element => {
+            const key = element.getAttribute('data-translate');
+            if (translations[lang] && translations[lang][key]) {
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = translations[lang][key];
+                } else {
+                    element.textContent = translations[lang][key];
+                }
+            }
+        });
+    }
 
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require("phpMQTT.php"); // assurez-vous d’avoir ce fichier ou la bonne lib MQTT
 
-use PhpMqtt\Client\MqttClient;
-use PhpMqtt\Client\ConnectionSettings;
+$server = "10.0.200.7";     // Adresse de votre broker MQTT
+$port = 1883;               // Port MQTT
+$username = "";             // Facultatif
+$password = "";             // Facultatif
+$client_id = "phpMQTT-simon-start";
 
-// Vérifier si le formulaire a été soumis
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['difficulty'])) {
-    $difficulty = $_POST['difficulty'];
+$mqtt = new phpMQTT($server, $port, $client_id);
 
-    // Mappage des niveaux de difficulté à des valeurs numériques
-    $difficultyMap = [
-        'easy' => 0,
-        'medium' => 1,
-        'hard' => 2
-    ];
-
-    if (!array_key_exists($difficulty, $difficultyMap)) {
-        die('Difficulté invalide sélectionnée.');
-    }
-
-    $difficultyValue = $difficultyMap[$difficulty];
-
-    // Paramètres de connexion MQTT
-    $server = '10.0.200.9';
-    $port = 1883;
-    $clientId = 'simon-php-client-' . rand(1, 999999);
-    $mqttVersion = MqttClient::MQTT_3_1;
-
-    $connectionSettings = (new ConnectionSettings)
-        ->setKeepAliveInterval(60)
-        ->setLastWillTopic('site/lastwill')
-        ->setLastWillMessage('Client déconnecté')
-        ->setLastWillQualityOfService(0);
-
-    $mqtt = new MqttClient($server, $port, $clientId, $mqttVersion);
-
-    try {
-        $mqtt->connect($connectionSettings, true);
-        $mqtt->publish('site/start', 'true', 0);
-
-        usleep(1000000); // 1 seconde
-        $difficultyMessage = json_encode(['dif' => $difficultyValue]);
-        $mqtt->publish('site/difficulte', $difficultyMessage, 0);
-
-        $mqtt->disconnect();
-        header('Location: index.html');
-        exit();
-    } catch (Exception $e) {
-        echo 'Erreur lors de la connexion au broker MQTT : ' . $e->getMessage();
-    }
+if ($mqtt->connect(true, NULL, $username, $password)) {
+    $mqtt->publish("site/start", "true", 0);
+    $mqtt->close();
+    echo "Jeu lancé via MQTT !";
+} else {
+    echo "Échec de la connexion MQTT.";
 }
 ?>
+
+    </script>
 </body>
 </html>
