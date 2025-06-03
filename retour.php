@@ -179,6 +179,11 @@ if (isset($_POST['difficulty'])) {
             -webkit-backdrop-filter: blur(5px);
         }
 
+        .language-selector select:hover {
+            border-color: var(--simon-blue);
+            box-shadow: 0 0 15px rgba(51, 153, 255, 0.3);
+        }
+
         .debug-messages {
             margin-top: 20px;
             padding: 10px;
@@ -238,15 +243,11 @@ if (isset($_POST['difficulty'])) {
         }
     };
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Utiliser la langue transmise par le formulaire
-        const selectedLang = "<?php echo $selected_language; ?>";
-        document.getElementById('languageSelect').value = selectedLang;
-        changeLanguage(selectedLang);
-    });
-
+    // Fonction pour changer la langue et sauvegarder le choix
     function changeLanguage(lang) {
         document.documentElement.lang = lang;
+        localStorage.setItem('selectedLanguage', lang); // Sauvegarde la langue dans le localStorage
+
         const elements = document.querySelectorAll('[data-translate]');
         elements.forEach(element => {
             const key = element.getAttribute('data-translate');
@@ -258,13 +259,35 @@ if (isset($_POST['difficulty'])) {
                 }
             }
         });
+
+        // Met à jour le sélecteur de langue
+        document.getElementById('languageSelect').value = lang;
     }
+
+    // Au chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        // Vérifie d'abord si une langue a été passée en POST
+        let initialLang = "<?php echo htmlspecialchars($selected_language); ?>";
+        
+        // Si pas de langue en POST, essaie de récupérer du localStorage
+        if (!initialLang) {
+            initialLang = localStorage.getItem('selectedLanguage');
+        }
+        
+        // Si toujours pas de langue, utilise la langue du navigateur
+        if (!initialLang) {
+            const userLang = navigator.language || navigator.userLanguage;
+            initialLang = userLang.startsWith('fr') ? 'fr' : userLang.startsWith('de') ? 'de' : 'en';
+        }
+
+        // Applique la langue
+        changeLanguage(initialLang);
+    });
     </script>
 
     <?php if (isset($_GET['debug'])): ?>
     <div class="debug-messages">
         <?php
-        // Afficher les messages de débogage si ?debug est présent dans l'URL
         echo "Debug Messages:\n";
         if (isset($_POST['difficulty'])) {
             echo "Difficulty: " . htmlspecialchars($_POST['difficulty']) . "\n";
