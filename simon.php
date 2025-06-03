@@ -1,4 +1,21 @@
 <?php
+/**
+ * @file simon.php
+ * @brief Page principale du jeu Simon - Interface de sélection de difficulté
+ *
+ * Cette page web constitue l'interface principale du jeu Simon.
+ * Elle permet aux utilisateurs de :
+ * - Sélectionner le niveau de difficulté du jeu
+ * - Changer la langue de l'interface
+ * - Lancer une nouvelle partie
+ *
+ * @author Treliann
+ * 
+ * @requires PHP 7.4+
+ * @requires phpMQTT.php
+ */
+
+// Configuration de l'encodage UTF-8
 header('Content-Type: text/html; charset=UTF-8');
 mb_internal_encoding('UTF-8');
 mb_http_output('UTF-8');
@@ -11,17 +28,25 @@ mb_http_output('UTF-8');
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Simon Game</title>
     <style>
+        /**
+         * @section Variables CSS Globales
+         * @description Définition des couleurs et dimensions principales du jeu
+         */
         :root {
-            --simon-green: #00cc66;
-            --simon-red: #ff3333;
-            --simon-yellow: #ffcc00;
-            --simon-blue: #3399ff;
-            --dark: #1a1a2e;
-            --light: #f6f6f6;
-            --spacing-md: clamp(1rem, 2vw, 2rem);
-            --radius: 15px;
+            --simon-green: #00cc66;    /* Couleur verte pour le bouton Simon */
+            --simon-red: #ff3333;      /* Couleur rouge pour le bouton Simon */
+            --simon-yellow: #ffcc00;   /* Couleur jaune pour le bouton Simon */
+            --simon-blue: #3399ff;     /* Couleur bleue pour le bouton Simon */
+            --dark: #1a1a2e;           /* Couleur de fond sombre */
+            --light: #f6f6f6;          /* Couleur claire pour le texte */
+            --spacing-md: clamp(1rem, 2vw, 2rem); /* Espacement adaptatif */
+            --radius: 15px;            /* Rayon des coins arrondis */
         }
 
+        /**
+         * @section Reset CSS
+         * @description Réinitialisation des styles par défaut
+         */
         * {
             margin: 0;
             padding: 0;
@@ -29,6 +54,10 @@ mb_http_output('UTF-8');
             -webkit-tap-highlight-color: transparent;
         }
 
+        /**
+         * @section Styles de Base
+         * @description Styles fondamentaux pour le body et html
+         */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             min-height: 100vh;
@@ -43,6 +72,10 @@ mb_http_output('UTF-8');
             height: -webkit-fill-available;
         }
 
+        /**
+         * @section Arrière-plan Décoratif
+         * @description Cercle SVG en arrière-plan
+         */
         body::before {
             content: '';
             position: fixed;
@@ -60,6 +93,10 @@ mb_http_output('UTF-8');
             pointer-events: none;
         }
 
+        /**
+         * @section Container Principal
+         * @description Conteneur principal de la page
+         */
         .container {
             width: min(95%, 1200px);
             margin: 0 auto;
@@ -73,6 +110,10 @@ mb_http_output('UTF-8');
             z-index: 1;
         }
 
+        /**
+         * @section En-tête du Jeu
+         * @description Styles pour l'en-tête et le titre
+         */
         .game-header {
             text-align: center;
             padding: clamp(1rem, 3vh, 3rem) 0;
@@ -93,6 +134,10 @@ mb_http_output('UTF-8');
             filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
         }
 
+        /**
+         * @section Grille de Jeu
+         * @description Layout principal des panneaux de jeu
+         */
         .game-panel {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
@@ -100,6 +145,10 @@ mb_http_output('UTF-8');
             flex: 1;
         }
 
+        /**
+         * @section Panneaux
+         * @description Styles communs pour les panneaux de jeu
+         */
         .panel {
             background: rgba(26, 26, 46, 0.95);
             backdrop-filter: blur(10px);
@@ -121,6 +170,10 @@ mb_http_output('UTF-8');
             box-shadow: 0 0 30px rgba(255, 51, 51, 0.2);
         }
 
+        /**
+         * @section Formulaire de Difficulté
+         * @description Styles pour le formulaire de sélection de difficulté
+         */
         .difficulty-form {
             display: flex;
             flex-direction: column;
@@ -144,6 +197,10 @@ mb_http_output('UTF-8');
             padding: 0.5rem;
         }
 
+        /**
+         * @section Boutons
+         * @description Styles pour les boutons principaux
+         */
         .btn-primary {
             width: 100%;
             padding: clamp(0.8rem, 2vw, 1.2rem);
@@ -160,12 +217,10 @@ mb_http_output('UTF-8');
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-            background: linear-gradient(45deg, var(--simon-blue), var(--simon-green));
-        }
-
+        /**
+         * @section Tableau des Scores
+         * @description Styles pour le tableau des meilleurs scores
+         */
         .score-table {
             width: 100%;
             border-collapse: collapse;
@@ -187,6 +242,10 @@ mb_http_output('UTF-8');
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /**
+         * @section Badges de Difficulté
+         * @description Styles pour les indicateurs de difficulté
+         */
         .difficulty-badge {
             padding: 0.3em 0.6em;
             border-radius: 1em;
@@ -200,6 +259,10 @@ mb_http_output('UTF-8');
         .medium-badge { background: var(--simon-yellow); color: #000; }
         .hard-badge { background: var(--simon-red); }
 
+        /**
+         * @section Sélecteur de Langue
+         * @description Styles pour le sélecteur de langue
+         */
         .language-selector {
             position: fixed;
             bottom: clamp(10px, 2vw, 20px);
@@ -219,6 +282,10 @@ mb_http_output('UTF-8');
             -webkit-backdrop-filter: blur(5px);
         }
 
+        /**
+         * @section Pied de Page
+         * @description Styles pour le pied de page
+         */
         footer {
             text-align: center;
             font-size: clamp(0.8rem, 2vw, 1rem);
@@ -226,6 +293,10 @@ mb_http_output('UTF-8');
             padding: 1rem 0;
         }
 
+        /**
+         * @section Media Queries
+         * @description Adaptations responsives
+         */
         @media (max-width: 480px) {
             .score-table {
                 display: block;
@@ -279,12 +350,16 @@ mb_http_output('UTF-8');
     </style>
 </head>
 <body>
+    <!-- Structure principale -->
     <div class="container">
+        <!-- En-tête avec titre -->
         <header class="game-header">
             <h1 class="game-title" data-translate="title">Simon Game</h1>
         </header>
 
+        <!-- Zone de jeu principale -->
         <main class="game-panel">
+            <!-- Panneau de contrôle -->
             <div class="control-panel panel">
                 <form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">
                     <select name="difficulty" class="form-select">
@@ -297,6 +372,7 @@ mb_http_output('UTF-8');
                 </form>
             </div>
 
+            <!-- Panneau des scores -->
             <div class="highscores-panel panel">
                 <table class="score-table">
                     <thead>
@@ -327,10 +403,12 @@ mb_http_output('UTF-8');
             </div>
         </main>
 
+        <!-- Pied de page -->
         <footer>
             <span data-translate="footer">2025 Simon Game - Testez votre memoire</span>
         </footer>
 
+        <!-- Sélecteur de langue -->
         <div class="language-selector">
             <select id="languageSelect" onchange="changeLanguage(this.value)">
                 <option value="fr">[FR] Francais</option>
@@ -340,74 +418,111 @@ mb_http_output('UTF-8');
         </div>
     </div>
 
+    <!-- Scripts -->
     <script>
-        const translations = {
-            en: {
-                title: "Simon Game",
-                easy: "Easy",
-                medium: "Medium",
-                hard: "Hard",
-                start_game: "Start Game",
-                player: "Player",
-                score: "Score",
-                difficulty: "Difficulty",
-                footer: "2025 Simon Game - Test your memory skills"
-            },
-            fr: {
-                title: "Simon Game",
-                easy: "Facile",
-                medium: "Moyen",
-                hard: "Difficile",
-                start_game: "Demarrer le jeu",
-                player: "Joueur",
-                score: "Score",
-                difficulty: "Difficulte",
-                footer: "2025 Simon Game - Testez votre memoire"
-            },
-            de: {
-                title: "Simon Spiel",
-                easy: "Einfach",
-                medium: "Mittel",
-                hard: "Schwer",
-                start_game: "Spiel starten",
-                player: "Spieler",
-                score: "Punktzahl",
-                difficulty: "Schwierigkeit",
-                footer: "2025 Simon Spiel - Testen Sie Ihr Gedachtnis"
-            }
-        };
+    /**
+     * @namespace SimonGame
+     * @description Espace de noms pour les fonctionnalités du jeu Simon
+     */
 
-        // Fonction pour changer la langue et sauvegarder le choix
-        function changeLanguage(lang) {
-            document.documentElement.lang = lang;
-            localStorage.setItem('selectedLanguage', lang);
-            document.getElementById('selected_language').value = lang;
+    /**
+     * @typedef {Object} Translation
+     * @property {string} title - Titre du jeu
+     * @property {string} easy - Niveau facile
+     * @property {string} medium - Niveau moyen
+     * @property {string} hard - Niveau difficile
+     * @property {string} start_game - Texte du bouton démarrer
+     * @property {string} player - En-tête colonne joueur
+     * @property {string} score - En-tête colonne score
+     * @property {string} difficulty - En-tête colonne difficulté
+     * @property {string} footer - Texte du pied de page
+     */
 
-            const elements = document.querySelectorAll('[data-translate]');
-            elements.forEach(element => {
-                const key = element.getAttribute('data-translate');
-                if (translations[lang] && translations[lang][key]) {
-                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                        element.placeholder = translations[lang][key];
-                    } else {
-                        element.textContent = translations[lang][key];
-                    }
-                }
-            });
-
-            // Met a jour le selecteur de langue
-            document.getElementById('languageSelect').value = lang;
+    /**
+     * @constant {Object.<string, Translation>}
+     * @description Objet contenant toutes les traductions disponibles
+     * @memberof SimonGame
+     */
+    const translations = {
+        en: {
+            title: "Simon Game",
+            easy: "Easy",
+            medium: "Medium",
+            hard: "Hard",
+            start_game: "Start Game",
+            player: "Player",
+            score: "Score",
+            difficulty: "Difficulty",
+            footer: "2025 Simon Game - Test your memory skills"
+        },
+        fr: {
+            title: "Simon Game",
+            easy: "Facile",
+            medium: "Moyen",
+            hard: "Difficile",
+            start_game: "Demarrer le jeu",
+            player: "Joueur",
+            score: "Score",
+            difficulty: "Difficulte",
+            footer: "2025 Simon Game - Testez votre memoire"
+        },
+        de: {
+            title: "Simon Spiel",
+            easy: "Einfach",
+            medium: "Mittel",
+            hard: "Schwer",
+            start_game: "Spiel starten",
+            player: "Spieler",
+            score: "Punktzahl",
+            difficulty: "Schwierigkeit",
+            footer: "2025 Simon Spiel - Testen Sie Ihr Gedachtnis"
         }
+    };
 
-        // Au chargement de la page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Recupere la langue sauvegardee ou utilise celle du navigateur
-            const savedLang = localStorage.getItem('selectedLanguage');
-            const userLang = navigator.language || navigator.userLanguage;
-            const initialLang = savedLang || (userLang.startsWith('fr') ? 'fr' : userLang.startsWith('de') ? 'de' : 'en');
-            
-            changeLanguage(initialLang);
+    /**
+     * @function changeLanguage
+     * @description Change la langue de l'interface utilisateur
+     * @param {string} lang - Code de la langue à appliquer (fr|en|de)
+     * @memberof SimonGame
+     * @example
+     * changeLanguage('fr'); // Change la langue en français
+     * @returns {void}
+     */
+    function changeLanguage(lang) {
+        document.documentElement.lang = lang;
+        localStorage.setItem('selectedLanguage', lang);
+        document.getElementById('selected_language').value = lang;
+
+        const elements = document.querySelectorAll('[data-translate]');
+        elements.forEach(element => {
+            const key = element.getAttribute('data-translate');
+            if (translations[lang] && translations[lang][key]) {
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = translations[lang][key];
+                } else {
+                    element.textContent = translations[lang][key];
+                }
+            }
         });
+
+        document.getElementById('languageSelect').value = lang;
+    }
+
+    /**
+     * @function initializeLanguage
+     * @description Initialise la langue de l'interface au chargement de la page
+     * @memberof SimonGame
+     * @listens DOMContentLoaded
+     * @returns {void}
+     */
+    document.addEventListener('DOMContentLoaded', function initializeLanguage() {
+        const savedLang = localStorage.getItem('selectedLanguage');
+        const userLang = navigator.language || navigator.userLanguage;
+        const initialLang = savedLang || (userLang.startsWith('fr') ? 'fr' : 
+                                        userLang.startsWith('de') ? 'de' : 'en');
+        
+        changeLanguage(initialLang);
+    });
     </script>
 </body>
 </html>
