@@ -42,9 +42,71 @@ import sys
 import time
 import os
 import pygame.mixer
-import msvcrt
+import platform
 
+IS_WINDOWS = platform.system() == "Windows"
 
+if IS_WINDOWS:
+    import msvcrt
+else:
+    import select
+    import termios
+    import tty
+def input_with_timeout(prompt, timeout):
+    """
+    Fonction input compatible Windows et Linux avec timeout
+    Retourne None si timeout expiré
+    """
+    print(prompt, end='', flush=True)
+    if IS_WINDOWS:
+        start_time = time.time()
+        input_str = ""
+        while True:
+            if msvcrt.kbhit():
+                char = msvcrt.getch()
+                if char in [b'\r', b'\n']:
+                    print()
+                    return input_str
+                elif char == b'\x08':  # backspace
+                    input_str = input_str[:-1]
+                    print('\b \b', end='', flush=True)
+                else:
+                    try:
+                        char_decoded = char.decode('utf-8')
+                        input_str += char_decoded
+                        print(char_decoded, end='', flush=True)
+                    except Exception:
+                        pass
+            if time.time() - start_time > timeout:
+                print()
+                return None
+            time.sleep(0.01)
+    else:
+        # Linux (Raspberry Pi)
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            rlist, _, _ = select.select([fd], [], [], timeout)
+            if rlist:
+                input_str = ""
+                while True:
+                    char = sys.stdin.read(1)
+                    if char in ['\r', '\n']:
+                        print()
+                        return input_str
+                    elif char == '\x7f':  # backspace
+                        input_str = input_str[:-1]
+                        print('\b \b', end='', flush=True)
+                    else:
+                        input_str += char
+                        print(char, end='', flush=True)
+            else:
+                print()
+                return None
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return None
 class Son:
     """
     Gestionnaire audio pour le jeu Simon.
@@ -976,12 +1038,12 @@ class JeuSimon:
                 choix = None
                 
                 while True:
-                    if msvcrt.kbhit():
-                        char = msvcrt.getch().decode('utf-8').lower()
-                        if char in ['0', '1', '2', '3', 'q']:
-                            choix = char
-                            print(char)  # Afficher le caractère saisi
-                            break
+                    char = get_single_char()
+                    if char and char in ['0', '1', '2', '3', 'q']:
+                        choix = char
+                        print(char)
+                        break
+
                     
                     current_time = time.time()
                     temps_ecoule = current_time - sequence_start_time
