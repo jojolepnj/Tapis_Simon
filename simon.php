@@ -1,3 +1,6 @@
+<?php
+header('Content-Type: text/html; charset=UTF-8');
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -213,6 +216,13 @@
             -webkit-backdrop-filter: blur(5px);
         }
 
+        .flag-icon {
+            display: inline-block;
+            width: 1.2em;
+            margin-right: 0.5em;
+            vertical-align: middle;
+        }
+
         footer {
             text-align: center;
             font-size: clamp(0.8rem, 2vw, 1rem);
@@ -327,9 +337,9 @@
 
         <div class="language-selector">
             <select id="languageSelect" onchange="changeLanguage(this.value)">
-                <option value="fr">&#x1F1EB;&#x1F1F7; Français</option>
-                <option value="en">&#x1F1EC;&#x1F1E7; English</option>
-                <option value="de">&#x1F1E9;&#x1F1EA; Deutsch</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="de">🇩🇪 Deutsch</option>
             </select>
         </div>
     </div>
@@ -371,11 +381,12 @@
             }
         };
 
+        // Fonction pour changer la langue et sauvegarder le choix
         function changeLanguage(lang) {
             document.documentElement.lang = lang;
-            // Mettre à jour le champ caché
+            localStorage.setItem('selectedLanguage', lang);
             document.getElementById('selected_language').value = lang;
-            
+
             const elements = document.querySelectorAll('[data-translate]');
             elements.forEach(element => {
                 const key = element.getAttribute('data-translate');
@@ -387,13 +398,19 @@
                     }
                 }
             });
+
+            // Met à jour le sélecteur de langue
+            document.getElementById('languageSelect').value = lang;
         }
 
+        // Au chargement de la page
         document.addEventListener('DOMContentLoaded', function() {
+            // Récupère la langue sauvegardée ou utilise celle du navigateur
+            const savedLang = localStorage.getItem('selectedLanguage');
             const userLang = navigator.language || navigator.userLanguage;
-            const defaultLang = userLang.startsWith('fr') ? 'fr' : userLang.startsWith('de') ? 'de' : 'en';
-            document.getElementById('languageSelect').value = defaultLang;
-            changeLanguage(defaultLang);
+            const initialLang = savedLang || (userLang.startsWith('fr') ? 'fr' : userLang.startsWith('de') ? 'de' : 'en');
+            
+            changeLanguage(initialLang);
         });
     </script>
 </body>
