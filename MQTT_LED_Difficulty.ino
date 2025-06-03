@@ -11,7 +11,7 @@ String ssid;
 String password;
 
 // Configuration MQTT
-const char* mqtt_server = "192.168.1.106";
+const char* mqtt_server = "192.168.1.100"; //adresse fixe de la raspberry pi 5 
 const int mqtt_port = 1883;
 const char* subscribe_topic = "Tapis/sequence";
 const char* publish_topic = "LED/status";
