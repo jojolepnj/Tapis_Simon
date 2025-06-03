@@ -73,8 +73,8 @@
             padding: clamp(1rem, 3vh, 3rem) 0;
         }
 
-        .game-title {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
+        .game-title {<form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">
+            font-size: clamp(2.5rem, 8<form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">vw, 4.5rem);
             text-transform: uppercase;
             letter-spacing: 4px;
             background: linear-gradient(45deg, 
@@ -213,7 +213,23 @@
             opacity: 0.7;
             padding: 1rem 0;
         }
-
+        .alert {
+        padding: 1rem;
+        border-radius: var(--radius);
+        margin: 1rem 0;
+        text-align: center;
+        }
+        
+        .alert.success {
+            background-color: var(--simon-green);
+            color: white;
+        }
+        
+        .alert.error {
+            background-color: var(--simon-red);
+            color: white;
+        }
+        
         @media (max-width: 480px) {
             .score-table {
                 display: block;
@@ -266,6 +282,16 @@
     </style>
 </head>
 <body>
+    <?php
+    if (isset($_GET['status'])) {
+        if ($_GET['status'] === 'started') {
+            echo '<div class="alert success">Game started successfully!</div>';
+        } else if ($_GET['status'] === 'error') {
+            echo '<div class="alert error">Error starting game. Please try again.</div>';
+        }
+    }
+    ?>
+        
     <div class="container">
         <header class="game-header">
             <h1 class="game-title" data-translate="title">Simon</h1>
@@ -274,7 +300,7 @@
         <main class="game-panel">
             <div class="control-panel panel">
                 <h2 data-translate="choose_level">Choose Level</h2>
-                <form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">
+                <form id="difficulty-form" class="difficulty-form" action="start_game.php" method="post">
                     <select class="form-select" name="difficulty" required>
                         <option value="" selected disabled data-translate="select_difficulty">Select difficulty</option>
                         <option value="easy" data-translate="easy">Easy - Normal speed</option>
@@ -408,26 +434,6 @@
             }
         });
     }
-
-<?php
-require("phpMQTT.php"); // assurez-vous d’avoir ce fichier ou la bonne lib MQTT
-
-$server = "10.0.200.7";     // Adresse de votre broker MQTT
-$port = 1883;               // Port MQTT
-$username = "";             // Facultatif
-$password = "";             // Facultatif
-$client_id = "phpMQTT-simon-start";
-
-$mqtt = new phpMQTT($server, $port, $client_id);
-
-if ($mqtt->connect(true, NULL, $username, $password)) {
-    $mqtt->publish("site/start", "true", 0);
-    $mqtt->close();
-    echo "Jeu lancé via MQTT !";
-} else {
-    echo "Échec de la connexion MQTT.";
-}
-?>
 
     </script>
 </body>
