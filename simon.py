@@ -1,5 +1,5 @@
 from datetime import datetime
-from queue import Queue, Empty 
+from queue import Queue, Empty
 from threading import Event, Thread
 
 import random
@@ -13,389 +13,141 @@ import pygame.mixer
 import msvcrt
 
 class Son:
-    def __init__(self, broker="10.0.200.9", port=1883, topic="Tapis/sequence", mqtt_client=None):
+    def __init__(self, broker="10.0.200.7", port=1883, topic="Tapis/sequence", mqtt_client=None):
         # Initialiser pygame.mixer pour l'audio
         pygame.mixer.init()
-        pygame.mixer.set_num_channels(16)
-        
+        pygame.mixer.set_num_channels(16)        
         # Ajouter une queue pour les sons à jouer
-        self.sound_queue = Queue()
-        
+        self.sound_queue = Queue()       
         # Configuration MQTT
         self.topic = topic
         self.difficulty_topic = "site/difficulte"  # Définir explicitement
-        
         if mqtt_client:
             self.client = mqtt_client
         else:
             self.client = mqtt.Client()
             self.client.on_connect = self.on_connect
             self.client.on_message = self.on_message
- 
-
-        
- 
-
         # Obtenir le chemin du dossier courant
- 
-
         current_dir = os.path.dirname(os.path.abspath(__file__))
- 
-
-        sounds_dir = os.path.join(current_dir, "son")
- 
-
-        
- 
-
+        # Chemin du dossier des sons
+        sounds_dir = os.path.join(current_dir, "son")       
         # Dictionnaire pour stocker les sons préchargés
- 
-
-        self.sounds = {}
- 
-
-        
- 
-
+        self.sounds = {}        
         # Charger tous les sons au démarrage
- 
-
         for i in range(0, 6):
- 
-
             try:
- 
-
                 sound_path = os.path.join(sounds_dir, f"son{i}.mp3")
- 
-
                 if os.path.exists(sound_path):
- 
-
                     self.sounds[i] = pygame.mixer.Sound(sound_path)
- 
-
                     print(f"Son {i} chargé avec succès")
- 
-
                 else:
- 
-
                     print(f"Attention: Fichier son{i}.mp3 non trouvé dans {sound_path}")
- 
-
             except Exception as e:
- 
-
-                print(f"Erreur lors du chargement du son {i}: {e}")
- 
-
-        
- 
-
+                print(f"Erreur lors du chargement du son {i}: {e}")        
         # Variables pour la difficulté
- 
-
         self.difficulty_level = 0  # 0=normal, 1=progressive, 2=accelerating
- 
-
-        self.base_display_time = 2  # Temps d'affichage de base (en secondes)
- 
-
-        
- 
-
+        self.base_display_time = 2  # Temps d'affichage de base (en secondes)        
         # Connexion au broker MQTT
- 
-
         try:
             self.client.connect(broker, port, 60)
             print(f"Connexion réussie au broker MQTT: {broker}:{port}")
             self.client.loop_start()
         except Exception as e:
             print(f"Erreur de connexion au broker MQTT: {e}")
- 
-
-        
- 
-
         # Démarrer le thread MQTT
- 
-
-        self.client.loop_start()
- 
-
-        
- 
-
+        self.client.loop_start()       
         # Démarrer le thread de lecture des sons
- 
-
         self.running = True
- 
-
         self.sound_thread = Thread(target=self._sound_worker, daemon=True)
- 
-
         self.sound_thread.start()
- 
     def _sound_worker(self):
- 
-
         """Thread worker pour jouer les sons"""
- 
-
         while self.running:
- 
-
             try:
- 
-
                 sequence = self.sound_queue.get(timeout=0.1)
- 
-
                 self._play_sounds(sequence)
- 
-
             except Empty:
- 
-
                 continue
- 
-
             except Exception as e:
- 
-
                 print(f"Erreur dans le worker de son: {e}")
     def _play_sounds(self, sequence):
- 
-
         """Joue une séquence de sons"""
- 
-
         current_display_time = self.base_display_time
- 
-
         for idx, number in enumerate(sequence):
- 
-
             if number in self.sounds:
- 
-
                 try:
- 
-
                     # Ajuster le délai en fonction de la difficulté
- 
-
                     if self.difficulty_level == 1:  # Mode progressif
- 
-
                         sequence_multiple = idx // 5
- 
-
                         animation_speed_factor = 1.0 / (1 + (sequence_multiple * 0.2))  # Réduction de 20% tous les 5 sons
- 
-
                         current_display_time = self.base_display_time * animation_speed_factor
- 
-
                     elif self.difficulty_level == 2:  # Mode accéléré
- 
-
                         animation_speed_factor = 1.0 / (1 + (idx * 0.1))  # Réduction de 10% à chaque son
- 
-
                         current_display_time = self.base_display_time * animation_speed_factor
- 
-
-
- 
-
                     print(f"Lecture du son {number} avec un délai de {current_display_time:.2f} secondes")
- 
-
                     pygame.mixer.stop()
- 
-
                     self.sounds[number].play()
- 
-
                     time.sleep(current_display_time)
- 
-
                 except Exception as e:
- 
-
                     print(f"Erreur lors de la lecture du son {number}: {e}")
- 
-
             else:
- 
-
                 print(f"Son {number} non trouvé dans la bibliothèque")
- 
-
-
- 
 
     def play_sequence(self, sequence):
- 
-
         """Ajoute une séquence de sons à la queue"""
- 
-
         self.sound_queue.put(sequence)
- 
-
-
- 
 
     def on_message(self, client, userdata, msg):
- 
-
         """Callback appelé lors de la réception d'un message MQTT"""
- 
-
         try:
- 
-
             payload = msg.payload.decode()
- 
-
             print(f"Message reçu sur le topic {msg.topic}: {payload}")
- 
-
             data = json.loads(payload)
- 
-
             
- 
-
             if msg.topic == self.difficulty_topic:
- 
-
                 # Gestion des messages de difficulté
- 
-
                 if "dif" in data:
- 
-
                     new_difficulty = data["dif"]
- 
-
                     if 0 <= new_difficulty <= 2:
- 
-
                         self.difficulty_level = new_difficulty
- 
-
                         print(f"Niveau de difficulté mis à jour: {self.difficulty_level}")
- 
-
                     else:
- 
-
                         print("Valeur de difficulté invalide")
- 
-
             elif msg.topic == self.topic:
- 
-
                 # Gestion des messages de séquence
- 
-
                 if "couleur" in data and "pas" in data:
- 
-
                     sequence = data["couleur"]
- 
-
                     if data["pas"]:
- 
-
                         sequence.insert(0, 5)
- 
-
                         sequence.append(5)
- 
-
                     self.play_sequence(sequence)
- 
-
                 else:
- 
-
                     print("Format du message incorrect")
- 
-
         except Exception as e:
- 
-
             print(f"Erreur lors du traitement du message: {e}")
- 
-
-
- 
-
     def on_connect(self, client, userdata, flags, rc):
- 
-
         if rc == 0:
- 
-
             print(f"Connecté aux topics: {self.topic}, {self.difficulty_topic}")
- 
-
             client.subscribe(self.topic)
- 
-
             client.subscribe(self.difficulty_topic)
- 
-
         else:
- 
-
             print(f"Échec de connexion, code retour = {rc}")
- 
-
-
- 
-
     def stop(self):
- 
-
         """Arrête proprement le lecteur"""
- 
-
         self.running = False
- 
-
         if self.sound_thread.is_alive():
- 
-
             self.sound_thread.join(timeout=1)
- 
-
         pygame.mixer.stop()
- 
-
         pygame.mixer.quit()
- 
-
         self.client.loop_stop()
- 
-
         self.client.disconnect()
- 
-
         print("Déconnexion du broker MQTT")
 class JeuSimon:
     """
     Classe principale du jeu Simon.
     Gère la logique du jeu et la communication avec le SensFloor.
     """
-
     def __init__(self, mode_test=False):
         self.difficulty_topic = "site/difficulte"
         self.difficulty_timeout = 30  # 30 secondes pour choisir la difficulté
@@ -407,6 +159,7 @@ class JeuSimon:
             1: "moyen", 
             2: "difficile"
         }
+        self.dernier_pas = 0
         self.config_difficulte = {
             "facile": {
                 "temps_attente": 100.0,     # 20 secondes par couleur (augmenté)
@@ -428,8 +181,7 @@ class JeuSimon:
             }
         }
         self.mode_test = mode_test
-        self.current_mode = "test" if mode_test else "normal"
-        
+        self.current_mode = "test" if mode_test else "normal"       
         self.couleur_vers_chiffre = {
             'vert': 0,
             'rouge': 1,
@@ -444,22 +196,19 @@ class JeuSimon:
         }
         # Configuration MQTT
         self.mqtt_client = mqtt.Client()
-        self.mqtt_broker = "10.0.200.9"
+        self.mqtt_broker = "10.0.200.7"
         self.mqtt_port = 1883
-
         self.mqtt_topic = "Tapis/sequence"
         self.led_status_topic = "LED/status"
         self.start_topic = "site/start"  # Topic pour démarrer le jeu
-        self.game_started = False
-        
+        self.game_started = False       
         # Configure le callback pour la réception des messages
         self.mqtt_client.on_message = self.on_mqtt_message
         self.mqtt_client.subscribe([
             (self.start_topic, 0),
             (self.difficulty_topic, 0)
         ])  # Nouveau callback pour les abonnements
-        self.mqtt_client.on_connect = self.on_connect 
-
+        self.mqtt_client.on_connect = self.on_connect
         # Initialize MQTT connection
         try:
             self.mqtt_client.connect(self.mqtt_broker, self.mqtt_port)
@@ -469,7 +218,6 @@ class JeuSimon:
         self.sound_manager = Son(mqtt_client=self.mqtt_client)
         self.mqtt_client.subscribe([(self.led_status_topic, 0), (self.start_topic, 0)])
         self.mqtt_client.loop_start()
-
         # Création du client socket pour la communication réseau
         self.socket = socketio.Client(
             reconnection_delay=1,
@@ -479,18 +227,14 @@ class JeuSimon:
             logger=False,
             engineio_logger=False
         )
-
         # Création de l'état du jeu
-        self.etat = EtatJeu()
-        
+        self.etat = EtatJeu()       
         # Configuration des événements socket
         self._config_socket()
-
         # Démarrage du thread de surveillance des commandes
         self.running = True
         self.command_thread = Thread(target=self.mode_switch_monitor, daemon=True)
         self.command_thread.start()
-
         self.sound_manager = Son()
     def handle_difficulty_message(self, payload):
         """Traite le message de difficulté au format {'dif': 0-2}"""
@@ -511,15 +255,12 @@ class JeuSimon:
                 dif_value = int(dif_value)
                 
             if not isinstance(dif_value, int) or dif_value not in [0, 1, 2]:
-                raise ValueError("La valeur doit être 0, 1 ou 2")
-                
+                raise ValueError("La valeur doit être 0, 1 ou 2")                
             self.difficulte = self.difficulty_map[dif_value]
             self.difficulty_received = True
-            self.waiting_for_difficulty = False
-            
+            self.waiting_for_difficulty = False   
             print(f"Difficulté appliquée: {self.difficulte}")
-            self.afficher_parametres_difficulte()
-            
+            self.afficher_parametres_difficulte()            
             # Confirmation MQTT
             confirmation = {
                 "status": "ok",
@@ -527,8 +268,7 @@ class JeuSimon:
                 "applied_difficulty": self.difficulte,
                 "timestamp": datetime.now().isoformat()
             }
-            self.mqtt_client.publish(self.difficulty_topic, json.dumps(confirmation))
-            
+            self.mqtt_client.publish(self.difficulty_topic, json.dumps(confirmation))           
         except Exception as e:
             error_msg = {
                 "status": "error",
@@ -582,7 +322,6 @@ class JeuSimon:
             except Exception as e:
                 print(f"Command error: {e}")
                 break
-
     def switch_mode(self):
         """Switch between test and normal mode"""
         self.mode_test = not self.mode_test
@@ -606,7 +345,6 @@ class JeuSimon:
                 print("Falling back to TEST mode")
                 self.mode_test = True
                 self.current_mode = "test"
-
     # Add method for test mode simulation
     def mode_test_simuler_pas(self):
         """Version modifiée pour prendre en compte la difficulté"""
@@ -614,60 +352,47 @@ class JeuSimon:
         print("\nMode Test - Séquence à reproduire :")
         for i, couleur in enumerate(self.etat.sequence, 1):
             print(f"{i}. {couleur} ({self.couleur_vers_chiffre[couleur]})")
-        
         self.etat.preparer_tour()
         derniere_couleur = None
-        sequence_joueur = []
-        
+        sequence_joueur = []    
         while self.etat.position < len(self.etat.sequence):
             try:
                 print(f"\nEntrez la couleur {self.etat.position + 1}/{len(self.etat.sequence)}")
                 print("(0:vert, 1:rouge, 2:bleu, 3:jaune, q:quit)")
                 print("> ", end='', flush=True)  # Affiche le prompt sans nouvelle ligne
-                
                 # Démarre le chrono après avoir affiché le prompt
                 start_time = time.time()
                 choix = input().lower()  # Enlève le prompt ">" de input()
                 elapsed_time = time.time() - start_time
-                
                 if choix == 'q':
                     raise Exception("Test mode terminated")
-                
                 if choix in ['0', '1', '2', '3']:
                     # Vérifie le temps APRÈS avoir reçu une réponse valide
                     if elapsed_time > config['temps_attente']:
                         print(f"\nTemps écoulé ! Vous avez dépassé {config['temps_attente']} secondes.")
-                        return False
-                    
-                    couleur = self.chiffre_vers_couleur[int(choix)]
-                    
+                        return False  
+                    couleur = self.chiffre_vers_couleur[int(choix)]                   
                     if couleur == derniere_couleur:
                         print("Même couleur que la précédente, ignorée")
-                        continue
-                        
+                        continue                        
                     derniere_couleur = couleur
                     sequence_joueur.append(couleur)
                     self.etat.ajouter_couleur(couleur)
-                    print(f"Couleur ajoutée : {couleur}")
-                    
+                    print(f"Couleur ajoutée : {couleur}")                   
                     message = {
                         "couleur": [self.couleur_vers_chiffre[couleur]],
                         "pas": False
                     }
                     self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
-                    print(f"MQTT >>> [Tapis/sequence] Mode test - Couleur jouée : {json.dumps(message)}")
-                    
+                    print(f"MQTT >>> [Tapis/sequence] Mode test - Couleur jouée : {json.dumps(message)}")                   
                     if couleur != self.etat.sequence[self.etat.position - 1]:
                         print(f"\nErreur! Couleur attendue : {self.etat.sequence[self.etat.position - 1]}")
-                        return False
-                        
+                        return False                        
                 else:
-                    print("Entrée invalide. Utilisez 0-3 ou q pour quitter")
-                    
+                    print("Entrée invalide. Utilisez 0-3 ou q pour quitter")                    
             except Exception as e:
                 print(f"Erreur mode test : {e}")
                 return False
-        
         if sequence_joueur == self.etat.sequence:
             print("\nBravo! Séquence complétée avec succès!")
             return True
@@ -712,31 +437,21 @@ class JeuSimon:
         """
         try:
             if tmp == 3:
-                error_message = {
-                    "couleur": [4],
-                    "pas": False
-                }
+                error_message = {"couleur": [4], "pas": False}
                 self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_message))
                 print(f"Error sequence published to MQTT: {error_message}")
                 return
             sequence_chiffres = self.convertir_sequence_en_chiffres(sequence)
-            if tmp == 2: 
-                message = {
-                    "couleur": sequence_chiffres,
-                    "pas": True
-                }
+            if tmp == 2:
+                message = {"couleur": sequence_chiffres,"pas": True}
                 print(f"MQTT >>> [Tapis/sequence] Séquence complète : {json.dumps(message)}")
-            elif tmp == 1:  
-                message = {
-                    "couleur": [self.couleur_vers_chiffre[couleur]],  # Mettre le nombre dans une liste
-                    "pas": False }
+            elif tmp == 1:
+                message = {"couleur": [self.couleur_vers_chiffre[couleur]],"pas": False}
                 print(f"MQTT >>> [Tapis/sequence] Couleur unique : {json.dumps(message)}")
             self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
             print(f"Sequence published to MQTT: {message}")
         except Exception as e:
-            error_message = {
-                "couleur": [4],
-                "pas": False }
+            error_message = {"couleur": [4],"pas": False}
             self.mqtt_client.publish(self.mqtt_topic, json.dumps(error_message))
             print(f"Failed to publish to MQTT: {e}")
             print(f"Sent error sequence: {error_message}")
@@ -826,31 +541,23 @@ class JeuSimon:
             x, y = float(x), float(y)
             couleur = self.detecter_couleur(x, y)
             if couleur == 'inconnu':
-                return    
-            
+                return
             temps_actuel = time.time()
             # Vérifier si le temps minimum est écoulé et si la couleur est différente de la dernière
-            if (not hasattr(self, 'dernier_pas') or temps_actuel - self.dernier_pas > 0.5) and \
-            (not hasattr(self.etat, 'derniere_couleur_detectee') or couleur != self.etat.derniere_couleur_detectee):
-                
+            if  temps_actuel - self.dernier_pas > 0.5 and couleur != self.etat.derniere_couleur_detectee:
                 print(f"Nouvelle couleur : {couleur}")
                 self.etat.ajouter_couleur(couleur)
                 self.dernier_pas = temps_actuel
                 self.etat.derniere_couleur_detectee = couleur  # Sauvegarder la dernière couleur
-                
                 # Envoyer la couleur détectée en MQTT uniquement
                 chiffre = self.couleur_vers_chiffre[couleur]
-                message = {
-                    "couleur": [chiffre],
-                    "pas": False
-                }
+                message = {"couleur": [chiffre],"pas": False}
                 self.mqtt_client.publish(self.mqtt_topic, json.dumps(message))
                 print(f"MQTT >>> [Tapis/sequence] Détection pas : {json.dumps(message)}")
             else:
                 # Si c'est la même couleur, ne rien faire
-                if hasattr(self.etat, 'derniere_couleur_detectee') and couleur == self.etat.derniere_couleur_detectee:
+                if couleur == self.etat.derniere_couleur_detectee:
                     print(f"Même couleur que la précédente ({couleur}), ignorée")
-                
         except Exception as e:
             print(f"Erreur : {str(e)}")
     def attendre_fin_pas(self, timeout=1.0):
@@ -957,6 +664,9 @@ class JeuSimon:
                 sequence_joueur.append(couleur)
                 
                 # Vérifier si la couleur est correcte
+    # ... (previous code)
+
+                # Vérifier si la couleur est correcte
                 if couleur != self.etat.sequence[position]:
                     message = {
                         "couleur": [self.couleur_vers_chiffre[couleur]],
@@ -1023,6 +733,7 @@ class JeuSimon:
             time.sleep(0.1)  # Petite pause pour ne pas surcharger le CPU
             
         return sequence_joueur
+
     def lire_sequence_joueur(self, longueur_sequence):
         """Lit la séquence entrée par le joueur selon le mode de jeu"""
         config = self.config_difficulte[self.difficulte]
@@ -1037,6 +748,7 @@ class JeuSimon:
             return self.lire_sequence_test(longueur_sequence, temps_total)
         else:
             return self.lire_sequence_tapis(longueur_sequence, temps_total)
+
     def changer_difficulte(self, nouvelle_difficulte):
         """Change le niveau de difficulté du jeu"""
         if nouvelle_difficulte in self.config_difficulte:
@@ -1052,7 +764,7 @@ class JeuSimon:
             config = self.config_difficulte[self.difficulte]
             self.etat.sequence = []
             score = 0
-            derniere_couleur = None  # Initialiser la variable ici
+            derniere_couleur = None
             
             print("\n=== Début des messages MQTT ===")
             
@@ -1066,7 +778,7 @@ class JeuSimon:
                     couleurs_disponibles = [c for c in self.couleur_vers_chiffre.keys()
                                         if c != derniere_couleur]
                     nouvelle_couleur = random.choice(couleurs_disponibles)
-                    derniere_couleur = nouvelle_couleur  # Mettre à jour la dernière couleur
+                    derniere_couleur = nouvelle_couleur
                     self.etat.sequence.append(nouvelle_couleur)
                 
                 print("\nNouvelle séquence :")
@@ -1078,6 +790,14 @@ class JeuSimon:
                 if sequence_joueur is None:
                     # Partie perdue
                     print("\nPartie perdue !")
+                    # Envoyer le score final
+                    score_message = {
+                        "score": score,
+                        "difficulte": self.difficulte,
+                        "timestamp": datetime.now().isoformat()
+                    }
+                    self.mqtt_client.publish("Tapis/score", json.dumps(score_message))
+                    print(f"MQTT >>> [Tapis/score] Score final envoyé : {json.dumps(score_message)}")
                     self.reset_game()
                     return
                 
@@ -1087,12 +807,31 @@ class JeuSimon:
                 else:
                     # Partie perdue
                     print("\nPartie perdue !")
+                    # Envoyer le score final
+                    score_message = {
+                        "score": score,
+                        "difficulte": self.difficulte,
+                        "timestamp": datetime.now().isoformat()
+                    }
+                    self.mqtt_client.publish("Tapis/score", json.dumps(score_message))
+                    print(f"MQTT >>> [Tapis/score] Score final envoyé : {json.dumps(score_message)}")
                     self.reset_game()
                     return
                     
         except Exception as e:
             print(f"Erreur dans le jeu : {e}")
+            # Envoyer le score même en cas d'erreur
+            if 'score' in locals():
+                score_message = {
+                    "score": score,
+                    "difficulte": self.difficulte,
+                    "timestamp": datetime.now().isoformat(),
+                    "ended_with_error": True
+                }
+                self.mqtt_client.publish("Tapis/score", json.dumps(score_message))
+                print(f"MQTT >>> [Tapis/score] Score final envoyé (erreur) : {json.dumps(score_message)}")
             self.reset_game()
+
     def choisir_difficulte_avec_tapis(self):
         """Permet de choisir la difficulté en utilisant le tapis"""
         print("\nChoisissez la difficulté en marchant sur une couleur :")
@@ -1149,6 +888,7 @@ class JeuSimon:
                 self.traiter_pas(x, y)
         
         return self.difficulte
+
     def choisir_difficulte_manuelle(self):
         """Permet de choisir la difficulté manuellement"""
         print("Choisissez votre niveau de difficulté :")
@@ -1169,6 +909,7 @@ class JeuSimon:
                 break
             else:
                 print("Choix invalide. Veuillez choisir 1, 2 ou 3.")
+
     def demarrer(self):
         """Lance le jeu avec gestion MQTT de la difficulté"""
         print("\nBienvenue dans le Jeu Simon!")
@@ -1209,13 +950,11 @@ class JeuSimon:
                 game_thread.start()
                 if not self.socket.connected:
                     self.socket.wait()
-                    
             else:
                 print("Démarrage en mode TEST")
                 if not hasattr(self, 'difficulte'):
                     self.choisir_difficulte_manuelle()
                 self.demarrer_jeu()
-                
         except Exception as e:
             print(f"Erreur de connexion : {str(e)}")
             if "Already connected" not in str(e):  # Ignorer l'erreur de connexion déjà établie
@@ -1243,11 +982,16 @@ class JeuSimon:
             "example": {"dif": 1},
             "timestamp": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
         }
-        self.mqtt_client.publish(self.difficulty_topic, json.dumps(reminder))
-
+        self.mqtt_client.publish(self.mqtt_topic, json.dumps(reminder))
 
 class EtatJeu:
+    """
+    Classe pour gérer l'état du jeu.
+    """
     def __init__(self):
+        """
+        Initialise l'état du jeu.
+        """
         self.sequence = []
         self.score = 0
         self.couleurs = Queue()
@@ -1257,7 +1001,7 @@ class EtatJeu:
         self.pas_en_cours.clear()
         self.derniere_couleur_ajoutee = None
         self.derniere_detection = 0
-        self.derniere_couleur_detectee = None 
+        self.derniere_couleur_detectee = None
 
     def reinitialiser(self):
         """Remet à zéro l'état pour une nouvelle partie."""
@@ -1268,7 +1012,6 @@ class EtatJeu:
 
     def preparer_tour(self):
         """Prépare le jeu pour un nouveau tour."""
-        # Note: peut_jouer est maintenant géré via l'événement objects-update
         self.position = 0
         self.pas_en_cours.clear()
         self.derniere_couleur_ajoutee = None  # Réinitialise la dernière couleur
