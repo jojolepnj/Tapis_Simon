@@ -1,25 +1,59 @@
 <?php
+/**
+ * @file retour.php
+ * @brief Page de transition et communication MQTT pour le jeu Simon
+ * @details
+ * Cette page gère :
+ * - La réception des paramètres de jeu (difficulté, langue)
+ * - La communication avec le broker MQTT
+ * - L'envoi des commandes de démarrage au jeu
+ * - L'affichage d'une confirmation de lancement
+ * 
+ * @author Treliann
+ *
+ * @requires PHP 7.4+
+ * @requires phpMQTT.php
+ */
+
+/**
+ * @brief Configure les paramètres d'erreur et l'encodage
+ */
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+header('Content-Type: text/html; charset=UTF-8');
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
 
+/**
+ * @function debug_log
+ * @brief Fonction de journalisation pour le débogage
+ * @param string $message Message à enregistrer
+ * @return void
+ */
 function debug_log($message) {
     error_log($message);
     echo "<!-- Debug: " . htmlspecialchars($message) . " -->\n";
 }
 
+// Inclusion de la bibliothèque MQTT
 require("phpMQTT.php");
 
-$server = "10.0.200.7";
-$port = 1883;
+// Configuration de la connexion MQTT
+$server = "10.0.200.7";     // Adresse du broker MQTT
+$port = 1883;               // Port standard MQTT
 $client_id = "phpMQTT-simon-" . uniqid();
 
-// Récupérer la langue sélectionnée, par défaut 'fr'
+// Récupération de la langue sélectionnée
 $selected_language = isset($_POST['selected_language']) ? $_POST['selected_language'] : 'fr';
 
+/**
+ * @section Traitement MQTT
+ * @brief Gestion de la communication MQTT pour le démarrage du jeu
+ */
 if (isset($_POST['difficulty'])) {
     $difficulty = $_POST['difficulty'];
     
-    // Map difficulty to numeric value
+    // Correspondance des niveaux de difficulté
     $difficulty_map = [
         'easy' => 0,
         'medium' => 1,
@@ -34,13 +68,13 @@ if (isset($_POST['difficulty'])) {
         if ($mqtt->connect(true, NULL, "", "")) {
             debug_log("Connexion MQTT réussie");
             
-            // Envoi du message de difficulté
+            // Envoi du niveau de difficulté
             $difficulty_message = json_encode(['dif' => $difficulty_map[$difficulty]]);
             if ($mqtt->publish("site/difficulte", $difficulty_message, 0)) {
                 debug_log("Message de difficulté envoyé: $difficulty_message");
             }
             
-            // Attente courte
+            // Délai court pour assurer la séquence
             usleep(500000); // 500ms
             
             // Envoi du signal de démarrage
@@ -62,20 +96,29 @@ if (isset($_POST['difficulty'])) {
 <html lang="<?php echo htmlspecialchars($selected_language); ?>">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title data-translate="title">Page de Jeu</title>
     <style>
+        /**
+         * @section Variables CSS Globales
+         * @description Définition des couleurs et dimensions principales
+         */
         :root {
-            --simon-green: #00cc66;
-            --simon-red: #ff3333;
-            --simon-yellow: #ffcc00;
-            --simon-blue: #3399ff;
-            --dark: #1a1a2e;
-            --light: #f6f6f6;
-            --spacing-md: clamp(1rem, 2vw, 2rem);
-            --radius: 15px;
+            --simon-green: #00cc66;    /* Couleur verte pour le bouton Simon */
+            --simon-red: #ff3333;      /* Couleur rouge pour le bouton Simon */
+            --simon-yellow: #ffcc00;   /* Couleur jaune pour le bouton Simon */
+            --simon-blue: #3399ff;     /* Couleur bleue pour le bouton Simon */
+            --dark: #1a1a2e;           /* Couleur de fond sombre */
+            --light: #f6f6f6;          /* Couleur claire pour le texte */
+            --spacing-md: clamp(1rem, 2vw, 2rem); /* Espacement adaptatif */
+            --radius: 15px;            /* Rayon des coins arrondis */
         }
 
+        /**
+         * @section Reset CSS
+         * @description Réinitialisation des styles par défaut
+         */
         * {
             margin: 0;
             padding: 0;
@@ -83,6 +126,10 @@ if (isset($_POST['difficulty'])) {
             -webkit-tap-highlight-color: transparent;
         }
 
+        /**
+         * @section Styles de Base
+         * @description Styles fondamentaux pour le body
+         */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             min-height: 100vh;
@@ -93,6 +140,10 @@ if (isset($_POST['difficulty'])) {
             position: relative;
         }
 
+        /**
+         * @section Container Principal
+         * @description Conteneur principal de la page
+         */
         .container {
             width: min(95%, 1200px);
             margin: 0 auto;
@@ -106,6 +157,10 @@ if (isset($_POST['difficulty'])) {
             z-index: 1;
         }
 
+        /**
+         * @section En-tête du Jeu
+         * @description Styles pour l'en-tête
+         */
         .game-header {
             text-align: center;
             padding: clamp(1rem, 3vh, 3rem) 0;
@@ -126,6 +181,10 @@ if (isset($_POST['difficulty'])) {
             filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
         }
 
+        /**
+         * @section Bouton Principal
+         * @description Style du bouton de retour
+         */
         .btn-primary {
             width: 100%;
             padding: clamp(0.8rem, 2vw, 1.2rem);
@@ -144,6 +203,10 @@ if (isset($_POST['difficulty'])) {
             text-align: center;
         }
 
+        /**
+         * @section Panneau de Contrôle
+         * @description Style du panneau principal
+         */
         .panel {
             background: rgba(26, 26, 46, 0.95);
             backdrop-filter: blur(10px);
@@ -160,6 +223,10 @@ if (isset($_POST['difficulty'])) {
             box-shadow: 0 0 30px rgba(51, 153, 255, 0.2);
         }
 
+        /**
+         * @section Sélecteur de Langue
+         * @description Style du sélecteur de langue
+         */
         .language-selector {
             position: fixed;
             bottom: clamp(10px, 2vw, 20px);
@@ -179,11 +246,10 @@ if (isset($_POST['difficulty'])) {
             -webkit-backdrop-filter: blur(5px);
         }
 
-        .language-selector select:hover {
-            border-color: var(--simon-blue);
-            box-shadow: 0 0 15px rgba(51, 153, 255, 0.3);
-        }
-
+        /**
+         * @section Messages de Débogage
+         * @description Style pour les messages de débogage
+         */
         .debug-messages {
             margin-top: 20px;
             padding: 10px;
@@ -209,45 +275,58 @@ if (isset($_POST['difficulty'])) {
         </main>
 
         <footer>
-            <span data-translate="footer">© 2025 Simon Game - Testez votre mémoire</span>
+            <span data-translate="footer">2025 Simon Game - Testez votre memoire</span>
         </footer>
 
         <div class="language-selector">
             <select id="languageSelect" onchange="changeLanguage(this.value)">
-                <option value="fr">&#x1F1EB;&#x1F1F7; Français</option>
-                <option value="en">&#x1F1EC;&#x1F1E7; English</option>
-                <option value="de">&#x1F1E9;&#x1F1EA; Deutsch</option>
+                <option value="fr">[FR] Francais</option>
+                <option value="en">[EN] English</option>
+                <option value="de">[DE] Deutsch</option>
             </select>
         </div>
     </div>
 
     <script>
+    /**
+     * @namespace RetourPage
+     * @description Gestion des traductions et de la langue pour la page de retour
+     */
+
+    /**
+     * @constant {Object} translations
+     * @description Objet contenant toutes les traductions
+     * @memberof RetourPage
+     */
     const translations = {
         en: {
             title: "Game Page",
             game_launched: "The game has been launched",
             return_to_game: "Return to game",
-            footer: "© 2025 Simon Game - Test your memory skills"
+            footer: "2025 Simon Game - Test your memory skills"
         },
         fr: {
             title: "Page de Jeu",
             game_launched: "Le jeu a été lancé",
             return_to_game: "Retour au jeu",
-            footer: "© 2025 Simon Game - Testez votre mémoire"
+            footer: "2025 Simon Game - Testez votre memoire"
         },
         de: {
             title: "Spielseite",
             game_launched: "Das Spiel wurde gestartet",
             return_to_game: "Zurück zum Spiel",
-            footer: "© 2025 Simon Spiel - Testen Sie Ihr Gedächtnis"
+            footer: "2025 Simon Spiel - Testen Sie Ihr Gedachtnis"
         }
     };
 
-    // Fonction pour changer la langue et sauvegarder le choix
+    /**
+     * @function changeLanguage
+     * @description Change la langue de l'interface
+     * @param {string} lang - Code de la langue à appliquer
+     * @memberof RetourPage
+     */
     function changeLanguage(lang) {
         document.documentElement.lang = lang;
-        localStorage.setItem('selectedLanguage', lang); // Sauvegarde la langue dans le localStorage
-
         const elements = document.querySelectorAll('[data-translate]');
         elements.forEach(element => {
             const key = element.getAttribute('data-translate');
@@ -259,33 +338,24 @@ if (isset($_POST['difficulty'])) {
                 }
             }
         });
-
-        // Met à jour le sélecteur de langue
-        document.getElementById('languageSelect').value = lang;
     }
 
-    // Au chargement de la page
+    /**
+     * @function initializeLanguage
+     * @description Initialise la langue au chargement de la page
+     * @memberof RetourPage
+     * @listens DOMContentLoaded
+     */
     document.addEventListener('DOMContentLoaded', function() {
-        // Vérifie d'abord si une langue a été passée en POST
-        let initialLang = "<?php echo htmlspecialchars($selected_language); ?>";
-        
-        // Si pas de langue en POST, essaie de récupérer du localStorage
-        if (!initialLang) {
-            initialLang = localStorage.getItem('selectedLanguage');
-        }
-        
-        // Si toujours pas de langue, utilise la langue du navigateur
-        if (!initialLang) {
-            const userLang = navigator.language || navigator.userLanguage;
-            initialLang = userLang.startsWith('fr') ? 'fr' : userLang.startsWith('de') ? 'de' : 'en';
-        }
-
-        // Applique la langue
-        changeLanguage(initialLang);
+        // Utilise la langue transmise par le formulaire
+        const selectedLang = "<?php echo $selected_language; ?>";
+        document.getElementById('languageSelect').value = selectedLang;
+        changeLanguage(selectedLang);
     });
     </script>
 
     <?php if (isset($_GET['debug'])): ?>
+    <!-- Section de débogage -->
     <div class="debug-messages">
         <?php
         echo "Debug Messages:\n";
