@@ -1,4 +1,42 @@
 <!DOCTYPE html>
+<?php
+require("phpMQTT.php");
+
+$server = "10.0.200.7";     // Adresse de votre broker MQTT
+$port = 1883;               // Port MQTT
+$username = "";             // Facultatif
+$password = "";             // Facultatif
+$client_id = "phpMQTT-simon-start-" . uniqid();
+
+// Get the difficulty from the form
+$difficulty = isset($_POST['difficulty']) ? $_POST['difficulty'] : '';
+
+// Map difficulty to numeric value
+$difficulty_map = [
+    'easy' => 0,
+    'medium' => 1,
+    'hard' => 2
+];
+
+$mqtt = new phpMQTT($server, $port, $client_id);
+
+if ($mqtt->connect(true, NULL, $username, $password)) {
+    // First send the difficulty
+    $difficulty_message = json_encode(['dif' => $difficulty_map[$difficulty]]);
+    $mqtt->publish("site/difficulte", $difficulty_message, 0);
+    
+    // Then send the start signal
+    $mqtt->publish("site/start", "true", 0);
+    $mqtt->close();
+    
+    // Add this for debugging
+    error_log("MQTT messages sent successfully: Difficulty = " . $difficulty_message);
+} else {
+    error_log("Failed to connect to MQTT broker");
+}
+?>
+<html lang="fr">
+<!-- Rest of the existing retour.php file -->
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
