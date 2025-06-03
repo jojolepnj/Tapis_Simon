@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -33,7 +33,6 @@
             position: relative;
         }
 
-        /* Fix for iOS height issue */
         html {
             height: -webkit-fill-available;
         }
@@ -46,7 +45,7 @@
             transform: translate(-50%, -50%);
             width: min(200vw, 200vh);
             height: min(200vw, 200vh);
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1000 1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cg transform='translate(500, 500)'%3E%3Ccircle cx='0' cy='0' r='480' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='5'/%3E%3Cg transform='rotate(45)'%3E%3Cpath d='M-300,-300 A424.264,424.264 0 0,1 300,-300 L0,0 Z' fill='%2300cc66' opacity='0.1'/%3E%3Cpath d='M300,-300 A424.264,424.264 0 0,1 300,300 L0,0 Z' fill='%23ffcc00' opacity='0.1'/%3E%3Cpath d='M300,300 A424.264,424.264 0 0,1 -300,300 L0,0 Z' fill='%23ff3333' opacity='0.1'/%3E%3Cpath d='M-300,300 A424.264,424.264 0 0,1 -300,-300 L0,0 Z' fill='%233399ff' opacity='0.1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1000 1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cg transform='translate(500, 500)'%3E%3Ccircle cx='0' cy='0' r='480' fill='none' stroke='%23ffffff0d' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -73,8 +72,8 @@
             padding: clamp(1rem, 3vh, 3rem) 0;
         }
 
-        .game-title {<form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">
-            font-size: clamp(2.5rem, 8<form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">vw, 4.5rem);
+        .game-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
             text-transform: uppercase;
             letter-spacing: 4px;
             background: linear-gradient(45deg, 
@@ -151,7 +150,14 @@
             letter-spacing: 2px;
             font-size: clamp(0.9rem, 2vw, 1.1rem);
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, var(--simon-blue), var(--simon-green));
         }
 
         .score-table {
@@ -213,23 +219,7 @@
             opacity: 0.7;
             padding: 1rem 0;
         }
-        .alert {
-        padding: 1rem;
-        border-radius: var(--radius);
-        margin: 1rem 0;
-        text-align: center;
-        }
-        
-        .alert.success {
-            background-color: var(--simon-green);
-            color: white;
-        }
-        
-        .alert.error {
-            background-color: var(--simon-red);
-            color: white;
-        }
-        
+
         @media (max-width: 480px) {
             .score-table {
                 display: block;
@@ -256,7 +246,8 @@
         @media (hover: hover) {
             .btn-primary:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(0, 204, 102, 0.4);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+                background: linear-gradient(45deg, var(--simon-blue), var(--simon-green));
             }
 
             .form-select:hover {
@@ -282,159 +273,128 @@
     </style>
 </head>
 <body>
-    <?php
-    if (isset($_GET['status'])) {
-        if ($_GET['status'] === 'started') {
-            echo '<div class="alert success">Game started successfully!</div>';
-        } else if ($_GET['status'] === 'error') {
-            echo '<div class="alert error">Error starting game. Please try again.</div>';
-        }
-    }
-    ?>
-        
     <div class="container">
         <header class="game-header">
-            <h1 class="game-title" data-translate="title">Simon</h1>
+            <h1 class="game-title" data-translate="title">Simon Game</h1>
         </header>
 
         <main class="game-panel">
             <div class="control-panel panel">
-                <h2 data-translate="choose_level">Choose Level</h2>
                 <form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">
-                    <select class="form-select" name="difficulty" required>
-                        <option value="" selected disabled data-translate="select_difficulty">Select difficulty</option>
-                        <option value="easy" data-translate="easy">Easy - Normal speed</option>
-                        <option value="medium" data-translate="medium">Medium - Fast speed</option>
-                        <option value="hard" data-translate="hard">Hard - Very fast speed</option>
+                    <select name="difficulty" class="form-select">
+                        <option value="easy" data-translate="easy">Facile</option>
+                        <option value="medium" data-translate="medium">Moyen</option>
+                        <option value="hard" data-translate="hard">Difficile</option>
                     </select>
-                    <button type="submit" class="btn-primary" data-translate="start_game">Start Game</button>
+                    <input type="hidden" name="selected_language" id="selected_language" value="fr">
+                    <button type="submit" class="btn-primary" data-translate="start_game">Démarrer le jeu</button>
                 </form>
             </div>
 
             <div class="highscores-panel panel">
-                <h2 data-translate="high_scores">High Scores</h2>
-                <div style="overflow-x: auto;">
-                    <table class="score-table">
-                        <thead>
-                            <tr>
-                                <th data-translate="position">Position</th>
-                                <th data-translate="player">Player</th>
-                                <th data-translate="score">Score</th>
-                                <th data-translate="difficulty">Difficulty</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>🥇</td>
-                                <td>Player 1</td>
-                                <td>15</td>
-                                <td><span class="difficulty-badge hard-badge" data-translate="hard_badge">Hard</span></td>
-                            </tr>
-                            <tr>
-                                <td>🥈</td>
-                                <td>Player 2</td>
-                                <td>12</td>
-                                <td><span class="difficulty-badge medium-badge" data-translate="medium_badge">Medium</span></td>
-                            </tr>
-                            <tr>
-                                <td>🥉</td>
-                                <td>Player 3</td>
-                                <td>10</td>
-                                <td><span class="difficulty-badge easy-badge" data-translate="easy_badge">Easy</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <table class="score-table">
+                    <thead>
+                        <tr>
+                            <th data-translate="player">Joueur</th>
+                            <th data-translate="score">Score</th>
+                            <th data-translate="difficulty">Difficulté</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PlayerOne</td>
+                            <td>15</td>
+                            <td><span class="difficulty-badge hard-badge" data-translate="hard">Difficile</span></td>
+                        </tr>
+                        <tr>
+                            <td>PlayerTwo</td>
+                            <td>12</td>
+                            <td><span class="difficulty-badge medium-badge" data-translate="medium">Moyen</span></td>
+                        </tr>
+                        <tr>
+                            <td>PlayerThree</td>
+                            <td>8</td>
+                            <td><span class="difficulty-badge easy-badge" data-translate="easy">Facile</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </main>
 
         <footer>
-            <span data-translate="footer">© 2025 Simon Game - Test your memory skills</span>
+            <span data-translate="footer">© 2025 Simon Game - Testez votre mémoire</span>
         </footer>
 
         <div class="language-selector">
             <select id="languageSelect" onchange="changeLanguage(this.value)">
-                <option value="fr">🇫🇷 Français</option>
-                <option value="en" selected>🇬🇧 English</option>
-                <option value="de">🇩🇪 Deutsch</option>
+                <option value="fr">&#x1F1EB;&#x1F1F7; Français</option>
+                <option value="en">&#x1F1EC;&#x1F1E7; English</option>
+                <option value="de">&#x1F1E9;&#x1F1EA; Deutsch</option>
             </select>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js"></script>
     <script>
-    const translations = {
-        en: {
-            title: "Simon",
-            choose_level: "Choose Level",
-            select_difficulty: "Select difficulty",
-            easy: "Easy - Normal speed",
-            medium: "Medium - Fast speed",
-            hard: "Hard - Very fast speed",
-            start_game: "Start Game",
-            high_scores: "High Scores",
-            position: "Position",
-            player: "Player",
-            score: "Score",
-            difficulty: "Difficulty",
-            hard_badge: "Hard",
-            medium_badge: "Medium",
-            easy_badge: "Easy",
-            footer: "© 2025 Simon Game - Test your memory skills"
-        },
-        fr: {
-            title: "Simon",
-            choose_level: "Choisir le niveau",
-            select_difficulty: "Sélectionner la difficulté",
-            easy: "Facile - Vitesse normale",
-            medium: "Moyen - Vitesse rapide",
-            hard: "Difficile - Vitesse très rapide",
-            start_game: "Commencer le jeu",
-            high_scores: "Meilleurs scores",
-            position: "Position",
-            player: "Joueur",
-            score: "Score",
-            difficulty: "Difficulté",
-            hard_badge: "Difficile",
-            medium_badge: "Moyen",
-            easy_badge: "Facile",
-            footer: "© 2025 Jeu Simon - Testez votre mémoire"
-        },
-        de: {
-            title: "Simon",
-            choose_level: "Level wählen",
-            select_difficulty: "Schwierigkeit wählen",
-            easy: "Einfach - Normale Geschwindigkeit",
-            medium: "Mittel - Schnelle Geschwindigkeit",
-            hard: "Schwer - Sehr schnelle Geschwindigkeit",
-            start_game: "Spiel starten",
-            high_scores: "Bestenliste",
-            position: "Position",
-            player: "Spieler",
-            score: "Punktzahl",
-            difficulty: "Schwierigkeit",
-            hard_badge: "Schwer",
-            medium_badge: "Mittel",
-            easy_badge: "Einfach",
-            footer: "© 2025 Simon Spiel - Testen Sie Ihr Gedächtnis"
-        }
-    };
-
-    function changeLanguage(lang) {
-        document.documentElement.lang = lang;
-        const elements = document.querySelectorAll('[data-translate]');
-        elements.forEach(element => {
-            const key = element.getAttribute('data-translate');
-            if (translations[lang] && translations[lang][key]) {
-                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                    element.placeholder = translations[lang][key];
-                } else {
-                    element.textContent = translations[lang][key];
-                }
+        const translations = {
+            en: {
+                title: "Simon Game",
+                easy: "Easy",
+                medium: "Medium",
+                hard: "Hard",
+                start_game: "Start Game",
+                player: "Player",
+                score: "Score",
+                difficulty: "Difficulty",
+                footer: "© 2025 Simon Game - Test your memory skills"
+            },
+            fr: {
+                title: "Simon Game",
+                easy: "Facile",
+                medium: "Moyen",
+                hard: "Difficile",
+                start_game: "Démarrer le jeu",
+                player: "Joueur",
+                score: "Score",
+                difficulty: "Difficulté",
+                footer: "© 2025 Simon Game - Testez votre mémoire"
+            },
+            de: {
+                title: "Simon Spiel",
+                easy: "Einfach",
+                medium: "Mittel",
+                hard: "Schwer",
+                start_game: "Spiel starten",
+                player: "Spieler",
+                score: "Punktzahl",
+                difficulty: "Schwierigkeit",
+                footer: "© 2025 Simon Spiel - Testen Sie Ihr Gedächtnis"
             }
-        });
-    }
+        };
 
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            // Mettre à jour le champ caché
+            document.getElementById('selected_language').value = lang;
+            
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const userLang = navigator.language || navigator.userLanguage;
+            const defaultLang = userLang.startsWith('fr') ? 'fr' : userLang.startsWith('de') ? 'de' : 'en';
+            document.getElementById('languageSelect').value = defaultLang;
+            changeLanguage(defaultLang);
+        });
     </script>
 </body>
 </html>
