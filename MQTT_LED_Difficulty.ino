@@ -1,3 +1,28 @@
+/******************************************************************************
+ * @file    MQTT_LED_Difficulty.ino
+ * @brief   Contrôleur de matrices LED pour système de jeu interactif Simon
+ * @details Ce fichier implémente un contrôleur pour 4 matrices LED 16x16
+ *          communiquant via MQTT pour afficher des séquences de couleurs
+ *          avec différentes animations. Le système utilise un M5Stack Core2
+ *          comme unité de contrôle.
+ * 
+ * @author  Charlotte-C1
+ * 
+ * Configuration matérielle:
+ * - M5Stack Core2
+ * - 4 matrices LED WS2812B 16x16
+ * - Connexion WiFi
+ * - Broker MQTT (Raspberry Pi)
+ * 
+ * Dépendances:
+ * - M5Core2
+ * - FastLED
+ * - PubSubClient
+ * - ArduinoJson
+ * - WiFi
+ * - SD
+ * - SPI
+ ******************************************************************************/
 #include <M5Core2.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
@@ -11,7 +36,7 @@ String ssid;
 String password;
 
 // Configuration MQTT
-const char* mqtt_server = "192.168.1.100"; //adresse fixe de la raspberry pi 5 
+const char* mqtt_server = "192.168.1.100";
 const int mqtt_port = 1883;
 const char* subscribe_topic = "Tapis/sequence";
 const char* publish_topic = "LED/status";
@@ -59,6 +84,15 @@ void clearAllMatrices();
 void displayColor(int colorChoice);
 void playSequence();
 
+/******************************************************************************
+ * @function  lireWiFiDepuisSD
+ * @brief     Lit les identifiants WiFi depuis la carte SD
+ * 
+ * @param[out] ssid     Référence vers la variable stockant le SSID
+ * @param[out] password Référence vers la variable stockant le mot de passe
+ * 
+ * @return    bool      true si la lecture réussit, false sinon
+ ******************************************************************************/
 bool lireWiFiDepuisSD(String &ssid, String &password) {
     if (!SD.begin()) {
         Serial.println("Erreur d'initialisation de la carte SD.");
@@ -95,11 +129,27 @@ void squareWaveAnimation(CRGB squareColor, uint16_t matrixOffset);
 void snailAnimation(CRGB lineColor, uint16_t matrixOffset);
 void displayProgressivePlus(CRGB color, uint16_t matrixOffset); 
 
+/******************************************************************************
+ * @function  setAnimationDelays
+ * @brief     Ajuste les délais d'animation selon un facteur de vitesse
+ * 
+ * @param[in] speed_factor Facteur multiplicateur pour la vitesse d'animation
+ * 
+ * @return    void
+ ******************************************************************************/
 void setAnimationDelays(float speed_factor) {
     // Ajuster les délais dans les fonctions d'animation
     ANIMATION_DELAY = base_animation_delay * speed_factor;
 }
-
+/******************************************************************************
+ * @function  setup_wifi
+ * @brief     Configure et établit la connexion WiFi
+ * @details   - Lit les identifiants WiFi depuis la carte SD
+ *           - Tente la connexion
+ *           - Affiche l'état sur l'écran LCD
+ * 
+ * @return    void
+ ******************************************************************************/
 void setup_wifi() {
     // Efface l'écran LCD et positionne le curseur au début
     M5.Lcd.fillScreen(BLACK);
@@ -138,6 +188,20 @@ void setup_wifi() {
     M5.Lcd.println("LED Matrix MQTT Controller");
 }
 
+/******************************************************************************
+ * @function  callback
+ * @brief     Fonction de rappel pour le traitement des messages MQTT
+ * 
+ * @param[in] topic    Topic MQTT sur lequel le message a été reçu
+ * @param[in] payload  Contenu du message reçu
+ * @param[in] length   Longueur du payload
+ * 
+ * @details   Traite deux types de messages:
+ *           - Séquences de couleurs (topic: "Tapis/sequence")
+ *           - Niveau de difficulté (topic: "site/difficulte")
+ * 
+ * @return    void
+ ******************************************************************************/
 void callback(char* topic, byte* payload, unsigned int length) {
     // Convertit le payload brut en une chaîne de caractères
     String message;
@@ -231,7 +295,15 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }
 }
 
-
+/******************************************************************************
+ * @function  reconnect
+ * @brief     Tente de reconnecter le client MQTT au broker
+ * @details   - Effectue jusqu'à 3 tentatives de reconnexion
+ *           - Génère un ID client aléatoire
+ *           - Souscrit aux topics nécessaires après connexion
+ * 
+ * @return    void
+ ******************************************************************************/
 void reconnect() {
     int tentatives = 0;
 
@@ -269,6 +341,16 @@ void reconnect() {
     }
 }
 
+/******************************************************************************
+ * @function  setup
+ * @brief     Initialise le système
+ * @details   - Configure le M5Stack
+ *           - Initialise la communication série
+ *           - Configure les LEDs
+ *           - Établit les connexions WiFi et MQTT
+ * 
+ * @return    void
+ ******************************************************************************/
 void setup() {
     // Initialisation de la carte M5Stack (LCD, boutons, haut-parleur, etc.)
     M5.begin();
@@ -301,7 +383,15 @@ void setup() {
     client.subscribe(difficulty_topic);            // Topic pour le niveau de difficulté
 }
 
-
+/******************************************************************************
+ * @function  loop
+ * @brief     Boucle principale du programme
+ * @details  - Gère la connexion MQTT
+ *           - Traite les entrées utilisateur (boutons)
+ *           - Ajuste la luminosité des LEDs
+ * 
+ * @return    void
+ ******************************************************************************/
 void loop() {
     M5.update();  // Met à jour l'état des boutons et de l'écran M5Stack
 
@@ -338,12 +428,27 @@ void loop() {
     }
 }
 
+/******************************************************************************
+ * @function  clearAllMatrices
+ * @brief     Éteint toutes les LEDs des matrices
+ * 
+ * @return    void
+ ******************************************************************************/
 void clearAllMatrices() {
     FastLED.clear();
     FastLED.show();
 }
 
-// Fonction qui calcule l'index linéaire d'une LED dans une matrice câblée en lignes classiques (gauche → droite)
+/******************************************************************************
+ * @function  XY
+ * @brief     Convertit des coordonnées X,Y en index linéaire pour les LEDs
+ * 
+ * @param[in] x            Coordonnée X (0-15)
+ * @param[in] y            Coordonnée Y (0-15)
+ * @param[in] matrixOffset Décalage pour sélectionner la matrice (0-3)
+ * 
+ * @return    uint16_t     Index linéaire de la LED
+ ******************************************************************************/
 uint16_t XY(uint8_t x, uint8_t y, uint16_t matrixOffset) {
     // Si les coordonnées dépassent les dimensions de la matrice, retourner 0 (sécurité)
     if (x >= MATRIX_WIDTH || y >= MATRIX_HEIGHT) return 0;
@@ -352,7 +457,16 @@ uint16_t XY(uint8_t x, uint8_t y, uint16_t matrixOffset) {
     return (y * MATRIX_WIDTH + x) + matrixOffset;
 }
 
-// Fonction qui calcule l'index linéaire d'une LED dans une matrice câblée en zig-zag (lignes paires →, lignes impaires ←)
+/******************************************************************************
+ * @function  Coord_LEDs_Erreur
+ * @brief     Calcule l'index linéaire pour une LED en mode zigzag
+ * 
+ * @param[in] x            Coordonnée X (0-15)
+ * @param[in] y            Coordonnée Y (0-15)
+ * @param[in] matrixOffset Décalage pour la matrice (0-3)
+ * 
+ * @return    uint16_t     Index linéaire de la LED en mode zigzag
+ ******************************************************************************/
 uint16_t Coord_LEDs_Erreur(uint8_t x, uint8_t y, uint16_t matrixOffset) {
     // Vérifie que les coordonnées sont valides, sinon retourne 0
     if (x >= MATRIX_WIDTH || y >= MATRIX_HEIGHT) return 0;
@@ -371,7 +485,19 @@ uint16_t Coord_LEDs_Erreur(uint8_t x, uint8_t y, uint16_t matrixOffset) {
     // Applique le décalage pour prendre en compte une éventuelle matrice précédente
     return i + matrixOffset;
 }
-// Animation d'expansion pour afficher une couleur en "splash" depuis le centre
+
+/******************************************************************************
+ * @function  splash
+ * @brief     Crée une animation d'expansion depuis le centre
+ * 
+ * @param[in] color        Couleur de l'animation
+ * @param[in] matrixOffset Décalage pour la matrice cible
+ * 
+ * @details   Animation qui s'étend progressivement depuis le centre
+ *            vers les bords de la matrice
+ * 
+ * @return    void
+ ******************************************************************************/
 void splash(CRGB color, uint16_t matrixOffset) {
   // Boucle pour agrandir progressivement un carré centré
   for (uint8_t size = 2; size <= MATRIX_WIDTH; size += 2) {
@@ -406,6 +532,20 @@ void splash(CRGB color, uint16_t matrixOffset) {
   FastLED.show();  // Affiche la couleur finale sur toute la matrice
 }
 
+/******************************************************************************
+ * @function  displayColor
+ * @brief     Affiche une couleur avec une animation spécifique sur une matrice
+ * 
+ * @param[in] colorChoice  Choix de la couleur et de l'animation:
+ *                        0: Vert (lignes horizontales) - matrice bas droite
+ *                        1: Rouge (onde carrée) - matrice haut droite
+ *                        2: Bleu (croix progressive) - matrice haut gauche
+ *                        3: Jaune (splash) - matrice bas gauche
+ *                        4: Animation d'erreur (croix orange)
+ *                        5: Flash blanc (séparateur)
+ * 
+ * @return    void
+ ******************************************************************************/
 void displayColor(int colorChoice) {
   clearAllMatrices();
 
@@ -449,6 +589,17 @@ void displayColor(int colorChoice) {
   }
 }
 
+/******************************************************************************
+ * @function  playSequence
+ * @brief     Joue une séquence de couleurs avec gestion de la difficulté
+ * 
+ * @details   Adapte la vitesse d'affichage selon le niveau de difficulté:
+ *           - Niveau 0: Vitesse normale
+ *           - Niveau 1: Vitesse progressive (réduit de 20% tous les 5 éléments)
+ *           - Niveau 2: Vitesse accélérée (réduit de 10% à chaque étape)
+ * 
+ * @return    void
+ ******************************************************************************/
 void playSequence() {
     client.publish(publish_topic, "true");
     int current_display_time = base_display_time;
@@ -497,6 +648,15 @@ void playSequence() {
     client.publish(publish_topic, "false");
 }
 
+/******************************************************************************
+ * @function  Anim_Erreur
+ * @brief     Affiche une animation de croix d'erreur sur les matrices
+ * 
+ * @details   Crée des diagonales colorées en orange et jaune
+ *            sur les quatre matrices pour indiquer une erreur
+ * 
+ * @return    void
+ ******************************************************************************/
 void Anim_Erreur() {
     // Effacer toutes les LEDs
     clearAllMatrices();
@@ -557,6 +717,16 @@ void Anim_Erreur() {
     
     FastLED.show();
 }
+
+/******************************************************************************
+ * @function  horizontalLinesAnimation
+ * @brief     Anime des lignes horizontales se déplaçant de gauche à droite
+ * 
+ * @param[in] lineColor    Couleur des lignes
+ * @param[in] matrixOffset Décalage pour la matrice cible
+ * 
+ * @return    void
+ ******************************************************************************/
 void horizontalLinesAnimation(CRGB lineColor, uint16_t matrixOffset) {
     clearAllMatrices();
 
@@ -576,6 +746,18 @@ void horizontalLinesAnimation(CRGB lineColor, uint16_t matrixOffset) {
     }
 }
 
+/******************************************************************************
+ * @function  squareWaveAnimation
+ * @brief     Crée une animation d'onde carrée en diagonale
+ * 
+ * @param[in] squareColor  Couleur des carrés
+ * @param[in] matrixOffset Décalage pour la matrice cible
+ * 
+ * @details   Affiche des carrés 2x2 qui apparaissent en diagonale
+ *           avec un espacement régulier
+ * 
+ * @return    void
+ ******************************************************************************/
 void squareWaveAnimation(CRGB squareColor, uint16_t matrixOffset) {
     // Effacer la matrice
     clearAllMatrices();
@@ -608,7 +790,18 @@ void squareWaveAnimation(CRGB squareColor, uint16_t matrixOffset) {
         delay(STEP_DELAY);
     }
 }
-
+/******************************************************************************
+ * @function  displayProgressivePlus
+ * @brief     Anime une croix qui s'étend progressivement
+ * 
+ * @param[in] color        Couleur de la croix
+ * @param[in] matrixOffset Décalage pour la matrice cible
+ * 
+ * @details   Crée une animation d'une croix qui grandit depuis
+ *            le centre avec une épaisseur de 4 pixels
+ * 
+ * @return    void
+ ******************************************************************************/
 void displayProgressivePlus(CRGB color, uint16_t matrixOffset) {
     const uint8_t MATRIX_SIZE = 16;
     const uint8_t LINE_THICKNESS = 4;
