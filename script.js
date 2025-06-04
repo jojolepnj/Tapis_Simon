@@ -1,4 +1,21 @@
-// Translation system
+/**
+ * @file simon.js
+ * @brief Logique principale du jeu Simon - Version web interactive
+ * @details
+ * Ce fichier contient toute la logique du jeu Simon, incluant :
+ * - Gestion des séquences de jeu
+ * - Système de traduction multilingue
+ * - Gestion des scores
+ * - Effets sonores
+ * - Interface utilisateur interactive
+ *
+ * @author Treliann
+ */
+
+/**
+ * @namespace Translations
+ * @description Système de traduction multilingue
+ */
 const translations = {
     en: {
         title: "Simon",
@@ -80,38 +97,56 @@ const translations = {
     }
 };
 
+// Langue par défaut
 let currentLanguage = 'en';
 
-// Simon Game Logic
+/**
+ * @class SimonGame
+ * @description Classe principale du jeu Simon
+ */
 class SimonGame {
+    /**
+     * @constructor
+     * @description Initialise une nouvelle instance du jeu
+     */
     constructor() {
-        this.sequence = [];
-        this.playerSequence = [];
-        this.score = 0;
-        this.round = 1;
-        this.difficulty = 'easy';
-        this.isPlaying = false;
-        this.isPlayerTurn = false;
-        this.audioContext = null;
+        this.sequence = [];          // Séquence de couleurs à reproduire
+        this.playerSequence = [];    // Séquence du joueur
+        this.score = 0;             // Score actuel
+        this.round = 1;             // Manche actuelle
+        this.difficulty = 'easy';   // Difficulté par défaut
+        this.isPlaying = false;     // État du jeu
+        this.isPlayerTurn = false;  // Tour du joueur
+        this.audioContext = null;   // Contexte audio
         
+        // Vitesses selon la difficulté (en ms)
         this.speeds = {
             easy: 800,
             medium: 500,
             hard: 300
         };
         
+        // Configuration des sons et couleurs
         this.colors = ['green', 'red', 'yellow', 'blue'];
         this.frequencies = [261.63, 329.63, 392.00, 523.25]; // C4, E4, G4, C5
         
         this.initializeGame();
     }
     
+    /**
+     * @method initializeGame
+     * @description Initialise les composants du jeu
+     */
     initializeGame() {
         this.initializeAudio();
         this.bindEvents();
         this.loadHighScores();
     }
     
+    /**
+     * @method initializeAudio
+     * @description Initialise le système audio
+     */
     initializeAudio() {
         try {
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -120,8 +155,12 @@ class SimonGame {
         }
     }
     
+    /**
+     * @method bindEvents
+     * @description Attache les écouteurs d'événements
+     */
     bindEvents() {
-        // Difficulty form submission
+        // Formulaire de difficulté
         document.getElementById('difficulty-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const difficulty = document.getElementById('difficulty').value;
@@ -130,7 +169,7 @@ class SimonGame {
             }
         });
         
-        // Simon button clicks
+        // Boutons Simon
         document.querySelectorAll('.simon-button').forEach((button, index) => {
             button.addEventListener('click', () => {
                 if (this.isPlayerTurn) {
@@ -139,7 +178,7 @@ class SimonGame {
             });
         });
         
-        // Game control buttons
+        // Boutons de contrôle
         document.getElementById('start-button').addEventListener('click', () => {
             this.nextRound();
         });
@@ -153,6 +192,11 @@ class SimonGame {
         });
     }
     
+    /**
+     * @method startGame
+     * @description Démarre une nouvelle partie
+     * @param {string} difficulty - Niveau de difficulté choisi
+     */
     startGame(difficulty) {
         this.difficulty = difficulty;
         this.resetGame();
@@ -160,6 +204,10 @@ class SimonGame {
         this.updateDifficultyDisplay();
     }
     
+    /**
+     * @method resetGame
+     * @description Réinitialise l'état du jeu
+     */
     resetGame() {
         this.sequence = [];
         this.playerSequence = [];
@@ -170,21 +218,37 @@ class SimonGame {
         this.updateDisplay();
     }
     
+    /**
+     * @method showGameView
+     * @description Affiche l'interface de jeu
+     */
     showGameView() {
         document.getElementById('home-view').style.display = 'none';
         document.getElementById('game-view').style.display = 'flex';
     }
     
+    /**
+     * @method showHomeView
+     * @description Affiche l'interface d'accueil
+     */
     showHomeView() {
         document.getElementById('home-view').style.display = 'flex';
         document.getElementById('game-view').style.display = 'none';
     }
     
+    /**
+     * @method backToMenu
+     * @description Retourne au menu principal
+     */
     backToMenu() {
         this.showHomeView();
         this.loadHighScores();
     }
     
+    /**
+     * @method updateDifficultyDisplay
+     * @description Met à jour l'affichage de la difficulté
+     */
     updateDifficultyDisplay() {
         const difficultyElement = document.getElementById('current-difficulty');
         const difficultyMap = {
@@ -197,6 +261,10 @@ class SimonGame {
         difficultyElement.textContent = translations[currentLanguage][`${this.difficulty}_badge`];
     }
     
+    /**
+     * @method updateDisplay
+     * @description Met à jour l'affichage du jeu
+     */
     updateDisplay() {
         document.getElementById('score-display').textContent = this.score;
         document.getElementById('round-number').textContent = this.round;
@@ -210,6 +278,10 @@ class SimonGame {
         }
     }
     
+    /**
+     * @method nextRound
+     * @description Lance la prochaine manche
+     */
     nextRound() {
         if (this.audioContext && this.audioContext.state === 'suspended') {
             this.audioContext.resume();
@@ -219,7 +291,7 @@ class SimonGame {
         this.isPlayerTurn = false;
         this.playerSequence = [];
         
-        // Add new color to sequence
+        // Ajoute une nouvelle couleur à la séquence
         const newColor = Math.floor(Math.random() * 4);
         this.sequence.push(newColor);
         
@@ -227,6 +299,10 @@ class SimonGame {
         this.playSequence();
     }
     
+    /**
+     * @method playSequence
+     * @description Joue la séquence actuelle
+     */
     playSequence() {
         let index = 0;
         const speed = this.speeds[this.difficulty];
@@ -242,7 +318,7 @@ class SimonGame {
                     setTimeout(playNext, speed * 0.3);
                 }, speed * 0.7);
             } else {
-                // Sequence finished, player's turn
+                // Séquence terminée, tour du joueur
                 this.isPlayerTurn = true;
             }
         };
@@ -250,6 +326,11 @@ class SimonGame {
         setTimeout(playNext, 500);
     }
     
+    /**
+     * @method handlePlayerInput
+     * @description Gère l'entrée du joueur
+     * @param {number} buttonIndex - Index du bouton pressé
+     */
     handlePlayerInput(buttonIndex) {
         this.activateButton(buttonIndex);
         this.playSound(buttonIndex);
@@ -260,14 +341,14 @@ class SimonGame {
         
         this.playerSequence.push(buttonIndex);
         
-        // Check if player input is correct
+        // Vérifie si l'entrée est correcte
         const currentIndex = this.playerSequence.length - 1;
         if (this.playerSequence[currentIndex] !== this.sequence[currentIndex]) {
             this.gameOver();
             return;
         }
         
-        // Check if player completed the sequence
+        // Vérifie si la séquence est complétée
         if (this.playerSequence.length === this.sequence.length) {
             this.score++;
             this.round++;
@@ -279,16 +360,31 @@ class SimonGame {
         }
     }
     
+    /**
+     * @method activateButton
+     * @description Active visuellement un bouton
+     * @param {number} index - Index du bouton
+     */
     activateButton(index) {
         const button = document.querySelectorAll('.simon-button')[index];
         button.classList.add('active');
     }
     
+    /**
+     * @method deactivateButton
+     * @description Désactive visuellement un bouton
+     * @param {number} index - Index du bouton
+     */
     deactivateButton(index) {
         const button = document.querySelectorAll('.simon-button')[index];
         button.classList.remove('active');
     }
     
+    /**
+     * @method playSound
+     * @description Joue le son associé à un bouton
+     * @param {number} index - Index du bouton
+     */
     playSound(index) {
         if (!this.audioContext) return;
         
@@ -308,11 +404,15 @@ class SimonGame {
         oscillator.stop(this.audioContext.currentTime + 0.5);
     }
     
+    /**
+     * @method gameOver
+     * @description Gère la fin de partie
+     */
     gameOver() {
         this.isPlaying = false;
         this.isPlayerTurn = false;
         
-        // Play error sound
+        // Joue le son d'erreur
         if (this.audioContext) {
             const oscillator = this.audioContext.createOscillator();
             const gainNode = this.audioContext.createGain();
@@ -336,6 +436,10 @@ class SimonGame {
         }, 1000);
     }
     
+    /**
+     * @method saveHighScore
+     * @description Sauvegarde le score du joueur
+     */
     saveHighScore() {
         if (this.score === 0) return;
         
@@ -351,20 +455,29 @@ class SimonGame {
             date: new Date().toISOString()
         });
         
-        // Sort by score descending
+        // Trie par score décroissant
         highScores.sort((a, b) => b.score - a.score);
         
-        // Keep only top 10
+        // Garde les 10 meilleurs scores
         const topScores = highScores.slice(0, 10);
         
         localStorage.setItem('simonHighScores', JSON.stringify(topScores));
     }
     
+    /**
+     * @method getHighScores
+     * @description Récupère les meilleurs scores
+     * @returns {Array} Liste des meilleurs scores
+     */
     getHighScores() {
         const scores = localStorage.getItem('simonHighScores');
         return scores ? JSON.parse(scores) : [];
     }
     
+    /**
+     * @method loadHighScores
+     * @description Charge et affiche les meilleurs scores
+     */
     loadHighScores() {
         const tbody = document.getElementById('scores-tbody');
         const highScores = this.getHighScores();
@@ -399,19 +512,27 @@ class SimonGame {
     }
 }
 
-// Language functionality
+/**
+ * @function changeLanguage
+ * @description Change la langue de l'interface
+ * @param {string} lang - Code de la langue
+ */
 function changeLanguage(lang) {
     currentLanguage = lang;
     localStorage.setItem('simonLanguage', lang);
     updateTranslations();
     
-    // Update high scores table with new language
+    // Met à jour les scores avec la nouvelle langue
     if (window.simonGame) {
         window.simonGame.loadHighScores();
         window.simonGame.updateDifficultyDisplay();
     }
 }
 
+/**
+ * @function updateTranslations
+ * @description Met à jour les traductions de l'interface
+ */
 function updateTranslations() {
     const elements = document.querySelectorAll('[data-translate]');
     elements.forEach(element => {
@@ -426,9 +547,12 @@ function updateTranslations() {
     });
 }
 
-// Initialize application
+/**
+ * @section Initialisation
+ * @description Initialisation de l'application
+ */
 document.addEventListener('DOMContentLoaded', () => {
-    // Load saved language preference
+    // Charge la langue sauvegardée
     const savedLanguage = localStorage.getItem('simonLanguage');
     if (savedLanguage && translations[savedLanguage]) {
         currentLanguage = savedLanguage;
@@ -437,11 +561,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     updateTranslations();
     
-    // Initialize Simon game
+    // Initialise le jeu Simon
     window.simonGame = new SimonGame();
 });
 
-// Handle audio context for mobile devices
+/**
+ * @section Gestion Audio Mobile
+ * @description Gestion du contexte audio pour les appareils mobiles
+ */
 document.addEventListener('touchstart', () => {
     if (window.simonGame && window.simonGame.audioContext && window.simonGame.audioContext.state === 'suspended') {
         window.simonGame.audioContext.resume();
