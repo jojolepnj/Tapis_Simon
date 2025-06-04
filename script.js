@@ -1,5 +1,5 @@
 /**
- * @file simon.js
+ * @file script.js
  * @brief Logique principale du jeu Simon - Version web interactive
  * @details
  * Ce fichier contient toute la logique du jeu Simon, incluant :
