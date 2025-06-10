@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Copyright (C) 2015 Garmin International Ltd.
+ Subject to Garmin SDK License Agreement and Wearables Application Developer Agreement.
+-->
+<resources>
+    <string name="app_name">Comm</string>
+    <string name="load_devices">Reload Devices</string>
+    <string name="initialization_error">Failed to initalize the SDK.\n</string>
+    <string name="service_unavailable">The ConnectIQ service is unavailabe.</string>
+    <string name="tap_to_send">Tap message below to send to device.</string>
+    <string name="open_app_open">Tap here to open the Comm app on the device.</string>
+    <string name="open_store">Tap here to open ConnectIQ Store.</string>
+    <string name="open_app_already_open">The Comm app is already open on the device.</string>
+    <string name="received_message">Received message from device.</string>
+
+    <string name="hello_world_message">Hello World!</string>
+    <string name="short_string_message">Hi</string>
+    <string name="medium_string_message">Why hello there, good world! This is a medium-length string.</string>
+    <string name="long_string_message">Lorem ipsum dolor sit amet, pri ex epicuri luptatum, cum tantas partem fastidii an...</string>
+    <string name="absurd_message">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</string>
+
+    <string name="hello_world">Hello World</string>
+    <string name="short_string">Short String</string>
+    <string name="medium_string">Medium String</string>
+    <string name="long_string">Long String</string>
+    <string name="absurd_string">Absurd String</string>
+    <string name="array">Array of Values</string>
+    <string name="dictionary">Dictionary of Values</string>
+    <string name="complex">Complex Data Type</string>
+
+    <string name="missing_widget">Missing Comm Widget</string>
+    <string name="missing_widget_message">The Comm Widget used with this application is not installed on your ConnectIQ device. Please install the widget and try again.</string>
+
+    <string name="missing_store_id">Missing App Store Id</string>
+    <string name="missing_store_id_message">Please add a valid store app id for STORE_APP_ID in DeviceActivity.</string>
+    <string name="recycler_view_description">Liste d\'éléments</string>
+</resources>
