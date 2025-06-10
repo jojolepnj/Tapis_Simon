@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<debugInfo>
+    <manifest filename="C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\manifest.xml"/>
+    <pcToLineNum>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="1" lineNum="47" parent="globals/BioMetricsDelegate" pc="268435460" symbol="&lt;init&gt;"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="2" lineNum="7" parent="globals/Rez" pc="268435472" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="3" lineNum="8" parent="globals/BioMetricsView" pc="268435492" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="3" lineNum="11" parent="globals/BioMetricsView" pc="268435503" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="4" lineNum="6" parent="globals/BioMetricsApp" pc="268435514" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="5" lineNum="52" parent="globals/BioMetricsDelegate" pc="268435526" symbol="onBack"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="5" lineNum="54" parent="globals/BioMetricsDelegate" pc="268435528" symbol="onBack"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="5" lineNum="55" parent="globals/BioMetricsDelegate" pc="268435542" symbol="onBack"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="6" lineNum="48" parent="globals/BioMetricsDelegate" pc="268435544" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="6" lineNum="49" parent="globals/BioMetricsDelegate" pc="268435546" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="7" lineNum="58" parent="globals/BioMetricsDelegate" pc="268435559" symbol="onSelect"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="7" lineNum="60" parent="globals/BioMetricsDelegate" pc="268435561" symbol="onSelect"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="8" lineNum="37" parent="globals/BioMetricsView" pc="268435563" symbol="calculateAverage"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="8" lineNum="38" parent="globals/BioMetricsView" pc="268435566" symbol="calculateAverage"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="8" lineNum="39" parent="globals/BioMetricsView" pc="268435569" symbol="calculateAverage"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="8" lineNum="40" parent="globals/BioMetricsView" pc="268435572" symbol="calculateAverage"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="8" lineNum="41" parent="globals/BioMetricsView" pc="268435588" symbol="calculateAverage"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="8" lineNum="42" parent="globals/BioMetricsView" pc="268435597" symbol="calculateAverage"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="8" lineNum="43" parent="globals/BioMetricsView" pc="268435607" symbol="calculateAverage"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="8" lineNum="46" parent="globals/BioMetricsView" pc="268435627" symbol="calculateAverage"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="9" lineNum="129" parent="globals/BioMetricsView" pc="268435650" symbol="onShow"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="9" lineNum="130" parent="globals/BioMetricsView" pc="268435652" symbol="onShow"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="92" parent="globals/BioMetricsView" pc="268435660" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="94" parent="globals/BioMetricsView" pc="268435663" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="95" parent="globals/BioMetricsView" pc="268435675" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="96" parent="globals/BioMetricsView" pc="268435697" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="97" parent="globals/BioMetricsView" pc="268435723" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="98" parent="globals/BioMetricsView" pc="268435741" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="99" parent="globals/BioMetricsView" pc="268435756" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="100" parent="globals/BioMetricsView" pc="268435762" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="101" parent="globals/BioMetricsView" pc="268435777" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="104" parent="globals/BioMetricsView" pc="268435807" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="105" parent="globals/BioMetricsView" pc="268435834" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="106" parent="globals/BioMetricsView" pc="268435851" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="10" lineNum="107" parent="globals/BioMetricsView" pc="268435855" symbol="requestSensorData"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="111" parent="globals/BioMetricsView" pc="268435894" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="112" parent="globals/BioMetricsView" pc="268435897" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="114" parent="globals/BioMetricsView" pc="268435914" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="115" parent="globals/BioMetricsView" pc="268435940" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="116" parent="globals/BioMetricsView" pc="268435958" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="117" parent="globals/BioMetricsView" pc="268435973" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="118" parent="globals/BioMetricsView" pc="268435979" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="119" parent="globals/BioMetricsView" pc="268435994" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="121" parent="globals/BioMetricsView" pc="268436021" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="122" parent="globals/BioMetricsView" pc="268436048" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="123" parent="globals/BioMetricsView" pc="268436065" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="11" lineNum="124" parent="globals/BioMetricsView" pc="268436069" symbol="onSensor"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="12" lineNum="16" parent="globals/BioMetricsView" pc="268436111" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="12" lineNum="17" parent="globals/BioMetricsView" pc="268436114" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="12" lineNum="18" parent="globals/BioMetricsView" pc="268436126" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="12" lineNum="21" parent="globals/BioMetricsView" pc="268436155" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="12" lineNum="22" parent="globals/BioMetricsView" pc="268436175" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="12" lineNum="27" parent="globals/BioMetricsView" pc="268436194" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="12" lineNum="28" parent="globals/BioMetricsView" pc="268436212" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="12" lineNum="29" parent="globals/BioMetricsView" pc="268436238" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="12" lineNum="30" parent="globals/BioMetricsView" pc="268436275" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="12" lineNum="31" parent="globals/BioMetricsView" pc="268436279" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="12" lineNum="32" parent="globals/BioMetricsView" pc="268436293" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="13" lineNum="133" parent="globals/BioMetricsView" pc="268436330" symbol="onHide"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="13" lineNum="134" parent="globals/BioMetricsView" pc="268436332" symbol="onHide"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="13" lineNum="135" parent="globals/BioMetricsView" pc="268436344" symbol="onHide"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="14" lineNum="49" parent="globals/BioMetricsView" pc="268436360" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="14" lineNum="50" parent="globals/BioMetricsView" pc="268436362" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="14" lineNum="51" parent="globals/BioMetricsView" pc="268436374" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="14" lineNum="53" parent="globals/BioMetricsView" pc="268436382" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="14" lineNum="56" parent="globals/BioMetricsView" pc="268436399" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="14" lineNum="64" parent="globals/BioMetricsView" pc="268436456" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="14" lineNum="65" parent="globals/BioMetricsView" pc="268436465" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="14" lineNum="72" parent="globals/BioMetricsView" pc="268436504" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="14" lineNum="76" parent="globals/BioMetricsView" pc="268436508" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheView.mc" id="14" lineNum="83" parent="globals/BioMetricsView" pc="268436576" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="15" lineNum="14" parent="globals/BioMetricsApp" pc="268436622" symbol="onStart"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="15" lineNum="16" parent="globals/BioMetricsApp" pc="268436625" symbol="onStart"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="15" lineNum="17" parent="globals/BioMetricsApp" pc="268436649" symbol="onStart"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="15" lineNum="19" parent="globals/BioMetricsApp" pc="268436687" symbol="onStart"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="15" lineNum="22" parent="globals/BioMetricsApp" pc="268436705" symbol="onStart"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="15" lineNum="23" parent="globals/BioMetricsApp" pc="268436717" symbol="onStart"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="15" lineNum="24" parent="globals/BioMetricsApp" pc="268436729" symbol="onStart"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="15" lineNum="26" parent="globals/BioMetricsApp" pc="268436756" symbol="onStart"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="15" lineNum="27" parent="globals/BioMetricsApp" pc="268436760" symbol="onStart"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="16" lineNum="40" parent="globals/BioMetricsApp" pc="268436799" symbol="getInitialView"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="16" lineNum="41" parent="globals/BioMetricsApp" pc="268436801" symbol="getInitialView"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="16" lineNum="42" parent="globals/BioMetricsApp" pc="268436830" symbol="getInitialView"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="17" lineNum="9" parent="globals/BioMetricsApp" pc="268436868" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="17" lineNum="10" parent="globals/BioMetricsApp" pc="268436870" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="18" lineNum="32" parent="globals/BioMetricsApp" pc="268436883" symbol="onStop"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="18" lineNum="33" parent="globals/BioMetricsApp" pc="268436885" symbol="onStop"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="18" lineNum="34" parent="globals/BioMetricsApp" pc="268436903" symbol="onStop"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\source\\marcheApp.mc" id="18" lineNum="35" parent="globals/BioMetricsApp" pc="268436912" symbol="onStop"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="19" lineNum="13" parent="globals/Rez/Layouts" pc="268436928" symbol="MainLayout"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="19" lineNum="14" parent="globals/Rez/Layouts" pc="268436939" symbol="MainLayout"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="19" lineNum="16" parent="globals/Rez/Layouts" pc="268437042" symbol="MainLayout"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="19" lineNum="18" parent="globals/Rez/Layouts" pc="268437145" symbol="MainLayout"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="19" lineNum="20" parent="globals/Rez/Layouts" pc="268437234" symbol="MainLayout"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="19" lineNum="22" parent="globals/Rez/Layouts" pc="268437338" symbol="MainLayout"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\marche\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="19" lineNum="24" parent="globals/Rez/Layouts" pc="268437428" symbol="MainLayout"/>
+    </pcToLineNum>
+    <symbolTable>
+        <entry id="8388639" module="true" symbol="Graphics"/>
+        <entry id="8389346" symbol="text"/>
+        <entry id="7" object="true" symbol="BioMetricsDelegate"/>
+        <entry field="true" id="11" symbol="&lt;globals/BioMetricsView/&lt;&gt;errorMessage&gt;"/>
+        <entry id="8388632" method="true" symbol="&lt;init&gt;"/>
+        <entry id="19" method="true" symbol="MainLayout"/>
+        <entry field="true" id="16" symbol="&lt;globals/BioMetricsView/&lt;&gt;timer&gt;"/>
+        <entry field="true" id="8388611" module="true" symbol="Toybox"/>
+        <entry field="true" id="22" symbol="HeartRate"/>
+        <entry field="true" id="20" symbol="AppName"/>
+        <entry id="5" module="true" symbol="globals/Rez/Strings"/>
+        <entry field="true" id="21" symbol="BiometricApp"/>
+        <entry id="10" method="true" symbol="calculateAverage"/>
+        <entry id="15" method="true" symbol="requestSensorData"/>
+        <entry id="8388648" module="true" symbol="WatchUi"/>
+        <entry id="8389081" method="true" symbol="onBack"/>
+        <entry id="2" module="true" symbol="globals/Rez"/>
+        <entry id="8389124" method="true" symbol="onUpdate"/>
+        <entry field="true" id="8389065" symbol="locY"/>
+        <entry field="true" id="8389064" symbol="locX"/>
+        <entry id="8388771" module="true" object="true" symbol="Drawables"/>
+        <entry id="8389348" symbol="font"/>
+        <entry id="4" module="true" symbol="globals/Rez/Layouts"/>
+        <entry field="true" id="8389063" symbol="identifier"/>
+        <entry id="8" object="true" symbol="BioMetricsView"/>
+        <entry field="true" id="12" symbol="&lt;globals/BioMetricsView/&lt;&gt;hrReadings&gt;"/>
+        <entry id="3" module="true" symbol="globals/Rez/Drawables"/>
+        <entry field="true" id="23" symbol="SpO2"/>
+        <entry id="8388644" module="true" symbol="System"/>
+        <entry id="8389619" method="true" symbol="onSelect"/>
+        <entry id="8388769" module="true" object="true" symbol="Rez"/>
+        <entry field="true" id="14" symbol="&lt;globals/BioMetricsView/&lt;&gt;readingIndex&gt;"/>
+        <entry id="8388640" module="true" symbol="Lang"/>
+        <entry id="13" method="true" symbol="onSensor"/>
+        <entry field="true" id="18" symbol="LauncherIcon"/>
+        <entry id="8388610" symbol="statics"/>
+        <entry id="8389123" method="true" symbol="onShow"/>
+        <entry id="8388643" module="true" symbol="Sensor"/>
+        <entry field="true" id="17" symbol="&lt;globals/BioMetricsApp/&lt;&gt;view&gt;"/>
+        <entry id="8389350" module="true" symbol="globals"/>
+        <entry id="8388770" module="true" object="true" symbol="Strings"/>
+        <entry field="true" id="8388960" symbol="heartRate"/>
+        <entry id="8388702" method="true" symbol="initialize"/>
+        <entry id="8389279" method="true" symbol="onStart"/>
+        <entry id="8389280" method="true" symbol="getInitialView"/>
+        <entry id="8389281" method="true" symbol="onStop"/>
+        <entry field="true" id="8389347" symbol="color"/>
+        <entry id="6" object="true" symbol="BioMetricsApp"/>
+        <entry id="8388646" module="true" object="true" symbol="Timer"/>
+        <entry id="9" module="true" symbol="Layouts"/>
+        <entry id="8389125" method="true" symbol="onHide"/>
+        <entry id="8388635" module="true" symbol="Application"/>
+    </symbolTable>
+    <localVars>
+        <entry arg="true" endPc="268435649" name="readings" stackId="1" startPc="268435563"/>
+        <entry endPc="268435649" name="sum" stackId="2" startPc="268435566"/>
+        <entry endPc="268435649" name="count" stackId="3" startPc="268435566"/>
+        <entry endPc="268435626" name="i" stackId="4" startPc="268435588"/>
+        <entry endPc="268435844" name="sensorInfo" stackId="1" startPc="268435663"/>
+        <entry endPc="268435803" name="avgHR" stackId="2" startPc="268435697"/>
+        <entry endPc="268435887" name="ex" stackId="3" startPc="268435851"/>
+        <entry arg="true" endPc="268436110" name="sensorInfo" stackId="1" startPc="268435894"/>
+        <entry endPc="268436058" name="avgHR" stackId="2" startPc="268435914"/>
+        <entry endPc="268436101" name="ex" stackId="3" startPc="268436065"/>
+        <entry endPc="268436193" name="i" stackId="1" startPc="268436175"/>
+        <entry endPc="268436323" name="ex" stackId="2" startPc="268436275"/>
+        <entry arg="true" endPc="268436621" name="dc" stackId="1" startPc="268436360"/>
+        <entry arg="true" endPc="268436798" name="state" stackId="1" startPc="268436622"/>
+        <entry endPc="268436797" name="delegate" stackId="2" startPc="268436625"/>
+        <entry endPc="268436749" name="info" stackId="3" startPc="268436705"/>
+        <entry endPc="268436792" name="ex" stackId="4" startPc="268436756"/>
+        <entry arg="true" endPc="268436927" name="state" stackId="1" startPc="268436883"/>
+        <entry arg="true" endPc="268437457" name="dc" stackId="1" startPc="268436928"/>
+        <entry endPc="268437457" name="rez_cmp_local_text_TitleLabel" stackId="2" startPc="268436939"/>
+        <entry endPc="268437457" name="rez_cmp_local_text_HeartRateLabel" stackId="3" startPc="268436939"/>
+        <entry endPc="268437457" name="rez_cmp_local_text_HeartRateValue" stackId="4" startPc="268436939"/>
+        <entry endPc="268437457" name="rez_cmp_local_text_SpO2Label" stackId="5" startPc="268436939"/>
+        <entry endPc="268437457" name="rez_cmp_local_text_SpO2Value" stackId="6" startPc="268436939"/>
+    </localVars>
+    <deviceInfo deviceVersion="de121dfa604491767422db2c3063530f8fd6465b" partNumber="006-B3992-00"/>
+    <annotations>
+        <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="LauncherIcon"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="BiometricApp"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="AppName"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="HeartRate"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="SpO2"/>
+    </annotations>
+    <dataEntryOffsetMappings>
+        <dataEntry label="globals" offset="58" parentId="" symbolId="globals" type="module"/>
+        <dataEntry label="globals/BioMetricsDelegate" offset="125" parentId="globals" symbolId="BioMetricsDelegate" type="class"/>
+        <dataEntry label="globals/Rez" offset="187" parentId="globals" symbolId="Rez" type="module"/>
+        <dataEntry label="globals/BioMetricsView" offset="240" parentId="globals" symbolId="BioMetricsView" type="class"/>
+        <dataEntry label="globals/BioMetricsApp" offset="383" parentId="globals" symbolId="BioMetricsApp" type="class"/>
+        <dataEntry label="globals/Rez/Drawables" offset="463" parentId="Rez" symbolId="Drawables" type="module"/>
+        <dataEntry label="globals/Rez/Layouts" offset="498" parentId="Rez" symbolId="Layouts" type="module"/>
+        <dataEntry label="globals/Rez/Strings" offset="533" parentId="Rez" symbolId="Strings" type="module"/>
+    </dataEntryOffsetMappings>
+    <functions>
+        <functionEntry accessMode="public" endPc="268435471" name="&lt;init&gt;" parent="BioMetricsDelegate" startPc="268435460">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435491" name="&lt;init&gt;" parent="Rez" startPc="268435472">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435513" name="&lt;init&gt;" parent="BioMetricsView" startPc="268435492">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435525" name="&lt;init&gt;" parent="BioMetricsApp" startPc="268435514">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435543" name="onBack" parent="BioMetricsDelegate" startPc="268435526">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435558" name="initialize" parent="BioMetricsDelegate" startPc="268435544">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435562" name="onSelect" parent="BioMetricsDelegate" startPc="268435559">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Drawables">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Layouts">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Strings">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435649" name="calculateAverage" parent="BioMetricsView" startPc="268435563">
+            <param id="readings"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435659" name="onShow" parent="BioMetricsView" startPc="268435650">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435893" name="requestSensorData" parent="BioMetricsView" startPc="268435660">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436110" name="onSensor" parent="BioMetricsView" startPc="268435894">
+            <param id="sensorInfo"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436329" name="initialize" parent="BioMetricsView" startPc="268436111">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436359" name="onHide" parent="BioMetricsView" startPc="268436330">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436621" name="onUpdate" parent="BioMetricsView" startPc="268436360">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436798" name="onStart" parent="BioMetricsApp" startPc="268436622">
+            <param id="state"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436867" name="getInitialView" parent="BioMetricsApp" startPc="268436799">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436882" name="initialize" parent="BioMetricsApp" startPc="268436868">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436927" name="onStop" parent="BioMetricsApp" startPc="268436883">
+            <param id="state"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268437457" name="MainLayout" parent="Layouts" startPc="268436928">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+    </functions>
+</debugInfo>

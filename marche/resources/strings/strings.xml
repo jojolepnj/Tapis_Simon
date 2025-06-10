@@ -1,0 +1,10 @@
+<strings>
+    <string id="AppName">Heart rate</string>
+    <string id="HeartRate">Heart Rate</string>
+    <string id="SpO2">SpO2</string>
+    <!-- French translations -->
+    <string id="AppName" >Cardiaque</string>
+    <string id="HeartRate" >Fréquence Cardiaque</string>
+    <string id="SpO2" >SpO2</string>
+    <string id="BiometricApp">Biometric App</string>
+</strings>

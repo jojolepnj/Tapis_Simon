@@ -1,0 +1,11 @@
+<layout id="MainLayout">
+    <label id="TitleLabel" x="center" y="30" text="@Strings.AppName" font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_WHITE" />
+
+    <!-- Heart Rate Section -->
+    <label id="HeartRateLabel" x="center" y="70" text="@Strings.HeartRate" font="Graphics.FONT_SMALL" color="Graphics.COLOR_WHITE" />
+    <label id="HeartRateValue" x="center" y="90" text="--" font="Graphics.FONT_LARGE"  color="Graphics.COLOR_WHITE" />
+
+    <!-- SpO2 Section -->
+    <label id="SpO2Label" x="center" y="130" text="@Strings.SpO2" font="Graphics.FONT_SMALL"  color="Graphics.COLOR_WHITE" />
+    <label id="SpO2Value" x="center" y="150" text="--" font="Graphics.FONT_LARGE"  color="Graphics.COLOR_WHITE" />
+</layout>

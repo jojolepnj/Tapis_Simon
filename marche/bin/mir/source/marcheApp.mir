@@ -1,0 +1,247 @@
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Application,2,13,24]; ]
+using Toybox.Application;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [WatchUi,3,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [System,4,13,19]; ]
+using Toybox.System;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 5; @symbol_usingdef<0> = [Toybox,5,6,12]; @symbol_usingdef<1> = [Sensor,5,13,19]; ]
+using Toybox.Sensor;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 8; @symbol_classdef = [BioMetricsApp,8,6,19]; @symbol_extends<0> = [Application,8,28,39]; @symbol_extends<1> = [AppBase,8,40,47]; ]
+class BioMetricsApp extends Application.AppBase {
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 8; ]
+    <init> {
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 8; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 10; @position = 16; @symbol_vardef = [view,10,16,20]; ]
+    private
+    var view;
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 13; @symbol_functiondef = [initialize,13,13,23]; ]
+    function initialize() as Void {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_13_26_15_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 14 8 ]
+        symbol [ AppBase %tmp.2 14 8 15 ];
+        %tmp.2 = getv ? :AppBase;
+        symbol [ initialize %tmp.3 14 16 26 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_13_26_15_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 18; @symbol_functiondef = [onStart,18,13,20]; @symbol_param<0> = [state,18,21,26]; ]
+    function onStart(state) {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_18_28_38_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 20 8 ]
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_18_28_38_4_start" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_18_28_38_4_stop" ]
+        %delegate.1 = local;
+        symbol [ delegate %delegate.1 20 12 20 ];
+        symbol [ BioMetricsDelegate %tmp.4 20 27 45 ];
+        %tmp.4 = getv ? :BioMetricsDelegate;
+        %tmp.1 = newc %tmp.4 ();
+        lputv %delegate.1 %tmp.1;
+        symbol [ delegate %delegate.1 20 12 20 ];
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 22 8 ]
+        symbol [ WatchUi %tmp.5 22 8 15 ];
+        %tmp.5 = getm $.Toybox.WatchUi;
+        symbol [ pushView %tmp.6 22 16 24 ];
+        %tmp.6 = getv function %tmp.5 :pushView;
+        symbol [ BioMetricsView %tmp.10 22 29 43 ];
+        %tmp.10 = getv ? :BioMetricsView;
+        %tmp.7 = newc %tmp.10 ();
+        %tmp.11 = lgetv %delegate.1;
+        symbol [ delegate %tmp.11 22 47 55 ];
+        symbol [ WatchUi %tmp.12 22 57 64 ];
+        %tmp.12 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_IMMEDIATE %tmp.13 22 65 80 ];
+        %tmp.13 = getv %tmp.12 :SLIDE_IMMEDIATE;
+        invoke %tmp.5 %tmp.6(%tmp.7, %tmp.11, %tmp.13);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 25 8 ]
+        symbol [ System %tmp.14 25 8 14 ];
+        %tmp.14 = getm $.Toybox.System;
+        symbol [ println %tmp.15 25 15 22 ];
+        %tmp.15 = getv function %tmp.14 :println;
+        %tmp.16 = "Application starting...";
+        invoke %tmp.14 %tmp.15(%tmp.16);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 27 8 ]
+        try @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_beginTry @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_endTry @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_catch @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_finally;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_beginTry:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_12_34_8_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 29 12 ]
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_12_34_8_start" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_12_34_8_stop" ]
+        %info.2 = local;
+        symbol [ info %info.2 29 16 20 ];
+        symbol [ Sensor %tmp.17 29 23 29 ];
+        %tmp.17 = getm $.Toybox.Sensor;
+        symbol [ getInfo %tmp.18 29 30 37 ];
+        %tmp.18 = getv function %tmp.17 :getInfo;
+        %tmp.19 = invoke %tmp.17 %tmp.18();
+        lputv %info.2 %tmp.19;
+        symbol [ info %info.2 29 16 20 ];
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 31 12 ]
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_31_12_33_12_if_stmt:
+        %tmp.20 = lgetv %info.2;
+        symbol [ info %tmp.20 31 18 22 ];
+        %tmp.22 = const :heartRate;
+        symbol [ heartRate %tmp.22 31 28 37 const ];
+        %tmp.23 = canhazplz %tmp.20 %tmp.22;
+        %tmp.24 = not %tmp.23;
+        bf %tmp.24 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_31_12_33_12_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_31_12_33_12_if_true:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_31_40_33_12_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 32 16 ]
+        symbol [ System %tmp.25 32 16 22 ];
+        %tmp.25 = getm $.Toybox.System;
+        symbol [ println %tmp.26 32 23 30 ];
+        %tmp.26 = getv function %tmp.25 :println;
+        %tmp.27 = "Warning: Heart rate sensor not available";
+        invoke %tmp.25 %tmp.26(%tmp.27);
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_31_40_33_12_stop:
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_31_12_33_12_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_31_12_33_12_if_end:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_12_34_8_stop:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_endTry:
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_finally;
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_catch:
+        %tmp.28 = exception;
+        push %tmp.28;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 34 10 ]
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_catch" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_34_10_37_8_end" ]
+        %ex.3 = local;
+        symbol [ ex %ex.3 34 16 18 ];
+        %tmp.29 = dup %tmp.28;
+        lputv %ex.3 %tmp.29;
+        symbol [ ex %ex.3 34 16 18 ];
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_34_20_37_8_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 36 12 ]
+        symbol [ System %tmp.30 36 12 18 ];
+        %tmp.30 = getm $.Toybox.System;
+        symbol [ println %tmp.31 36 19 26 ];
+        %tmp.31 = getv function %tmp.30 :println;
+        %tmp.32 = "Error checking sensors: ";
+        %tmp.33 = lgetv %ex.3;
+        symbol [ ex %tmp.33 36 56 58 ];
+        symbol [ getErrorMessage %tmp.34 36 59 74 ];
+        %tmp.34 = getv function %tmp.33 :getErrorMessage;
+        %tmp.35 = invoke %tmp.33 %tmp.34();
+        %tmp.36 = add %tmp.32 %tmp.35;
+        invoke %tmp.30 %tmp.31(%tmp.36);
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_34_20_37_8_stop:
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_finally;
+        pop;
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_34_10_37_8_end:
+        try @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_catch @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_34_10_37_8_end @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_34_10_37_8_end @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_finally;
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_finally;
+        throw %tmp.28;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_finally:
+        jsrret;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_27_8_37_8_end:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_18_28_38_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 41; @symbol_functiondef = [onStop,41,13,19]; @symbol_param<0> = [state,41,20,25]; ]
+    function onStop(state) {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_41_27_47_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 42 8 ]
+        symbol [ System %tmp.1 42 8 14 ];
+        %tmp.1 = getm $.Toybox.System;
+        symbol [ println %tmp.2 42 15 22 ];
+        %tmp.2 = getv function %tmp.1 :println;
+        %tmp.3 = "Application stopping...";
+        invoke %tmp.1 %tmp.2(%tmp.3);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 44 8 ]
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_44_8_46_8_if_stmt:
+        symbol [ view %tmp.5 44 12 16 ];
+        %tmp.5 = getv ? :view;
+        %tmp.6 = null;
+        %tmp.7 = ne %tmp.5 %tmp.6;
+        bf %tmp.7 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_44_8_46_8_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_44_8_46_8_if_true:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_44_26_46_8_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 45 12 ]
+        symbol [ view %tmp.9 45 12 16 ];
+        %tmp.9 = getv ? :view;
+        %tmp.10 = as %tmp.9 { (!Null) };
+        symbol [ onHide %tmp.11 45 17 23 ];
+        %tmp.11 = getv function %tmp.10 :onHide;
+        invoke %tmp.10 %tmp.11();
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_44_26_46_8_stop:
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_44_8_46_8_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_44_8_46_8_if_end:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_41_27_47_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 50; @symbol_functiondef = [getInitialView,50,13,27]; ]
+    function getInitialView() {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_50_30_55_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 52 8 ]
+        symbol [ BioMetricsView %tmp.4 52 19 33 ];
+        %tmp.4 = getv ? :BioMetricsView;
+        %tmp.1 = newc %tmp.4 ();
+        symbol [ view ? 52 8 12 ];
+        putv self :view %tmp.1;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 54 8 ]
+        %tmp.5 = newa 2;
+        symbol [ view %tmp.7 54 16 20 ];
+        %tmp.7 = getv ? :view;
+        %tmp.8 = dup %tmp.5;
+        %tmp.9 = aputv %tmp.8 0 %tmp.7;
+        symbol [ BioMetricsDelegate %tmp.13 54 26 44 ];
+        %tmp.13 = getv ? :BioMetricsDelegate;
+        %tmp.10 = newc %tmp.13 ();
+        %tmp.14 = dup %tmp.9;
+        %tmp.15 = aputv %tmp.14 1 %tmp.10;
+        ret %tmp.15;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_50_30_55_4_stop:
+    }
+}
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 59; @symbol_classdef = [BioMetricsDelegate,59,6,24]; @symbol_extends<0> = [WatchUi,59,33,40]; @symbol_extends<1> = [BehaviorDelegate,59,41,57]; ]
+class BioMetricsDelegate extends WatchUi.BehaviorDelegate {
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 59; ]
+    <init> {
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 59; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 61; @symbol_functiondef = [initialize,61,13,23]; ]
+    function initialize() as Void {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_61_26_63_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 62 8 ]
+        symbol [ BehaviorDelegate %tmp.2 62 8 24 ];
+        %tmp.2 = getv ? :BehaviorDelegate;
+        symbol [ initialize %tmp.3 62 25 35 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_61_26_63_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 66; @symbol_functiondef = [onBack,66,13,19]; ]
+    function onBack() {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_66_22_70_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 68 8 ]
+        symbol [ WatchUi %tmp.1 68 8 15 ];
+        %tmp.1 = getm $.Toybox.WatchUi;
+        symbol [ popView %tmp.2 68 16 23 ];
+        %tmp.2 = getv function %tmp.1 :popView;
+        symbol [ WatchUi %tmp.3 68 24 31 ];
+        %tmp.3 = getm $.Toybox.WatchUi;
+        symbol [ SLIDE_IMMEDIATE %tmp.4 68 32 47 ];
+        %tmp.4 = getv %tmp.3 :SLIDE_IMMEDIATE;
+        invoke %tmp.1 %tmp.2(%tmp.4);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 69 8 ]
+        %tmp.5 = true;
+        ret %tmp.5;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_66_22_70_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 73; @symbol_functiondef = [onSelect,73,13,21]; ]
+    function onSelect() {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_73_24_76_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc" 75 8 ]
+        %tmp.1 = true;
+        ret %tmp.1;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheApp_mc_73_24_76_4_stop:
+    }
+}
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheApp.mc"; @line = 2; ]
+<init> {
+}

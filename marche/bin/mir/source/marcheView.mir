@@ -1,0 +1,853 @@
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [WatchUi,2,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [Graphics,3,13,21]; ]
+using Toybox.Graphics;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [System,4,13,19]; ]
+using Toybox.System;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 5; @symbol_usingdef<0> = [Toybox,5,6,12]; @symbol_usingdef<1> = [Sensor,5,13,19]; ]
+using Toybox.Sensor;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 6; @symbol_usingdef<0> = [Toybox,6,6,12]; @symbol_usingdef<1> = [Timer,6,13,18]; ]
+using Toybox.Timer;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 7; @symbol_usingdef<0> = [Toybox,7,6,12]; @symbol_usingdef<1> = [Lang,7,13,17]; ]
+using Toybox.Lang;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 10; @symbol_classdef = [BioMetricsView,10,6,20]; @symbol_extends<0> = [WatchUi,10,29,36]; @symbol_extends<1> = [View,10,37,41]; ]
+class BioMetricsView extends WatchUi.View {
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 10; ]
+    <init> {
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 14 16 ]
+        %tmp.2 = 5;
+        %tmp.1 = newa %tmp.2;
+        putv self :hrReadings %tmp.1;
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 10; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 12; @position = 18; @symbol_vardef = [heartRate,12,18,27]; ]
+    protected
+    var heartRate = "--";
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 13; @position = 16; @symbol_vardef = [timer,13,16,21]; ]
+    private
+    var timer;
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 14; @position = 16; @symbol_vardef = [hrReadings,14,16,26]; ]
+    private
+    var hrReadings;
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 15; @position = 16; @symbol_vardef = [readingIndex,15,16,28]; ]
+    private
+    var readingIndex = 0;
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 16; @position = 18; @symbol_constdef = [UPDATE_INTERVAL,16,18,33]; ]
+    private
+    const UPDATE_INTERVAL = 1000;
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 17; @position = 16; @symbol_vardef = [errorMessage,17,16,28]; ]
+    private
+    var errorMessage = null;
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 20; @symbol_functiondef = [initialize,20,13,23]; ]
+    function initialize() as Void {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_20_26_42_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 21 8 ]
+        symbol [ View %tmp.2 21 8 12 ];
+        %tmp.2 = getv ? :View;
+        symbol [ initialize %tmp.3 21 13 23 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 22 8 ]
+        symbol [ Timer %tmp.6 22 20 25 ];
+        %tmp.6 = getm $.Toybox.Timer;
+        symbol [ Timer %tmp.7 22 26 31 ];
+        %tmp.7 = getv function ? %tmp.6 :Timer;
+        %tmp.4 = newc %tmp.7 ();
+        symbol [ timer ? 22 8 13 ];
+        putv self :timer %tmp.4;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 25 8 ]
+        for @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_test @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_incr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_init:
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_begin" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_end" ]
+        %i.1 = local;
+        symbol [ i %i.1 25 17 18 ];
+        %tmp.8 = 0;
+        lputv %i.1 %tmp.8;
+        symbol [ i %i.1 25 17 18 ];
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_test:
+        %tmp.9 = lgetv %i.1;
+        symbol [ i %tmp.9 25 24 25 ];
+        symbol [ hrReadings %tmp.11 25 28 38 ];
+        %tmp.11 = getv ? :hrReadings;
+        symbol [ size %tmp.12 25 39 43 ];
+        %tmp.12 = getv function %tmp.11 :size;
+        %tmp.13 = invoke %tmp.11 %tmp.12();
+        %tmp.14 = lt %tmp.9 %tmp.13;
+        bf %tmp.14 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_begin:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_52_27_8_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 26 12 ]
+        symbol [ hrReadings %tmp.15 26 12 22 ];
+        %tmp.15 = getv self :hrReadings;
+        %tmp.16 = null;
+        %tmp.17 = lgetv %i.1;
+        symbol [ i %tmp.17 26 23 24 ];
+        aputv %tmp.15 %tmp.17 %tmp.16;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_52_27_8_stop:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_incr:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 25 ]
+        %tmp.20 = lgetv %i.1;
+        symbol [ i %tmp.20 25 47 48 ];
+        %tmp.21 = add %tmp.20 1;
+        lputv %i.1 %tmp.21;
+        symbol [ i %i.1 25 47 48 ];
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_test;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_25_8_27_8_for_end:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 30 8 ]
+        try @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_beginTry @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_endTry @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_catch @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_finally;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_beginTry:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_12_37_8_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 32 12 ]
+        symbol [ Sensor %tmp.22 32 12 18 ];
+        %tmp.22 = getm $.Toybox.Sensor;
+        symbol [ setEnabledSensors %tmp.23 32 19 36 ];
+        %tmp.23 = getv function %tmp.22 :setEnabledSensors;
+        %tmp.24 = newa 1;
+        symbol [ Sensor %tmp.25 32 38 44 ];
+        %tmp.25 = getm $.Toybox.Sensor;
+        symbol [ SENSOR_HEARTRATE %tmp.26 32 45 61 ];
+        %tmp.26 = getv %tmp.25 :SENSOR_HEARTRATE;
+        %tmp.27 = dup %tmp.24;
+        %tmp.28 = aputv %tmp.27 0 %tmp.26;
+        invoke %tmp.22 %tmp.23(%tmp.28);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 34 12 ]
+        symbol [ Sensor %tmp.29 34 12 18 ];
+        %tmp.29 = getm $.Toybox.Sensor;
+        symbol [ enableSensorEvents %tmp.30 34 19 37 ];
+        %tmp.30 = getv function %tmp.29 :enableSensorEvents;
+        %tmp.31 = self;
+        symbol [ method %tmp.32 34 38 44 ];
+        %tmp.32 = getv function %tmp.31 :method;
+        %tmp.34 = const :onSensor;
+        symbol [ onSensor %tmp.34 34 46 54 const ];
+        %tmp.35 = invoke %tmp.31 %tmp.32(%tmp.34);
+        invoke %tmp.29 %tmp.30(%tmp.35);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 36 12 ]
+        symbol [ timer %tmp.37 36 12 17 ];
+        %tmp.37 = getv ? :timer;
+        symbol [ start %tmp.38 36 18 23 ];
+        %tmp.38 = getv function %tmp.37 :start;
+        %tmp.39 = self;
+        symbol [ method %tmp.40 36 24 30 ];
+        %tmp.40 = getv function %tmp.39 :method;
+        %tmp.42 = const :requestSensorData;
+        symbol [ requestSensorData %tmp.42 36 32 49 const ];
+        %tmp.43 = invoke %tmp.39 %tmp.40(%tmp.42);
+        symbol [ UPDATE_INTERVAL %tmp.45 36 52 67 ];
+        %tmp.45 = getv ? :UPDATE_INTERVAL;
+        %tmp.46 = true;
+        invoke %tmp.37 %tmp.38(%tmp.43, %tmp.45, %tmp.46);
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_12_37_8_stop:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_endTry:
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_finally;
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_catch:
+        %tmp.47 = exception;
+        push %tmp.47;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 37 10 ]
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_catch" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_37_10_41_8_end" ]
+        %ex.2 = local;
+        symbol [ ex %ex.2 37 16 18 ];
+        %tmp.48 = dup %tmp.47;
+        lputv %ex.2 %tmp.48;
+        symbol [ ex %ex.2 37 16 18 ];
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_37_20_41_8_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 39 12 ]
+        %tmp.49 = lgetv %ex.2;
+        symbol [ ex %tmp.49 39 27 29 ];
+        symbol [ getErrorMessage %tmp.50 39 30 45 ];
+        %tmp.50 = getv function %tmp.49 :getErrorMessage;
+        %tmp.51 = invoke %tmp.49 %tmp.50();
+        symbol [ errorMessage ? 39 12 24 ];
+        putv self :errorMessage %tmp.51;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 40 12 ]
+        symbol [ System %tmp.52 40 12 18 ];
+        %tmp.52 = getm $.Toybox.System;
+        symbol [ println %tmp.53 40 19 26 ];
+        %tmp.53 = getv function %tmp.52 :println;
+        %tmp.54 = "Erreur capteur : ";
+        symbol [ errorMessage %tmp.56 40 49 61 ];
+        %tmp.56 = getv ? :errorMessage;
+        %tmp.57 = add %tmp.54 %tmp.56;
+        invoke %tmp.52 %tmp.53(%tmp.57);
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_37_20_41_8_stop:
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_finally;
+        pop;
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_37_10_41_8_end:
+        try @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_catch @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_37_10_41_8_end @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_37_10_41_8_end @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_finally;
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_finally;
+        throw %tmp.47;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_finally:
+        jsrret;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_30_8_41_8_end:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_20_26_42_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 45; @symbol_functiondef = [calculateAverage,45,13,29]; @symbol_param<0> = [readings,45,30,38]; ]
+    function calculateAverage(readings) {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_45_40_57_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 46 8 ]
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_45_40_57_4_start" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_45_40_57_4_stop" ]
+        %sum.1 = local;
+        symbol [ sum %sum.1 46 12 15 ];
+        %tmp.1 = 0;
+        lputv %sum.1 %tmp.1;
+        symbol [ sum %sum.1 46 12 15 ];
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 47 8 ]
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_45_40_57_4_start" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_45_40_57_4_stop" ]
+        %count.2 = local;
+        symbol [ count %count.2 47 12 17 ];
+        %tmp.2 = 0;
+        lputv %count.2 %tmp.2;
+        symbol [ count %count.2 47 12 17 ];
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 49 8 ]
+        for @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_test @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_incr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_init:
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_begin" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_end" ]
+        %i.3 = local;
+        symbol [ i %i.3 49 17 18 ];
+        %tmp.3 = 0;
+        lputv %i.3 %tmp.3;
+        symbol [ i %i.3 49 17 18 ];
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_test:
+        %tmp.4 = lgetv %i.3;
+        symbol [ i %tmp.4 49 24 25 ];
+        %tmp.5 = lgetv %readings;
+        symbol [ readings %tmp.5 49 28 36 ];
+        symbol [ size %tmp.6 49 37 41 ];
+        %tmp.6 = getv function %tmp.5 :size;
+        %tmp.7 = invoke %tmp.5 %tmp.6();
+        %tmp.8 = lt %tmp.4 %tmp.7;
+        bf %tmp.8 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_begin:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_50_54_8_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 50 12 ]
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_50_12_53_12_if_stmt:
+        %tmp.9 = lgetv %readings;
+        symbol [ readings %tmp.9 50 16 24 ];
+        %tmp.10 = lgetv %i.3;
+        symbol [ i %tmp.10 50 25 26 ];
+        %tmp.11 = agetv %tmp.9 %tmp.10;
+        %tmp.12 = null;
+        %tmp.13 = ne %tmp.11 %tmp.12;
+        bf %tmp.13 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_50_12_53_12_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_50_12_53_12_if_true:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_50_37_53_12_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 51 16 ]
+        %tmp.14 = lgetv %sum.1;
+        symbol [ sum %tmp.14 51 16 19 ];
+        %tmp.15 = lgetv %readings;
+        symbol [ readings %tmp.15 51 23 31 ];
+        %tmp.16 = lgetv %i.3;
+        symbol [ i %tmp.16 51 32 33 ];
+        %tmp.17 = agetv %tmp.15 %tmp.16;
+        %tmp.18 = add %tmp.14 %tmp.17;
+        lputv %sum.1 %tmp.18;
+        symbol [ sum %sum.1 51 16 19 ];
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 52 16 ]
+        %tmp.21 = lgetv %count.2;
+        symbol [ count %tmp.21 52 16 21 ];
+        %tmp.22 = add %tmp.21 1;
+        lputv %count.2 %tmp.22;
+        symbol [ count %count.2 52 16 21 ];
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_50_37_53_12_stop:
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_50_12_53_12_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_50_12_53_12_if_end:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_50_54_8_stop:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_incr:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 49 ]
+        %tmp.25 = lgetv %i.3;
+        symbol [ i %tmp.25 49 45 46 ];
+        %tmp.26 = add %tmp.25 1;
+        lputv %i.3 %tmp.26;
+        symbol [ i %i.3 49 45 46 ];
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_test;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_49_8_54_8_for_end:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 56 8 ]
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_56_15_56_56_begin:
+        %tmp.27 = lgetv %count.2;
+        symbol [ count %tmp.27 56 16 21 ];
+        %tmp.28 = 0;
+        %tmp.29 = gt %tmp.27 %tmp.28;
+        bf %tmp.29 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_56_15_56_56_false;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_56_15_56_56_true:
+        %tmp.30 = lgetv %sum.1;
+        symbol [ sum %tmp.30 56 30 33 ];
+        %tmp.31 = lgetv %count.2;
+        symbol [ count %tmp.31 56 36 41 ];
+        %tmp.32 = div %tmp.30 %tmp.31;
+        symbol [ toNumber %tmp.33 56 43 51 ];
+        %tmp.33 = getv function %tmp.32 :toNumber;
+        %tmp.34 = invoke %tmp.32 %tmp.33();
+        push %tmp.34;
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_56_15_56_56_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_56_15_56_56_false:
+        %tmp.35 = null;
+        push %tmp.35;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_56_15_56_56_end:
+        %tmp.36 = phi [%tmp.29 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_56_15_56_56_begin] [%tmp.34 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_56_15_56_56_true] [%tmp.35 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_56_15_56_56_false] [%tmp.36 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_56_15_56_56_end];
+        ret %tmp.36;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_45_40_57_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 60; @symbol_functiondef = [onUpdate,60,13,21]; @symbol_param<0> = [dc,60,22,24]; ]
+    function onUpdate(dc) {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_60_26_104_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 62 8 ]
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 62 8 10 ];
+        symbol [ setColor %tmp.2 62 11 19 ];
+        %tmp.2 = getv function %tmp.1 :setColor;
+        symbol [ Graphics %tmp.3 62 20 28 ];
+        %tmp.3 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.4 62 29 40 ];
+        %tmp.4 = getv %tmp.3 :COLOR_BLACK;
+        symbol [ Graphics %tmp.5 62 42 50 ];
+        %tmp.5 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.6 62 51 62 ];
+        %tmp.6 = getv %tmp.5 :COLOR_BLACK;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 63 8 ]
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 63 8 10 ];
+        symbol [ clear %tmp.8 63 11 16 ];
+        %tmp.8 = getv function %tmp.7 :clear;
+        invoke %tmp.7 %tmp.8();
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 66 8 ]
+        %tmp.9 = lgetv %dc;
+        symbol [ dc %tmp.9 66 8 10 ];
+        symbol [ setColor %tmp.10 66 11 19 ];
+        %tmp.10 = getv function %tmp.9 :setColor;
+        symbol [ Graphics %tmp.11 66 20 28 ];
+        %tmp.11 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.12 66 29 40 ];
+        %tmp.12 = getv %tmp.11 :COLOR_WHITE;
+        symbol [ Graphics %tmp.13 66 42 50 ];
+        %tmp.13 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.14 66 51 68 ];
+        %tmp.14 = getv %tmp.13 :COLOR_TRANSPARENT;
+        invoke %tmp.9 %tmp.10(%tmp.12, %tmp.14);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 69 8 ]
+        %tmp.15 = lgetv %dc;
+        symbol [ dc %tmp.15 69 8 10 ];
+        symbol [ drawText %tmp.16 69 11 19 ];
+        %tmp.16 = getv function %tmp.15 :drawText;
+        %tmp.17 = lgetv %dc;
+        symbol [ dc %tmp.17 70 12 14 ];
+        symbol [ getWidth %tmp.18 70 15 23 ];
+        %tmp.18 = getv function %tmp.17 :getWidth;
+        %tmp.19 = invoke %tmp.17 %tmp.18();
+        %tmp.20 = 2;
+        %tmp.21 = div %tmp.19 %tmp.20;
+        %tmp.22 = 30;
+        symbol [ Graphics %tmp.23 72 12 20 ];
+        %tmp.23 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.24 72 21 32 ];
+        %tmp.24 = getv %tmp.23 :FONT_MEDIUM;
+        symbol [ WatchUi %tmp.25 73 12 19 ];
+        %tmp.25 = getm $.Toybox.WatchUi;
+        symbol [ loadResource %tmp.26 73 20 32 ];
+        %tmp.26 = getv function %tmp.25 :loadResource;
+        symbol [ Rez %tmp.28 73 33 36 ];
+        %tmp.28 = getv ? :Rez;
+        symbol [ Strings %tmp.29 73 37 44 ];
+        %tmp.29 = getv %tmp.28 :Strings;
+        symbol [ AppName %tmp.30 73 45 52 ];
+        %tmp.30 = getv %tmp.29 :AppName;
+        %tmp.31 = invoke %tmp.25 %tmp.26(%tmp.30);
+        symbol [ Graphics %tmp.32 74 12 20 ];
+        %tmp.32 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.33 74 21 40 ];
+        %tmp.33 = getv %tmp.32 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.15 %tmp.16(%tmp.21, %tmp.22, %tmp.24, %tmp.31, %tmp.33);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 78 8 ]
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_78_8_87_8_if_stmt:
+        symbol [ errorMessage %tmp.35 78 12 24 ];
+        %tmp.35 = getv ? :errorMessage;
+        %tmp.36 = null;
+        %tmp.37 = ne %tmp.35 %tmp.36;
+        bf %tmp.37 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_78_8_87_8_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_78_8_87_8_if_true:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_78_34_87_8_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 79 12 ]
+        %tmp.38 = lgetv %dc;
+        symbol [ dc %tmp.38 79 12 14 ];
+        symbol [ drawText %tmp.39 79 15 23 ];
+        %tmp.39 = getv function %tmp.38 :drawText;
+        %tmp.40 = lgetv %dc;
+        symbol [ dc %tmp.40 80 16 18 ];
+        symbol [ getWidth %tmp.41 80 19 27 ];
+        %tmp.41 = getv function %tmp.40 :getWidth;
+        %tmp.42 = invoke %tmp.40 %tmp.41();
+        %tmp.43 = 2;
+        %tmp.44 = div %tmp.42 %tmp.43;
+        %tmp.45 = lgetv %dc;
+        symbol [ dc %tmp.45 81 16 18 ];
+        symbol [ getHeight %tmp.46 81 19 28 ];
+        %tmp.46 = getv function %tmp.45 :getHeight;
+        %tmp.47 = invoke %tmp.45 %tmp.46();
+        %tmp.48 = 2;
+        %tmp.49 = div %tmp.47 %tmp.48;
+        symbol [ Graphics %tmp.50 82 16 24 ];
+        %tmp.50 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.51 82 25 35 ];
+        %tmp.51 = getv %tmp.50 :FONT_SMALL;
+        symbol [ errorMessage %tmp.53 83 16 28 ];
+        %tmp.53 = getv ? :errorMessage;
+        symbol [ Graphics %tmp.54 84 16 24 ];
+        %tmp.54 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.55 84 25 44 ];
+        %tmp.55 = getv %tmp.54 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.38 %tmp.39(%tmp.44, %tmp.49, %tmp.51, %tmp.53, %tmp.55);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 86 12 ]
+        ret ?;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_78_34_87_8_stop:
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_78_8_87_8_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_78_8_87_8_if_end:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 90 8 ]
+        %tmp.56 = lgetv %dc;
+        symbol [ dc %tmp.56 90 8 10 ];
+        symbol [ drawText %tmp.57 90 11 19 ];
+        %tmp.57 = getv function %tmp.56 :drawText;
+        %tmp.58 = lgetv %dc;
+        symbol [ dc %tmp.58 91 12 14 ];
+        symbol [ getWidth %tmp.59 91 15 23 ];
+        %tmp.59 = getv function %tmp.58 :getWidth;
+        %tmp.60 = invoke %tmp.58 %tmp.59();
+        %tmp.61 = 2;
+        %tmp.62 = div %tmp.60 %tmp.61;
+        %tmp.63 = lgetv %dc;
+        symbol [ dc %tmp.63 92 12 14 ];
+        symbol [ getHeight %tmp.64 92 15 24 ];
+        %tmp.64 = getv function %tmp.63 :getHeight;
+        %tmp.65 = invoke %tmp.63 %tmp.64();
+        %tmp.66 = 2;
+        %tmp.67 = div %tmp.65 %tmp.66;
+        %tmp.68 = 30;
+        %tmp.69 = sub %tmp.67 %tmp.68;
+        symbol [ Graphics %tmp.70 93 12 20 ];
+        %tmp.70 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.71 93 21 31 ];
+        %tmp.71 = getv %tmp.70 :FONT_SMALL;
+        symbol [ WatchUi %tmp.72 94 12 19 ];
+        %tmp.72 = getm $.Toybox.WatchUi;
+        symbol [ loadResource %tmp.73 94 20 32 ];
+        %tmp.73 = getv function %tmp.72 :loadResource;
+        symbol [ Rez %tmp.75 94 33 36 ];
+        %tmp.75 = getv ? :Rez;
+        symbol [ Strings %tmp.76 94 37 44 ];
+        %tmp.76 = getv %tmp.75 :Strings;
+        symbol [ HeartRate %tmp.77 94 45 54 ];
+        %tmp.77 = getv %tmp.76 :HeartRate;
+        %tmp.78 = invoke %tmp.72 %tmp.73(%tmp.77);
+        symbol [ Graphics %tmp.79 95 12 20 ];
+        %tmp.79 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.80 95 21 40 ];
+        %tmp.80 = getv %tmp.79 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.56 %tmp.57(%tmp.62, %tmp.69, %tmp.71, %tmp.78, %tmp.80);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 97 8 ]
+        %tmp.81 = lgetv %dc;
+        symbol [ dc %tmp.81 97 8 10 ];
+        symbol [ drawText %tmp.82 97 11 19 ];
+        %tmp.82 = getv function %tmp.81 :drawText;
+        %tmp.83 = lgetv %dc;
+        symbol [ dc %tmp.83 98 12 14 ];
+        symbol [ getWidth %tmp.84 98 15 23 ];
+        %tmp.84 = getv function %tmp.83 :getWidth;
+        %tmp.85 = invoke %tmp.83 %tmp.84();
+        %tmp.86 = 2;
+        %tmp.87 = div %tmp.85 %tmp.86;
+        %tmp.88 = lgetv %dc;
+        symbol [ dc %tmp.88 99 12 14 ];
+        symbol [ getHeight %tmp.89 99 15 24 ];
+        %tmp.89 = getv function %tmp.88 :getHeight;
+        %tmp.90 = invoke %tmp.88 %tmp.89();
+        %tmp.91 = 2;
+        %tmp.92 = div %tmp.90 %tmp.91;
+        symbol [ Graphics %tmp.93 100 12 20 ];
+        %tmp.93 = getm $.Toybox.Graphics;
+        symbol [ FONT_LARGE %tmp.94 100 21 31 ];
+        %tmp.94 = getv %tmp.93 :FONT_LARGE;
+        %tmp.95 = self;
+        symbol [ self %tmp.95 101 12 16 ];
+        symbol [ heartRate %tmp.96 101 17 26 ];
+        %tmp.96 = getv %tmp.95 :heartRate;
+        %tmp.97 = " bpm";
+        %tmp.98 = add %tmp.96 %tmp.97;
+        symbol [ Graphics %tmp.99 102 12 20 ];
+        %tmp.99 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.100 102 21 40 ];
+        %tmp.100 = getv %tmp.99 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.81 %tmp.82(%tmp.87, %tmp.92, %tmp.94, %tmp.98, %tmp.100);
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_60_26_104_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 107; @symbol_functiondef = [requestSensorData,107,13,30]; ]
+    function requestSensorData() {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_107_33_126_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 108 8 ]
+        try @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_beginTry @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_endTry @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_catch @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_finally;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_beginTry:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_12_123_8_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 109 12 ]
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_12_123_8_start" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_12_123_8_stop" ]
+        %sensorInfo.1 = local;
+        symbol [ sensorInfo %sensorInfo.1 109 16 26 ];
+        symbol [ Sensor %tmp.1 109 29 35 ];
+        %tmp.1 = getm $.Toybox.Sensor;
+        symbol [ getInfo %tmp.2 109 36 43 ];
+        %tmp.2 = getv function %tmp.1 :getInfo;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %sensorInfo.1 %tmp.3;
+        symbol [ sensorInfo %sensorInfo.1 109 16 26 ];
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 110 12 ]
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_12_119_12_if_stmt:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_16_110_69_begin:
+        %tmp.4 = lgetv %sensorInfo.1;
+        symbol [ sensorInfo %tmp.4 110 16 26 ];
+        %tmp.6 = const :heartRate;
+        symbol [ heartRate %tmp.6 110 32 41 const ];
+        %tmp.7 = canhazplz %tmp.4 %tmp.6;
+        bf %tmp.7 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_12_119_12_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_45_110_69_true:
+        %tmp.8 = lgetv %sensorInfo.1;
+        symbol [ sensorInfo %tmp.8 110 45 55 ];
+        %tmp.9 = as %tmp.8 { (interface { var heartRate; }) };
+        symbol [ heartRate %tmp.10 110 56 65 ];
+        %tmp.10 = getv %tmp.9 :heartRate;
+        %tmp.11 = null;
+        %tmp.12 = ne %tmp.10 %tmp.11;
+        push %tmp.12;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_45_110_69_end:
+        %tmp.13 = phi [%tmp.7 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_16_110_69_begin] [%tmp.12 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_45_110_69_true] [%tmp.13 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_45_110_69_end];
+        bf %tmp.13 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_12_119_12_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_12_119_12_if_true:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_75_119_12_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 111 16 ]
+        symbol [ System %tmp.14 111 16 22 ];
+        %tmp.14 = getm $.Toybox.System;
+        symbol [ println %tmp.15 111 23 30 ];
+        %tmp.15 = getv function %tmp.14 :println;
+        %tmp.16 = "Lecture HR : ";
+        %tmp.17 = lgetv %sensorInfo.1;
+        symbol [ sensorInfo %tmp.17 111 49 59 ];
+        %tmp.18 = as %tmp.17 { (interface { var heartRate; }) };
+        symbol [ heartRate %tmp.19 111 60 69 ];
+        %tmp.19 = getv %tmp.18 :heartRate;
+        %tmp.20 = add %tmp.16 %tmp.19;
+        invoke %tmp.14 %tmp.15(%tmp.20);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 113 16 ]
+        symbol [ hrReadings %tmp.21 113 16 26 ];
+        %tmp.21 = getv self :hrReadings;
+        %tmp.22 = lgetv %sensorInfo.1;
+        symbol [ sensorInfo %tmp.22 113 43 53 ];
+        %tmp.23 = as %tmp.22 { (interface { var heartRate; }) };
+        symbol [ heartRate %tmp.24 113 54 63 ];
+        %tmp.24 = getv %tmp.23 :heartRate;
+        symbol [ readingIndex %tmp.26 113 27 39 ];
+        %tmp.26 = getv ? :readingIndex;
+        aputv %tmp.21 %tmp.26 %tmp.24;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 114 16 ]
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_75_119_12_start" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_75_119_12_stop" ]
+        %avgHR.2 = local;
+        symbol [ avgHR %avgHR.2 114 20 25 ];
+        %tmp.27 = self;
+        symbol [ calculateAverage %tmp.28 114 28 44 ];
+        %tmp.28 = getv function %tmp.27 :calculateAverage;
+        symbol [ hrReadings %tmp.30 114 45 55 ];
+        %tmp.30 = getv ? :hrReadings;
+        %tmp.31 = invoke %tmp.27 %tmp.28(%tmp.30);
+        lputv %avgHR.2 %tmp.31;
+        symbol [ avgHR %avgHR.2 114 20 25 ];
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 115 16 ]
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_115_16_118_16_if_stmt:
+        %tmp.32 = lgetv %avgHR.2;
+        symbol [ avgHR %tmp.32 115 20 25 ];
+        %tmp.33 = null;
+        %tmp.34 = ne %tmp.32 %tmp.33;
+        bf %tmp.34 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_115_16_118_16_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_115_16_118_16_if_true:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_115_35_118_16_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 116 20 ]
+        symbol [ self %self 116 20 24 ];
+        %tmp.35 = lgetv %avgHR.2;
+        symbol [ avgHR %tmp.35 116 37 42 ];
+        %tmp.36 = as %tmp.35 { (!Null) };
+        symbol [ toString %tmp.37 116 43 51 ];
+        %tmp.37 = getv function %tmp.36 :toString;
+        %tmp.38 = invoke %tmp.36 %tmp.37();
+        symbol [ heartRate ? 116 25 34 ];
+        putv self :heartRate %tmp.38;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 117 20 ]
+        symbol [ System %tmp.39 117 20 26 ];
+        %tmp.39 = getm $.Toybox.System;
+        symbol [ println %tmp.40 117 27 34 ];
+        %tmp.40 = getv function %tmp.39 :println;
+        %tmp.41 = "Moyenne HR : ";
+        %tmp.42 = self;
+        symbol [ self %tmp.42 117 53 57 ];
+        symbol [ heartRate %tmp.43 117 58 67 ];
+        %tmp.43 = getv %tmp.42 :heartRate;
+        %tmp.44 = add %tmp.41 %tmp.43;
+        invoke %tmp.39 %tmp.40(%tmp.44);
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_115_35_118_16_stop:
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_115_16_118_16_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_115_16_118_16_if_end:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_75_119_12_stop:
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_12_119_12_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_110_12_119_12_if_end:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 121 12 ]
+        symbol [ readingIndex %tmp.46 121 28 40 ];
+        %tmp.46 = getv ? :readingIndex;
+        %tmp.47 = 1;
+        %tmp.48 = add %tmp.46 %tmp.47;
+        symbol [ hrReadings %tmp.50 121 48 58 ];
+        %tmp.50 = getv ? :hrReadings;
+        symbol [ size %tmp.51 121 59 63 ];
+        %tmp.51 = getv function %tmp.50 :size;
+        %tmp.52 = invoke %tmp.50 %tmp.51();
+        %tmp.53 = mod %tmp.48 %tmp.52;
+        symbol [ readingIndex ? 121 12 24 ];
+        putv self :readingIndex %tmp.53;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 122 12 ]
+        symbol [ WatchUi %tmp.54 122 12 19 ];
+        %tmp.54 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.55 122 20 33 ];
+        %tmp.55 = getv function %tmp.54 :requestUpdate;
+        invoke %tmp.54 %tmp.55();
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_12_123_8_stop:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_endTry:
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_finally;
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_catch:
+        %tmp.56 = exception;
+        push %tmp.56;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 123 10 ]
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_catch" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_123_10_125_8_end" ]
+        %ex.3 = local;
+        symbol [ ex %ex.3 123 17 19 ];
+        %tmp.57 = dup %tmp.56;
+        lputv %ex.3 %tmp.57;
+        symbol [ ex %ex.3 123 17 19 ];
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_123_21_125_8_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 124 12 ]
+        symbol [ System %tmp.58 124 12 18 ];
+        %tmp.58 = getm $.Toybox.System;
+        symbol [ println %tmp.59 124 19 26 ];
+        %tmp.59 = getv function %tmp.58 :println;
+        %tmp.60 = "Erreur lecture HR : ";
+        %tmp.61 = lgetv %ex.3;
+        symbol [ ex %tmp.61 124 52 54 ];
+        symbol [ getErrorMessage %tmp.62 124 55 70 ];
+        %tmp.62 = getv function %tmp.61 :getErrorMessage;
+        %tmp.63 = invoke %tmp.61 %tmp.62();
+        %tmp.64 = add %tmp.60 %tmp.63;
+        invoke %tmp.58 %tmp.59(%tmp.64);
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_123_21_125_8_stop:
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_finally;
+        pop;
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_123_10_125_8_end:
+        try @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_catch @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_123_10_125_8_end @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_123_10_125_8_end @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_finally;
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_finally;
+        throw %tmp.56;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_finally:
+        jsrret;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_108_8_125_8_end:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_107_33_126_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 129; @symbol_functiondef = [onSensor,129,13,21]; @symbol_param<0> = [sensorInfo,129,22,32]; @symbol_param<0>_type<0> = [Sensor,129,36,42]; @symbol_param<0>_type<1> = [Info,129,43,47]; ]
+    function onSensor(sensorInfo as Sensor.Info) as Void {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_129_57_146_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 130 8 ]
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_8_145_8_if_stmt:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_12_130_58_begin:
+        %tmp.1 = lgetv %sensorInfo;
+        symbol [ sensorInfo %tmp.1 130 12 22 ];
+        %tmp.2 = null;
+        %tmp.3 = ne %tmp.1 %tmp.2;
+        bf %tmp.3 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_8_145_8_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_34_130_58_true:
+        %tmp.4 = lgetv %sensorInfo;
+        symbol [ sensorInfo %tmp.4 130 34 44 ];
+        %tmp.5 = as %tmp.4 { (!Null) };
+        symbol [ heartRate %tmp.6 130 45 54 ];
+        %tmp.6 = getv %tmp.5 :heartRate;
+        %tmp.7 = null;
+        %tmp.8 = ne %tmp.6 %tmp.7;
+        push %tmp.8;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_34_130_58_end:
+        %tmp.9 = phi [%tmp.3 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_12_130_58_begin] [%tmp.8 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_34_130_58_true] [%tmp.9 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_34_130_58_end];
+        bf %tmp.9 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_8_145_8_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_8_145_8_if_true:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_64_145_8_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 131 12 ]
+        try @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_beginTry @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_endTry @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_catch @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_finally;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_beginTry:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_16_142_12_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 132 16 ]
+        symbol [ System %tmp.10 132 16 22 ];
+        %tmp.10 = getm $.Toybox.System;
+        symbol [ println %tmp.11 132 23 30 ];
+        %tmp.11 = getv function %tmp.10 :println;
+        %tmp.12 = "Event HR : ";
+        %tmp.13 = lgetv %sensorInfo;
+        symbol [ sensorInfo %tmp.13 132 47 57 ];
+        %tmp.14 = as %tmp.13 { (!Null) };
+        symbol [ heartRate %tmp.15 132 58 67 ];
+        %tmp.15 = getv %tmp.14 :heartRate;
+        %tmp.16 = add %tmp.12 %tmp.15;
+        invoke %tmp.10 %tmp.11(%tmp.16);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 134 16 ]
+        symbol [ hrReadings %tmp.17 134 16 26 ];
+        %tmp.17 = getv self :hrReadings;
+        %tmp.18 = lgetv %sensorInfo;
+        symbol [ sensorInfo %tmp.18 134 43 53 ];
+        %tmp.19 = as %tmp.18 { (!Null) };
+        symbol [ heartRate %tmp.20 134 54 63 ];
+        %tmp.20 = getv %tmp.19 :heartRate;
+        symbol [ readingIndex %tmp.22 134 27 39 ];
+        %tmp.22 = getv ? :readingIndex;
+        aputv %tmp.17 %tmp.22 %tmp.20;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 135 16 ]
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_16_142_12_start" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_16_142_12_stop" ]
+        %avgHR.1 = local;
+        symbol [ avgHR %avgHR.1 135 20 25 ];
+        %tmp.23 = self;
+        symbol [ calculateAverage %tmp.24 135 28 44 ];
+        %tmp.24 = getv function %tmp.23 :calculateAverage;
+        symbol [ hrReadings %tmp.26 135 45 55 ];
+        %tmp.26 = getv ? :hrReadings;
+        %tmp.27 = invoke %tmp.23 %tmp.24(%tmp.26);
+        lputv %avgHR.1 %tmp.27;
+        symbol [ avgHR %avgHR.1 135 20 25 ];
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 136 16 ]
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_136_16_139_16_if_stmt:
+        %tmp.28 = lgetv %avgHR.1;
+        symbol [ avgHR %tmp.28 136 20 25 ];
+        %tmp.29 = null;
+        %tmp.30 = ne %tmp.28 %tmp.29;
+        bf %tmp.30 @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_136_16_139_16_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_136_16_139_16_if_true:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_136_35_139_16_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 137 20 ]
+        symbol [ self %self 137 20 24 ];
+        %tmp.31 = lgetv %avgHR.1;
+        symbol [ avgHR %tmp.31 137 37 42 ];
+        %tmp.32 = as %tmp.31 { (!Null) };
+        symbol [ toString %tmp.33 137 43 51 ];
+        %tmp.33 = getv function %tmp.32 :toString;
+        %tmp.34 = invoke %tmp.32 %tmp.33();
+        symbol [ heartRate ? 137 25 34 ];
+        putv self :heartRate %tmp.34;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 138 20 ]
+        symbol [ System %tmp.35 138 20 26 ];
+        %tmp.35 = getm $.Toybox.System;
+        symbol [ println %tmp.36 138 27 34 ];
+        %tmp.36 = getv function %tmp.35 :println;
+        %tmp.37 = "Moyenne HR : ";
+        %tmp.38 = self;
+        symbol [ self %tmp.38 138 53 57 ];
+        symbol [ heartRate %tmp.39 138 58 67 ];
+        %tmp.39 = getv %tmp.38 :heartRate;
+        %tmp.40 = add %tmp.37 %tmp.39;
+        invoke %tmp.35 %tmp.36(%tmp.40);
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_136_35_139_16_stop:
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_136_16_139_16_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_136_16_139_16_if_end:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 140 16 ]
+        symbol [ readingIndex %tmp.42 140 32 44 ];
+        %tmp.42 = getv ? :readingIndex;
+        %tmp.43 = 1;
+        %tmp.44 = add %tmp.42 %tmp.43;
+        symbol [ hrReadings %tmp.46 140 52 62 ];
+        %tmp.46 = getv ? :hrReadings;
+        symbol [ size %tmp.47 140 63 67 ];
+        %tmp.47 = getv function %tmp.46 :size;
+        %tmp.48 = invoke %tmp.46 %tmp.47();
+        %tmp.49 = mod %tmp.44 %tmp.48;
+        symbol [ readingIndex ? 140 16 28 ];
+        putv self :readingIndex %tmp.49;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 141 16 ]
+        symbol [ WatchUi %tmp.50 141 16 23 ];
+        %tmp.50 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.51 141 24 37 ];
+        %tmp.51 = getv function %tmp.50 :requestUpdate;
+        invoke %tmp.50 %tmp.51();
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_16_142_12_stop:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_endTry:
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_finally;
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_catch:
+        %tmp.52 = exception;
+        push %tmp.52;
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 142 14 ]
+        [ "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_catch" "C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_142_14_144_12_end" ]
+        %ex.2 = local;
+        symbol [ ex %ex.2 142 21 23 ];
+        %tmp.53 = dup %tmp.52;
+        lputv %ex.2 %tmp.53;
+        symbol [ ex %ex.2 142 21 23 ];
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_142_25_144_12_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 143 16 ]
+        symbol [ System %tmp.54 143 16 22 ];
+        %tmp.54 = getm $.Toybox.System;
+        symbol [ println %tmp.55 143 23 30 ];
+        %tmp.55 = getv function %tmp.54 :println;
+        %tmp.56 = "Erreur traitement HR : ";
+        %tmp.57 = lgetv %ex.2;
+        symbol [ ex %tmp.57 143 59 61 ];
+        symbol [ getErrorMessage %tmp.58 143 62 77 ];
+        %tmp.58 = getv function %tmp.57 :getErrorMessage;
+        %tmp.59 = invoke %tmp.57 %tmp.58();
+        %tmp.60 = add %tmp.56 %tmp.59;
+        invoke %tmp.54 %tmp.55(%tmp.60);
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_142_25_144_12_stop:
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_finally;
+        pop;
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_142_14_144_12_end:
+        try @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_catch @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_142_14_144_12_end @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_142_14_144_12_end @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_finally;
+        jsr @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_finally;
+        throw %tmp.52;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_finally:
+        jsrret;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_131_12_144_12_end:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_64_145_8_stop:
+        goto @C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_8_145_8_if_end;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_130_8_145_8_if_end:
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_129_57_146_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 149; @symbol_functiondef = [onShow,149,13,19]; ]
+    function onShow() {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_149_22_151_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 150 8 ]
+        %tmp.1 = self;
+        symbol [ requestSensorData %tmp.2 150 8 25 ];
+        %tmp.2 = getv function %tmp.1 :requestSensorData;
+        invoke %tmp.1 %tmp.2();
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_149_22_151_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 154; @symbol_functiondef = [onHide,154,13,19]; ]
+    function onHide() {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_154_22_157_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 155 8 ]
+        symbol [ timer %tmp.2 155 8 13 ];
+        %tmp.2 = getv ? :timer;
+        symbol [ stop %tmp.3 155 14 18 ];
+        %tmp.3 = getv function %tmp.2 :stop;
+        invoke %tmp.2 %tmp.3();
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc" 156 8 ]
+        symbol [ Sensor %tmp.4 156 8 14 ];
+        %tmp.4 = getm $.Toybox.Sensor;
+        symbol [ setEnabledSensors %tmp.5 156 15 32 ];
+        %tmp.5 = getv function %tmp.4 :setEnabledSensors;
+        %tmp.6 = newa 0;
+        invoke %tmp.4 %tmp.5(%tmp.6);
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_marche_source_marcheView_mc_154_22_157_4_stop:
+    }
+}
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\marche\source\marcheView.mc"; @line = 2; ]
+<init> {
+}
