@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<debugInfo>
+    <manifest filename="C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\manifest.xml"/>
+    <pcToLineNum>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloView.mc" id="1" lineNum="5" parent="globals/helloView" pc="268435460" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloApp.mc" id="2" lineNum="17" parent="globals" pc="268435472" symbol="getApp"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloApp.mc" id="2" lineNum="18" parent="globals" pc="268435482" symbol="getApp"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloDelegate.mc" id="3" lineNum="4" parent="globals/helloDelegate" pc="268435493" symbol="&lt;init&gt;"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="4" lineNum="7" parent="globals/Rez" pc="268435505" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloMenuDelegate.mc" id="5" lineNum="5" parent="globals/helloMenuDelegate" pc="268435525" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloApp.mc" id="6" lineNum="5" parent="globals/helloApp" pc="268435537" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloView.mc" id="7" lineNum="7" parent="globals/helloView" pc="268435549" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloView.mc" id="7" lineNum="8" parent="globals/helloView" pc="268435551" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloView.mc" id="8" lineNum="12" parent="globals/helloView" pc="268435564" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloView.mc" id="8" lineNum="14" parent="globals/helloView" pc="268435566" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloView.mc" id="8" lineNum="15" parent="globals/helloView" pc="268435578" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloView.mc" id="8" lineNum="18" parent="globals/helloView" pc="268435586" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloView.mc" id="8" lineNum="21" parent="globals/helloView" pc="268435603" symbol="onUpdate"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloDelegate.mc" id="9" lineNum="10" parent="globals/helloDelegate" pc="268435643" symbol="onMenu"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloDelegate.mc" id="9" lineNum="11" parent="globals/helloDelegate" pc="268435645" symbol="onMenu"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloDelegate.mc" id="9" lineNum="12" parent="globals/helloDelegate" pc="268435714" symbol="onMenu"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloDelegate.mc" id="10" lineNum="6" parent="globals/helloDelegate" pc="268435716" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloDelegate.mc" id="10" lineNum="7" parent="globals/helloDelegate" pc="268435718" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloMenuDelegate.mc" id="11" lineNum="11" parent="globals/helloMenuDelegate" pc="268435731" symbol="onMenuItem"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloMenuDelegate.mc" id="11" lineNum="12" parent="globals/helloMenuDelegate" pc="268435733" symbol="onMenuItem"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloMenuDelegate.mc" id="11" lineNum="13" parent="globals/helloMenuDelegate" pc="268435744" symbol="onMenuItem"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloMenuDelegate.mc" id="11" lineNum="14" parent="globals/helloMenuDelegate" pc="268435765" symbol="onMenuItem"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloMenuDelegate.mc" id="11" lineNum="15" parent="globals/helloMenuDelegate" pc="268435776" symbol="onMenuItem"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloMenuDelegate.mc" id="12" lineNum="7" parent="globals/helloMenuDelegate" pc="268435798" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloMenuDelegate.mc" id="12" lineNum="8" parent="globals/helloMenuDelegate" pc="268435800" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloApp.mc" id="13" lineNum="12" parent="globals/helloApp" pc="268435813" symbol="getInitialView"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloApp.mc" id="13" lineNum="13" parent="globals/helloApp" pc="268435815" symbol="getInitialView"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloApp.mc" id="14" lineNum="7" parent="globals/helloApp" pc="268435845" symbol="initialize"/>
+        <entry filename="C:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\source\\helloApp.mc" id="14" lineNum="8" parent="globals/helloApp" pc="268435847" symbol="initialize"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="15" lineNum="14" parent="globals/Rez/Layouts" pc="268435860" symbol="MainLayout"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="15" lineNum="15" parent="globals/Rez/Layouts" pc="268435871" symbol="MainLayout"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="15" lineNum="17" parent="globals/Rez/Layouts" pc="268435971" symbol="MainLayout"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="15" lineNum="18" parent="globals/Rez/Layouts" pc="268436055" symbol="MainLayout"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="15" lineNum="20" parent="globals/Rez/Layouts" pc="268436087" symbol="MainLayout"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="16" lineNum="25" parent="globals/Rez/Menus/MainMenu" pc="268436102" symbol="&lt;init&gt;"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="17" lineNum="26" parent="globals/Rez/Menus/MainMenu" pc="268436114" symbol="initialize"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="17" lineNum="27" parent="globals/Rez/Menus/MainMenu" pc="268436116" symbol="initialize"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="17" lineNum="28" parent="globals/Rez/Menus/MainMenu" pc="268436128" symbol="initialize"/>
+        <entry filename="c:\\Users\\15mel\\OneDrive\\Documents\\Projet_Simon\\test\\marche\\hello\\bin\\gen\\006-B3992-00\\source\\Rez.mcgen" id="17" lineNum="29" parent="globals/Rez/Menus/MainMenu" pc="268436173" symbol="initialize"/>
+    </pcToLineNum>
+    <symbolTable>
+        <entry id="8388639" module="true" symbol="Graphics"/>
+        <entry id="8389346" symbol="text"/>
+        <entry id="8388632" method="true" symbol="&lt;init&gt;"/>
+        <entry id="5" module="true" symbol="globals/Rez/Menus"/>
+        <entry id="15" method="true" symbol="MainLayout"/>
+        <entry id="8" object="true" symbol="helloDelegate"/>
+        <entry field="true" id="8388611" module="true" symbol="Toybox"/>
+        <entry field="true" id="17" symbol="AppName"/>
+        <entry id="6" module="true" symbol="globals/Rez/Strings"/>
+        <entry id="8389080" method="true" symbol="onMenu"/>
+        <entry id="8389345" symbol="rezId"/>
+        <entry id="8388648" module="true" symbol="WatchUi"/>
+        <entry id="2" module="true" symbol="globals/Rez"/>
+        <entry field="true" id="20" symbol="prompt"/>
+        <entry field="true" id="14" symbol="id_monkey"/>
+        <entry id="8389124" method="true" symbol="onUpdate"/>
+        <entry field="true" id="8389065" symbol="locY"/>
+        <entry field="true" id="8389064" symbol="locX"/>
+        <entry id="8388771" module="true" object="true" symbol="Drawables"/>
+        <entry id="8389348" symbol="font"/>
+        <entry id="22" symbol="item_2"/>
+        <entry id="21" symbol="item_1"/>
+        <entry id="12" module="true" symbol="Menus"/>
+        <entry id="8389275" method="true" symbol="getApp"/>
+        <entry id="4" module="true" symbol="globals/Rez/Layouts"/>
+        <entry field="true" id="8389063" symbol="identifier"/>
+        <entry id="8389349" symbol="justification"/>
+        <entry id="9" object="true" symbol="helloMenuDelegate"/>
+        <entry id="3" module="true" symbol="globals/Rez/Drawables"/>
+        <entry id="16" object="true" symbol="MainMenu"/>
+        <entry id="8388644" module="true" symbol="System"/>
+        <entry id="8388769" module="true" object="true" symbol="Rez"/>
+        <entry id="10" object="true" symbol="helloView"/>
+        <entry id="8388640" module="true" symbol="Lang"/>
+        <entry field="true" id="13" symbol="LauncherIcon"/>
+        <entry id="8388610" symbol="statics"/>
+        <entry id="8389350" module="true" symbol="globals"/>
+        <entry id="8388770" module="true" object="true" symbol="Strings"/>
+        <entry id="8388702" method="true" symbol="initialize"/>
+        <entry id="7" object="true" symbol="helloApp"/>
+        <entry id="8389280" method="true" symbol="getInitialView"/>
+        <entry id="8389109" method="true" symbol="onMenuItem"/>
+        <entry field="true" id="8389347" symbol="color"/>
+        <entry id="11" module="true" symbol="Layouts"/>
+        <entry id="8388635" module="true" symbol="Application"/>
+        <entry field="true" id="19" symbol="menu_label_2"/>
+        <entry field="true" id="18" symbol="menu_label_1"/>
+    </symbolTable>
+    <localVars>
+        <entry arg="true" endPc="268435642" name="dc" stackId="1" startPc="268435564"/>
+        <entry arg="true" endPc="268435797" name="item" stackId="1" startPc="268435731"/>
+        <entry arg="true" endPc="268436101" name="dc" stackId="1" startPc="268435860"/>
+        <entry endPc="268436101" name="rez_cmp_local_text_1193959466" stackId="2" startPc="268435871"/>
+        <entry endPc="268436101" name="rez_cmp_local_bitmap_id_monkey" stackId="3" startPc="268435871"/>
+    </localVars>
+    <deviceInfo deviceVersion="de121dfa604491767422db2c3063530f8fd6465b" partNumber="006-B3992-00"/>
+    <annotations>
+        <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="LauncherIcon"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="menu_label_2"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="menu_label_1"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="prompt"/>
+        <annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="AppName"/>
+        <annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="id_monkey"/>
+    </annotations>
+    <dataEntryOffsetMappings>
+        <dataEntry label="globals" offset="67" parentId="" symbolId="globals" type="module"/>
+        <dataEntry label="globals/helloView" offset="152" parentId="globals" symbolId="helloView" type="class"/>
+        <dataEntry label="globals/helloDelegate" offset="205" parentId="globals" symbolId="helloDelegate" type="class"/>
+        <dataEntry label="globals/Rez" offset="258" parentId="globals" symbolId="Rez" type="module"/>
+        <dataEntry label="globals/helloMenuDelegate" offset="320" parentId="globals" symbolId="helloMenuDelegate" type="class"/>
+        <dataEntry label="globals/helloApp" offset="373" parentId="globals" symbolId="helloApp" type="class"/>
+        <dataEntry label="globals/Rez/Drawables" offset="426" parentId="Rez" symbolId="Drawables" type="module"/>
+        <dataEntry label="globals/Rez/Layouts" offset="470" parentId="Rez" symbolId="Layouts" type="module"/>
+        <dataEntry label="globals/Rez/Menus" offset="505" parentId="Rez" symbolId="Menus" type="module"/>
+        <dataEntry label="globals/Rez/Strings" offset="540" parentId="Rez" symbolId="Strings" type="module"/>
+        <dataEntry label="globals/Rez/Menus/MainMenu" offset="602" parentId="Menus" symbolId="MainMenu" type="class"/>
+    </dataEntryOffsetMappings>
+    <functions>
+        <functionEntry accessMode="public" endPc="268435471" name="&lt;init&gt;" parent="helloView" startPc="268435460">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435492" name="getApp" startPc="268435472">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435504" name="&lt;init&gt;" parent="helloDelegate" startPc="268435493">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435524" name="&lt;init&gt;" parent="Rez" startPc="268435505">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435536" name="&lt;init&gt;" parent="helloMenuDelegate" startPc="268435525">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435548" name="&lt;init&gt;" parent="helloApp" startPc="268435537">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435563" name="initialize" parent="helloView" startPc="268435549">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435642" name="onUpdate" parent="helloView" startPc="268435564">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435715" name="onMenu" parent="helloDelegate" startPc="268435643">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435730" name="initialize" parent="helloDelegate" startPc="268435716">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Drawables">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Layouts">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Menus">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" name="&lt;init&gt;" parent="Strings">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435797" name="onMenuItem" parent="helloMenuDelegate" startPc="268435731">
+            <param id="item"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435812" name="initialize" parent="helloMenuDelegate" startPc="268435798">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435844" name="getInitialView" parent="helloApp" startPc="268435813">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268435859" name="initialize" parent="helloApp" startPc="268435845">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436101" name="MainLayout" parent="Layouts" startPc="268435860">
+            <param id="dc"/>
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436113" name="&lt;init&gt;" parent="MainMenu" startPc="268436102">
+            <documentation/>
+        </functionEntry>
+        <functionEntry accessMode="public" endPc="268436218" name="initialize" parent="MainMenu" startPc="268436114">
+            <documentation/>
+        </functionEntry>
+    </functions>
+</debugInfo>

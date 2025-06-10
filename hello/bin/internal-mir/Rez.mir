@@ -1,0 +1,1662 @@
+[ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [WatchUi,2,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [WatchUi,3,13,20]; @symbol_usingAlias = [Ui,3,24,26]; ]
+using Toybox.WatchUi as :Ui;
+[ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [Graphics,4,13,21]; ]
+using Toybox.Graphics;
+[ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 5; @symbol_usingdef<0> = [Toybox,5,6,12]; @symbol_usingdef<1> = [Graphics,5,13,21]; @symbol_usingAlias = [Gfx,5,25,28]; ]
+using Toybox.Graphics as :Gfx;
+[ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 7; @symbol_moduledef = [Rez,7,7,10]; ]
+module Rez {
+    [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 7; ]
+    <init> {
+    }
+    [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 8; @symbol_moduledef = [Drawables,8,11,20]; ]
+    module Drawables {
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 8; ]
+        <init> {
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 9; @position = 27; initialized = true; @symbol_vardef = [id_monkey,9,27,36]; @symbol_type<0> = [ResourceId,9,40,50]; ]
+        var id_monkey as ResourceId;
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 10; @position = 27; initialized = true; @symbol_vardef = [LauncherIcon,10,27,39]; @symbol_type<0> = [ResourceId,10,43,53]; ]
+        var LauncherIcon as ResourceId;
+    }
+    [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 13; @symbol_moduledef = [Layouts,13,11,18]; ]
+    module Layouts {
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 13; ]
+        <init> {
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 14; @symbol_functiondef = [MainLayout,14,17,27]; @symbol_param<0> = [dc,14,28,30]; @symbol_param<0>_type<0> = [Graphics,14,34,42]; @symbol_param<0>_type<1> = [Dc,14,43,45]; @symbol_return<0> = [Array,14,50,55]; @symbol_return<1> = [WatchUi,14,56,63]; @symbol_return<2> = [Drawable,14,64,72]; ]
+        function MainLayout(dc as Graphics.Dc) as Array<WatchUi.Drawable> {
+c_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_bin_gen_006_B3992_00_source_Rez_mcgen_14_74_21_8_start:
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 15 12 ]
+            [ "c_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_bin_gen_006_B3992_00_source_Rez_mcgen_14_74_21_8_start" "c_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_bin_gen_006_B3992_00_source_Rez_mcgen_14_74_21_8_stop" ]
+            %rez_cmp_local_text_1193959466.1 = local;
+            symbol [ rez_cmp_local_text_1193959466 %rez_cmp_local_text_1193959466.1 15 16 45 ];
+            symbol [ WatchUi %tmp.3 15 52 59 ];
+            %tmp.3 = getm $.Toybox.WatchUi;
+            symbol [ Text %tmp.4 15 60 64 ];
+            %tmp.4 = getv function ? %tmp.3 :Text;
+            %tmp.5 = newd 6;
+            %tmp.7 = const :color;
+            symbol [ color %tmp.7 15 67 72 const ];
+            symbol [ Graphics %tmp.8 15 74 82 ];
+            %tmp.8 = getm $.Toybox.Graphics;
+            symbol [ COLOR_WHITE %tmp.9 15 83 94 ];
+            %tmp.9 = getv %tmp.8 :COLOR_WHITE;
+            %tmp.10 = dup %tmp.5;
+            %tmp.11 = aputv %tmp.10 %tmp.7 %tmp.9;
+            %tmp.13 = const :locX;
+            symbol [ locX %tmp.13 15 97 101 const ];
+            %tmp.14 = 260;
+            %tmp.15 = 0.5;
+            %tmp.16 = mul %tmp.14 %tmp.15;
+            %tmp.17 = dup %tmp.11;
+            %tmp.18 = aputv %tmp.17 %tmp.13 %tmp.16;
+            %tmp.20 = const :locY;
+            symbol [ locY %tmp.20 15 117 121 const ];
+            %tmp.21 = 5;
+            %tmp.22 = dup %tmp.18;
+            %tmp.23 = aputv %tmp.22 %tmp.20 %tmp.21;
+            %tmp.25 = const :text;
+            symbol [ text %tmp.25 15 127 131 const ];
+            symbol [ $ %tmp.26 15 133 134 ];
+            %tmp.26 = getm $;
+            symbol [ Rez %tmp.27 15 135 138 ];
+            %tmp.27 = getv %tmp.26 :Rez;
+            symbol [ Strings %tmp.28 15 139 146 ];
+            %tmp.28 = getv %tmp.27 :Strings;
+            symbol [ prompt %tmp.29 15 147 153 ];
+            %tmp.29 = getv %tmp.28 :prompt;
+            %tmp.30 = dup %tmp.23;
+            %tmp.31 = aputv %tmp.30 %tmp.25 %tmp.29;
+            %tmp.33 = const :justification;
+            symbol [ justification %tmp.33 15 156 169 const ];
+            symbol [ Graphics %tmp.34 15 171 179 ];
+            %tmp.34 = getm $.Toybox.Graphics;
+            symbol [ TEXT_JUSTIFY_CENTER %tmp.35 15 180 199 ];
+            %tmp.35 = getv %tmp.34 :TEXT_JUSTIFY_CENTER;
+            %tmp.36 = dup %tmp.31;
+            %tmp.37 = aputv %tmp.36 %tmp.33 %tmp.35;
+            %tmp.39 = const :font;
+            symbol [ font %tmp.39 15 202 206 const ];
+            symbol [ Graphics %tmp.40 15 208 216 ];
+            %tmp.40 = getm $.Toybox.Graphics;
+            symbol [ FONT_MEDIUM %tmp.41 15 217 228 ];
+            %tmp.41 = getv %tmp.40 :FONT_MEDIUM;
+            %tmp.42 = dup %tmp.37;
+            %tmp.43 = aputv %tmp.42 %tmp.39 %tmp.41;
+            %tmp.1 = newc %tmp.4 (%tmp.43);
+            lputv %rez_cmp_local_text_1193959466.1 %tmp.1;
+            symbol [ rez_cmp_local_text_1193959466 %rez_cmp_local_text_1193959466.1 15 16 45 ];
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 17 12 ]
+            [ "c_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_bin_gen_006_B3992_00_source_Rez_mcgen_14_74_21_8_start" "c_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_bin_gen_006_B3992_00_source_Rez_mcgen_14_74_21_8_stop" ]
+            %rez_cmp_local_bitmap_id_monkey.2 = local;
+            symbol [ rez_cmp_local_bitmap_id_monkey %rez_cmp_local_bitmap_id_monkey.2 17 16 46 ];
+            symbol [ WatchUi %tmp.46 17 53 60 ];
+            %tmp.46 = getm $.Toybox.WatchUi;
+            symbol [ Bitmap %tmp.47 17 61 67 ];
+            %tmp.47 = getv function ? %tmp.46 :Bitmap;
+            %tmp.48 = newd 4;
+            %tmp.50 = const :identifier;
+            symbol [ identifier %tmp.50 17 70 80 const ];
+            %tmp.51 = "id_monkey";
+            %tmp.52 = dup %tmp.48;
+            %tmp.53 = aputv %tmp.52 %tmp.50 %tmp.51;
+            %tmp.55 = const :rezId;
+            symbol [ rezId %tmp.55 17 96 101 const ];
+            symbol [ $ %tmp.56 17 103 104 ];
+            %tmp.56 = getm $;
+            symbol [ Rez %tmp.57 17 105 108 ];
+            %tmp.57 = getv %tmp.56 :Rez;
+            symbol [ Drawables %tmp.58 17 109 118 ];
+            %tmp.58 = getv %tmp.57 :Drawables;
+            symbol [ id_monkey %tmp.59 17 119 128 ];
+            %tmp.59 = getv %tmp.58 :id_monkey;
+            %tmp.60 = dup %tmp.53;
+            %tmp.61 = aputv %tmp.60 %tmp.55 %tmp.59;
+            %tmp.63 = const :locX;
+            symbol [ locX %tmp.63 17 131 135 const ];
+            symbol [ WatchUi %tmp.64 17 137 144 ];
+            %tmp.64 = getm $.Toybox.WatchUi;
+            symbol [ LAYOUT_HALIGN_CENTER %tmp.65 17 145 165 ];
+            %tmp.65 = getv %tmp.64 :LAYOUT_HALIGN_CENTER;
+            %tmp.66 = dup %tmp.61;
+            %tmp.67 = aputv %tmp.66 %tmp.63 %tmp.65;
+            %tmp.69 = const :locY;
+            symbol [ locY %tmp.69 17 168 172 const ];
+            %tmp.70 = 30;
+            %tmp.71 = dup %tmp.67;
+            %tmp.72 = aputv %tmp.71 %tmp.69 %tmp.70;
+            %tmp.44 = newc %tmp.47 (%tmp.72);
+            lputv %rez_cmp_local_bitmap_id_monkey.2 %tmp.44;
+            symbol [ rez_cmp_local_bitmap_id_monkey %rez_cmp_local_bitmap_id_monkey.2 17 16 46 ];
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 18 12 ]
+            %tmp.73 = lgetv %rez_cmp_local_bitmap_id_monkey.2;
+            symbol [ rez_cmp_local_bitmap_id_monkey %tmp.73 18 12 42 ];
+            symbol [ setLocation %tmp.74 18 43 54 ];
+            %tmp.74 = getv function %tmp.73 :setLocation;
+            %tmp.75 = 260;
+            %tmp.76 = lgetv %rez_cmp_local_bitmap_id_monkey.2;
+            symbol [ rez_cmp_local_bitmap_id_monkey %tmp.76 18 63 93 ];
+            symbol [ width %tmp.77 18 94 99 ];
+            %tmp.77 = getv %tmp.76 :width;
+            %tmp.78 = sub %tmp.75 %tmp.77;
+            %tmp.79 = 0.5;
+            %tmp.80 = mul %tmp.78 %tmp.79;
+            %tmp.81 = lgetv %rez_cmp_local_bitmap_id_monkey.2;
+            symbol [ rez_cmp_local_bitmap_id_monkey %tmp.81 18 109 139 ];
+            symbol [ locY %tmp.82 18 140 144 ];
+            %tmp.82 = getv %tmp.81 :locY;
+            invoke %tmp.73 %tmp.74(%tmp.80, %tmp.82);
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 20 12 ]
+            %tmp.83 = newa 2 Array<WatchUi.Drawable>;
+            symbol [ Array %tmp.83 20 86 91 ];
+            symbol [ WatchUi %tmp.83 20 92 99 ];
+            symbol [ Drawable %tmp.83 20 100 108 ];
+            %tmp.84 = lgetv %rez_cmp_local_text_1193959466.1;
+            symbol [ rez_cmp_local_text_1193959466 %tmp.84 20 20 49 ];
+            %tmp.85 = dup %tmp.83;
+            %tmp.86 = aputv %tmp.85 0 %tmp.84;
+            %tmp.87 = lgetv %rez_cmp_local_bitmap_id_monkey.2;
+            symbol [ rez_cmp_local_bitmap_id_monkey %tmp.87 20 51 81 ];
+            %tmp.88 = dup %tmp.86;
+            %tmp.89 = aputv %tmp.88 1 %tmp.87;
+            ret %tmp.89;
+c_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_bin_gen_006_B3992_00_source_Rez_mcgen_14_74_21_8_stop:
+        }
+    }
+    [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 24; @symbol_moduledef = [Menus,24,11,16]; ]
+    module Menus {
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 24; ]
+        <init> {
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 25; @symbol_classdef = [MainMenu,25,14,22]; @symbol_extends<0> = [WatchUi,25,31,38]; @symbol_extends<1> = [Menu,25,39,43]; ]
+        class MainMenu extends WatchUi.Menu {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 25; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 25; ]
+            static
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 26; @symbol_functiondef = [initialize,26,21,31]; ]
+            function initialize() as Void {
+c_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_bin_gen_006_B3992_00_source_Rez_mcgen_26_34_30_12_start:
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 27 16 ]
+                symbol [ Menu %tmp.2 27 16 20 ];
+                %tmp.2 = getv ? :Menu;
+                symbol [ initialize %tmp.3 27 21 31 ];
+                %tmp.3 = getv function %tmp.2 :initialize;
+                invoke %tmp.2 %tmp.3();
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 28 16 ]
+                %tmp.4 = self;
+                symbol [ addItem %tmp.5 28 16 23 ];
+                %tmp.5 = getv function %tmp.4 :addItem;
+                symbol [ WatchUi %tmp.6 28 25 32 ];
+                %tmp.6 = getm $.Toybox.WatchUi;
+                symbol [ loadResource %tmp.7 28 33 45 ];
+                %tmp.7 = getv function %tmp.6 :loadResource;
+                symbol [ $ %tmp.8 28 46 47 ];
+                %tmp.8 = getm $;
+                symbol [ Rez %tmp.9 28 48 51 ];
+                %tmp.9 = getv %tmp.8 :Rez;
+                symbol [ Strings %tmp.10 28 52 59 ];
+                %tmp.10 = getv %tmp.9 :Strings;
+                symbol [ menu_label_1 %tmp.11 28 60 72 ];
+                %tmp.11 = getv %tmp.10 :menu_label_1;
+                %tmp.12 = invoke %tmp.6 %tmp.7(%tmp.11);
+                %tmp.13 = as %tmp.12 String;
+                symbol [ String %tmp.13 28 77 83 ];
+                %tmp.15 = const :item_1;
+                symbol [ item_1 %tmp.15 28 87 93 const ];
+                invoke %tmp.4 %tmp.5(%tmp.13, %tmp.15);
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 29 16 ]
+                %tmp.16 = self;
+                symbol [ addItem %tmp.17 29 16 23 ];
+                %tmp.17 = getv function %tmp.16 :addItem;
+                symbol [ WatchUi %tmp.18 29 25 32 ];
+                %tmp.18 = getm $.Toybox.WatchUi;
+                symbol [ loadResource %tmp.19 29 33 45 ];
+                %tmp.19 = getv function %tmp.18 :loadResource;
+                symbol [ $ %tmp.20 29 46 47 ];
+                %tmp.20 = getm $;
+                symbol [ Rez %tmp.21 29 48 51 ];
+                %tmp.21 = getv %tmp.20 :Rez;
+                symbol [ Strings %tmp.22 29 52 59 ];
+                %tmp.22 = getv %tmp.21 :Strings;
+                symbol [ menu_label_2 %tmp.23 29 60 72 ];
+                %tmp.23 = getv %tmp.22 :menu_label_2;
+                %tmp.24 = invoke %tmp.18 %tmp.19(%tmp.23);
+                %tmp.25 = as %tmp.24 String;
+                symbol [ String %tmp.25 29 77 83 ];
+                %tmp.27 = const :item_2;
+                symbol [ item_2 %tmp.27 29 87 93 const ];
+                invoke %tmp.16 %tmp.17(%tmp.25, %tmp.27);
+c_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_bin_gen_006_B3992_00_source_Rez_mcgen_26_34_30_12_stop:
+            }
+        }
+    }
+    [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 34; @symbol_moduledef = [Strings,34,11,18]; ]
+    module Strings {
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 34; ]
+        <init> {
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 35; @position = 27; initialized = true; @symbol_vardef = [menu_label_1,35,27,39]; @symbol_type<0> = [ResourceId,35,43,53]; ]
+        var menu_label_1 as ResourceId;
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 36; @position = 27; initialized = true; @symbol_vardef = [menu_label_2,36,27,39]; @symbol_type<0> = [ResourceId,36,43,53]; ]
+        var menu_label_2 as ResourceId;
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 37; @position = 27; initialized = true; @symbol_vardef = [prompt,37,27,33]; @symbol_type<0> = [ResourceId,37,37,47]; ]
+        var prompt as ResourceId;
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 38; @position = 27; initialized = true; @symbol_vardef = [AppName,38,27,34]; @symbol_type<0> = [ResourceId,38,38,48]; ]
+        var AppName as ResourceId;
+    }
+    [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 41; @symbol_moduledef = [Styles,41,11,17]; ]
+    module Styles {
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 41; ]
+        <init> {
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 42; @symbol_moduledef = [prompt_font_enhanced_readability__body_with_title,42,15,64]; ]
+        module prompt_font_enhanced_readability__body_with_title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 42; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 43; @position = 18; @symbol_constdef = [exclude,43,18,25]; @symbol_type<0> = [Boolean,43,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 46; @symbol_moduledef = [system_size__menu_header,46,15,39]; ]
+        module system_size__menu_header {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 46; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 47; @position = 18; @symbol_constdef = [width,47,18,23]; @symbol_type<0> = [Number,47,27,33]; ]
+            const width as Number = 260;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 48; @position = 18; @symbol_constdef = [height,48,18,24]; @symbol_type<0> = [Number,48,28,34]; ]
+            const height as Number = 81;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 51; @symbol_moduledef = [system_loc__hint_button_left_bottom,51,15,50]; ]
+        module system_loc__hint_button_left_bottom {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 51; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 52; @position = 18; @symbol_constdef = [x,52,18,19]; @symbol_type<0> = [Number,52,23,29]; ]
+            const x as Number = 10;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 53; @position = 18; @symbol_constdef = [y,53,18,19]; @symbol_type<0> = [Number,53,23,29]; ]
+            const y as Number = 173;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 56; @symbol_moduledef = [prompt_font_enhanced_readability__body_no_title,56,15,62]; ]
+        module prompt_font_enhanced_readability__body_no_title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 56; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 57; @position = 18; @symbol_constdef = [exclude,57,18,25]; @symbol_type<0> = [Boolean,57,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 60; @symbol_moduledef = [prompt_loc__body_no_title,60,15,40]; ]
+        module prompt_loc__body_no_title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 60; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 61; @position = 18; @symbol_constdef = [x,61,18,19]; @symbol_type<0> = [Number,61,23,29]; ]
+            const x as Number = 26;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 62; @position = 18; @symbol_constdef = [y,62,18,19]; @symbol_type<0> = [Number,62,23,29]; ]
+            const y as Number = 26;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 65; @symbol_moduledef = [system_icon_dark__about,65,15,38]; ]
+        module system_icon_dark__about {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 65; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 66; @position = 18; @symbol_constdef = [filename,66,18,26]; @symbol_type<0> = [String,66,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__about.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 67; @position = 18; @symbol_constdef = [compress,67,18,26]; @symbol_type<0> = [String,67,30,36]; ]
+            const compress as String = "true";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 68; @position = 18; @symbol_constdef = [dithering,68,18,27]; @symbol_type<0> = [String,68,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 69; @position = 18; @symbol_constdef = [automaticPalette,69,18,34]; @symbol_type<0> = [String,69,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 72; @symbol_moduledef = [system_icon_light__question,72,15,42]; ]
+        module system_icon_light__question {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 72; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 73; @position = 18; @symbol_constdef = [filename,73,18,26]; @symbol_type<0> = [String,73,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__question.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 74; @position = 18; @symbol_constdef = [dithering,74,18,27]; @symbol_type<0> = [String,74,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 77; @symbol_moduledef = [system_loc__hint_button_left_top,77,15,47]; ]
+        module system_loc__hint_button_left_top {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 77; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 78; @position = 18; @symbol_constdef = [exclude,78,18,25]; @symbol_type<0> = [Boolean,78,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 81; @symbol_moduledef = [prompt_font__title,81,15,33]; ]
+        module prompt_font__title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 81; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 82 18 ]
+                symbol [ Graphics %tmp.28 82 34 42 ];
+                %tmp.28 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.29 82 43 62 ];
+                %tmp.29 = getv %tmp.28 :TEXT_JUSTIFY_CENTER;
+                symbol [ Graphics %tmp.30 82 63 71 ];
+                %tmp.30 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_VCENTER %tmp.31 82 72 92 ];
+                %tmp.31 = getv %tmp.30 :TEXT_JUSTIFY_VCENTER;
+                %tmp.32 = bitor %tmp.29 %tmp.31;
+                putv self :justification %tmp.32;
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 83 18 ]
+                symbol [ Graphics %tmp.33 83 25 33 ];
+                %tmp.33 = getm $.Toybox.Graphics;
+                symbol [ FONT_XTINY %tmp.34 83 34 44 ];
+                %tmp.34 = getv %tmp.33 :FONT_XTINY;
+                putv self :font %tmp.34;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 82; @position = 18; @symbol_constdef = [justification,82,18,31]; ]
+            const justification;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 83; @position = 18; @symbol_constdef = [font,83,18,22]; ]
+            const font;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 86; @symbol_moduledef = [system_icon_dark__discard,86,15,40]; ]
+        module system_icon_dark__discard {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 86; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 87; @position = 18; @symbol_constdef = [filename,87,18,26]; @symbol_type<0> = [String,87,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__discard.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 88; @position = 18; @symbol_constdef = [compress,88,18,26]; @symbol_type<0> = [String,88,30,36]; ]
+            const compress as String = "true";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 89; @position = 18; @symbol_constdef = [dithering,89,18,27]; @symbol_type<0> = [String,89,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 90; @position = 18; @symbol_constdef = [automaticPalette,90,18,34]; @symbol_type<0> = [String,90,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 93; @symbol_moduledef = [system_size__menu_item,93,15,37]; ]
+        module system_size__menu_item {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 93; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 94; @position = 18; @symbol_constdef = [width,94,18,23]; @symbol_type<0> = [Number,94,27,33]; ]
+            const width as Number = 260;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 95; @position = 18; @symbol_constdef = [height,95,18,24]; @symbol_type<0> = [Number,95,28,34]; ]
+            const height as Number = 68;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 98; @symbol_moduledef = [system_color_dark__text,98,15,38]; ]
+        module system_color_dark__text {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 98; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 100 18 ]
+                symbol [ Graphics %tmp.35 100 31 39 ];
+                %tmp.35 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.36 100 40 57 ];
+                %tmp.36 = getv %tmp.35 :COLOR_TRANSPARENT;
+                putv self :background %tmp.36;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 99; @position = 18; @symbol_constdef = [color,99,18,23]; @symbol_type<0> = [Number,99,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 100; @position = 18; @symbol_constdef = [background,100,18,28]; ]
+            const background;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 103; @symbol_moduledef = [system_icon_destructive__discard,103,15,47]; ]
+        module system_icon_destructive__discard {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 103; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 104; @position = 18; @symbol_constdef = [filename,104,18,26]; @symbol_type<0> = [String,104,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_destructive__discard.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 105; @position = 18; @symbol_constdef = [dithering,105,18,27]; @symbol_type<0> = [String,105,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 108; @symbol_moduledef = [system_icon_dark__hint_action_menu,108,15,49]; ]
+        module system_icon_dark__hint_action_menu {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 108; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 109; @position = 18; @symbol_constdef = [filename,109,18,26]; @symbol_type<0> = [String,109,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__hint_button_right_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 110; @position = 18; @symbol_constdef = [dithering,110,18,27]; @symbol_type<0> = [String,110,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 113; @symbol_moduledef = [prompt_size__title,113,15,33]; ]
+        module prompt_size__title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 113; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 114; @position = 18; @symbol_constdef = [width,114,18,23]; @symbol_type<0> = [Number,114,27,33]; ]
+            const width as Number = 208;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 115; @position = 18; @symbol_constdef = [height,115,18,24]; @symbol_type<0> = [Number,115,28,34]; ]
+            const height as Number = 48;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 118; @symbol_moduledef = [confirmation_font__body,118,15,38]; ]
+        module confirmation_font__body {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 118; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 119 18 ]
+                symbol [ Graphics %tmp.37 119 34 42 ];
+                %tmp.37 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.38 119 43 62 ];
+                %tmp.38 = getv %tmp.37 :TEXT_JUSTIFY_CENTER;
+                symbol [ Graphics %tmp.39 119 63 71 ];
+                %tmp.39 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_VCENTER %tmp.40 119 72 92 ];
+                %tmp.40 = getv %tmp.39 :TEXT_JUSTIFY_VCENTER;
+                %tmp.41 = bitor %tmp.38 %tmp.40;
+                putv self :justification %tmp.41;
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 120 18 ]
+                symbol [ Graphics %tmp.42 120 25 33 ];
+                %tmp.42 = getm $.Toybox.Graphics;
+                symbol [ FONT_TINY %tmp.43 120 34 43 ];
+                %tmp.43 = getv %tmp.42 :FONT_TINY;
+                putv self :font %tmp.43;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 119; @position = 18; @symbol_constdef = [justification,119,18,31]; ]
+            const justification;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 120; @position = 18; @symbol_constdef = [font,120,18,22]; ]
+            const font;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 123; @symbol_moduledef = [system_color_dark__background,123,15,44]; ]
+        module system_color_dark__background {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 123; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 124; @position = 18; @symbol_constdef = [color,124,18,23]; @symbol_type<0> = [Number,124,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 125; @position = 18; @symbol_constdef = [background,125,18,28]; @symbol_type<0> = [Number,125,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 128; @symbol_moduledef = [system_icon_destructive__hint_button_left_top,128,15,60]; ]
+        module system_icon_destructive__hint_button_left_top {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 128; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 129; @position = 18; @symbol_constdef = [filename,129,18,26]; @symbol_type<0> = [String,129,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_destructive__hint_button_left_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 130; @position = 18; @symbol_constdef = [dithering,130,18,27]; @symbol_type<0> = [String,130,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 133; @symbol_moduledef = [system_size__launch_icon,133,15,39]; ]
+        module system_size__launch_icon {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 133; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 134; @position = 18; @symbol_constdef = [scaleX,134,18,24]; @symbol_type<0> = [Number,134,28,34]; ]
+            const scaleX as Number = 40;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 135; @position = 18; @symbol_constdef = [scaleY,135,18,24]; @symbol_type<0> = [Number,135,28,34]; ]
+            const scaleY as Number = 40;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 136; @position = 18; @symbol_constdef = [scaleRelativeTo,136,18,33]; @symbol_type<0> = [String,136,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 139; @symbol_moduledef = [confirmation_input__confirm,139,15,42]; ]
+        module confirmation_input__confirm {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 139; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 140 18 ]
+                symbol [ WatchUi %tmp.44 140 27 34 ];
+                %tmp.44 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ENTER %tmp.45 140 35 44 ];
+                %tmp.45 = getv %tmp.44 :KEY_ENTER;
+                putv self :button %tmp.45;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 140; @position = 18; @symbol_constdef = [button,140,18,24]; ]
+            const button;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 143; @symbol_moduledef = [prompt_font__body_with_title,143,15,43]; ]
+        module prompt_font__body_with_title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 143; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 144 18 ]
+                symbol [ Graphics %tmp.46 144 34 42 ];
+                %tmp.46 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.47 144 43 62 ];
+                %tmp.47 = getv %tmp.46 :TEXT_JUSTIFY_CENTER;
+                putv self :justification %tmp.47;
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 145 18 ]
+                symbol [ Graphics %tmp.48 145 25 33 ];
+                %tmp.48 = getm $.Toybox.Graphics;
+                symbol [ FONT_TINY %tmp.49 145 34 43 ];
+                %tmp.49 = getv %tmp.48 :FONT_TINY;
+                putv self :font %tmp.49;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 144; @position = 18; @symbol_constdef = [justification,144,18,31]; ]
+            const justification;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 145; @position = 18; @symbol_constdef = [font,145,18,22]; ]
+            const font;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 148; @symbol_moduledef = [confirmation_loc__body,148,15,37]; ]
+        module confirmation_loc__body {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 148; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 149; @position = 18; @symbol_constdef = [x,149,18,19]; @symbol_type<0> = [Number,149,23,29]; ]
+            const x as Number = 52;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 150; @position = 18; @symbol_constdef = [y,150,18,19]; @symbol_type<0> = [Number,150,23,29]; ]
+            const y as Number = 52;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 153; @symbol_moduledef = [system_icon_destructive__hint_button_left_bottom,153,15,63]; ]
+        module system_icon_destructive__hint_button_left_bottom {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 153; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 154; @position = 18; @symbol_constdef = [filename,154,18,26]; @symbol_type<0> = [String,154,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_destructive__hint_button_left_bottom.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 155; @position = 18; @symbol_constdef = [dithering,155,18,27]; @symbol_type<0> = [String,155,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 158; @symbol_moduledef = [prompt_color_dark__background,158,15,44]; ]
+        module prompt_color_dark__background {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 158; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 159; @position = 18; @symbol_constdef = [color,159,18,23]; @symbol_type<0> = [Number,159,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 160; @position = 18; @symbol_constdef = [background,160,18,28]; @symbol_type<0> = [Number,160,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 163; @symbol_moduledef = [system_icon_destructive__hint_action_menu,163,15,56]; ]
+        module system_icon_destructive__hint_action_menu {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 163; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 164; @position = 18; @symbol_constdef = [filename,164,18,26]; @symbol_type<0> = [String,164,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_destructive__hint_button_right_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 165; @position = 18; @symbol_constdef = [dithering,165,18,27]; @symbol_type<0> = [String,165,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 168; @symbol_moduledef = [system_loc__hint_action_menu,168,15,43]; ]
+        module system_loc__hint_action_menu {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 168; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 169; @position = 18; @symbol_constdef = [x,169,18,19]; @symbol_type<0> = [Number,169,23,29]; ]
+            const x as Number = 227;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 170; @position = 18; @symbol_constdef = [y,170,18,19]; @symbol_type<0> = [Number,170,23,29]; ]
+            const y as Number = 53;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 173; @symbol_moduledef = [confirmation_icon__hint_confirm,173,15,46]; ]
+        module confirmation_icon__hint_confirm {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 173; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 174; @position = 18; @symbol_constdef = [filename,174,18,26]; @symbol_type<0> = [String,174,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_completion.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 175; @position = 18; @symbol_constdef = [dithering,175,18,27]; @symbol_type<0> = [String,175,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 178; @symbol_moduledef = [system_loc__hint_button_left_middle,178,15,50]; ]
+        module system_loc__hint_button_left_middle {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 178; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 179; @position = 18; @symbol_constdef = [x,179,18,19]; @symbol_type<0> = [Number,179,23,29]; ]
+            const x as Number = 1;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 180; @position = 18; @symbol_constdef = [y,180,18,19]; @symbol_type<0> = [Number,180,23,29]; ]
+            const y as Number = 109;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 183; @symbol_moduledef = [prompt_size__body_no_title,183,15,41]; ]
+        module prompt_size__body_no_title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 183; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 184; @position = 18; @symbol_constdef = [width,184,18,23]; @symbol_type<0> = [Number,184,27,33]; ]
+            const width as Number = 208;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 185; @position = 18; @symbol_constdef = [height,185,18,24]; @symbol_type<0> = [Number,185,28,34]; ]
+            const height as Number = 208;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 188; @symbol_moduledef = [system_icon_light__hint_button_left_top,188,15,54]; ]
+        module system_icon_light__hint_button_left_top {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 188; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 189; @position = 18; @symbol_constdef = [filename,189,18,26]; @symbol_type<0> = [String,189,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__hint_button_left_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 190; @position = 18; @symbol_constdef = [dithering,190,18,27]; @symbol_type<0> = [String,190,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 193; @symbol_moduledef = [prompt_color_light__background,193,15,45]; ]
+        module prompt_color_light__background {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 193; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 194; @position = 18; @symbol_constdef = [color,194,18,23]; @symbol_type<0> = [Number,194,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 195; @position = 18; @symbol_constdef = [background,195,18,28]; @symbol_type<0> = [Number,195,32,38]; ]
+            const background as Number = 0xFFFFFF;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 198; @symbol_moduledef = [confirmation_input__delete,198,15,41]; ]
+        module confirmation_input__delete {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 198; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 199 18 ]
+                symbol [ WatchUi %tmp.50 199 27 34 ];
+                %tmp.50 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ENTER %tmp.51 199 35 44 ];
+                %tmp.51 = getv %tmp.50 :KEY_ENTER;
+                putv self :button %tmp.51;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 199; @position = 18; @symbol_constdef = [button,199,18,24]; ]
+            const button;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 202; @symbol_moduledef = [system_icon_dark__hint_button_left_top,202,15,53]; ]
+        module system_icon_dark__hint_button_left_top {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 202; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 203; @position = 18; @symbol_constdef = [filename,203,18,26]; @symbol_type<0> = [String,203,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__hint_button_left_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 204; @position = 18; @symbol_constdef = [dithering,204,18,27]; @symbol_type<0> = [String,204,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 207; @symbol_moduledef = [system_input__action_menu,207,15,40]; ]
+        module system_input__action_menu {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 207; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 208 18 ]
+                symbol [ WatchUi %tmp.52 208 27 34 ];
+                %tmp.52 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ENTER %tmp.53 208 35 44 ];
+                %tmp.53 = getv %tmp.52 :KEY_ENTER;
+                putv self :button %tmp.53;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 208; @position = 18; @symbol_constdef = [button,208,18,24]; ]
+            const button;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 211; @symbol_moduledef = [system_icon_light__save,211,15,38]; ]
+        module system_icon_light__save {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 211; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 212; @position = 18; @symbol_constdef = [filename,212,18,26]; @symbol_type<0> = [String,212,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__save.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 213; @position = 18; @symbol_constdef = [dithering,213,18,27]; @symbol_type<0> = [String,213,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 216; @symbol_moduledef = [prompt_color_light__body,216,15,39]; ]
+        module prompt_color_light__body {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 216; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 218 18 ]
+                symbol [ Graphics %tmp.54 218 31 39 ];
+                %tmp.54 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.55 218 40 57 ];
+                %tmp.55 = getv %tmp.54 :COLOR_TRANSPARENT;
+                putv self :background %tmp.55;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 217; @position = 18; @symbol_constdef = [color,217,18,23]; @symbol_type<0> = [Number,217,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 218; @position = 18; @symbol_constdef = [background,218,18,28]; ]
+            const background;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 221; @symbol_moduledef = [system_loc__subwindow,221,15,36]; ]
+        module system_loc__subwindow {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 221; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 222; @position = 18; @symbol_constdef = [exclude,222,18,25]; @symbol_type<0> = [Boolean,222,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 225; @symbol_moduledef = [system_icon_light__warning,225,15,41]; ]
+        module system_icon_light__warning {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 225; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 226; @position = 18; @symbol_constdef = [filename,226,18,26]; @symbol_type<0> = [String,226,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__warning.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 227; @position = 18; @symbol_constdef = [dithering,227,18,27]; @symbol_type<0> = [String,227,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 230; @symbol_moduledef = [confirmation_color_light__body,230,15,45]; ]
+        module confirmation_color_light__body {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 230; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 232 18 ]
+                symbol [ Graphics %tmp.56 232 31 39 ];
+                %tmp.56 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.57 232 40 57 ];
+                %tmp.57 = getv %tmp.56 :COLOR_TRANSPARENT;
+                putv self :background %tmp.57;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 231; @position = 18; @symbol_constdef = [color,231,18,23]; @symbol_type<0> = [Number,231,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 232; @position = 18; @symbol_constdef = [background,232,18,28]; ]
+            const background;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 235; @symbol_moduledef = [confirmation_icon_light__hint_keep,235,15,49]; ]
+        module confirmation_icon_light__hint_keep {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 235; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 236; @position = 18; @symbol_constdef = [filename,236,18,26]; @symbol_type<0> = [String,236,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_keep.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 237; @position = 18; @symbol_constdef = [dithering,237,18,27]; @symbol_type<0> = [String,237,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 240; @symbol_moduledef = [activity_color_light__background,240,15,47]; ]
+        module activity_color_light__background {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 240; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 241; @position = 18; @symbol_constdef = [color,241,18,23]; @symbol_type<0> = [Number,241,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 242; @position = 18; @symbol_constdef = [background,242,18,28]; @symbol_type<0> = [Number,242,32,38]; ]
+            const background as Number = 0xFFFFFF;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 245; @symbol_moduledef = [system_icon_positive__hint_button_right_top,245,15,58]; ]
+        module system_icon_positive__hint_button_right_top {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 245; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 246; @position = 18; @symbol_constdef = [filename,246,18,26]; @symbol_type<0> = [String,246,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__hint_button_right_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 247; @position = 18; @symbol_constdef = [dithering,247,18,27]; @symbol_type<0> = [String,247,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 250; @symbol_moduledef = [system_size__screen,250,15,34]; ]
+        module system_size__screen {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 250; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 251; @position = 18; @symbol_constdef = [width,251,18,23]; @symbol_type<0> = [Number,251,27,33]; ]
+            const width as Number = 260;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 252; @position = 18; @symbol_constdef = [height,252,18,24]; @symbol_type<0> = [Number,252,28,34]; ]
+            const height as Number = 260;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 255; @symbol_moduledef = [system_icon_destructive__hint_button_right_bottom,255,15,64]; ]
+        module system_icon_destructive__hint_button_right_bottom {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 255; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 256; @position = 18; @symbol_constdef = [filename,256,18,26]; @symbol_type<0> = [String,256,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_destructive__hint_button_right_bottom.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 257; @position = 18; @symbol_constdef = [dithering,257,18,27]; @symbol_type<0> = [String,257,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 260; @symbol_moduledef = [system_color_light__background,260,15,45]; ]
+        module system_color_light__background {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 260; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 261; @position = 18; @symbol_constdef = [color,261,18,23]; @symbol_type<0> = [Number,261,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 262; @position = 18; @symbol_constdef = [background,262,18,28]; @symbol_type<0> = [Number,262,32,38]; ]
+            const background as Number = 0xFFFFFF;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 265; @symbol_moduledef = [system_icon_destructive__hint_button_right_top,265,15,61]; ]
+        module system_icon_destructive__hint_button_right_top {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 265; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 266; @position = 18; @symbol_constdef = [filename,266,18,26]; @symbol_type<0> = [String,266,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_destructive__hint_button_right_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 267; @position = 18; @symbol_constdef = [dithering,267,18,27]; @symbol_type<0> = [String,267,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 270; @symbol_moduledef = [confirmation_loc__hint_confirm,270,15,45]; ]
+        module confirmation_loc__hint_confirm {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 270; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 271; @position = 18; @symbol_constdef = [x,271,18,19]; @symbol_type<0> = [Number,271,23,29]; ]
+            const x as Number = 205;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 272; @position = 18; @symbol_constdef = [y,272,18,19]; @symbol_type<0> = [Number,272,23,29]; ]
+            const y as Number = 50;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 275; @symbol_moduledef = [activity_color_dark__text,275,15,40]; ]
+        module activity_color_dark__text {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 275; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 277 18 ]
+                symbol [ Graphics %tmp.58 277 31 39 ];
+                %tmp.58 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.59 277 40 57 ];
+                %tmp.59 = getv %tmp.58 :COLOR_TRANSPARENT;
+                putv self :background %tmp.59;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 276; @position = 18; @symbol_constdef = [color,276,18,23]; @symbol_type<0> = [Number,276,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 277; @position = 18; @symbol_constdef = [background,277,18,28]; ]
+            const background;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 280; @symbol_moduledef = [confirmation_input__keep,280,15,39]; ]
+        module confirmation_input__keep {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 280; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 281 18 ]
+                symbol [ WatchUi %tmp.60 281 27 34 ];
+                %tmp.60 = getm $.Toybox.WatchUi;
+                symbol [ KEY_DOWN %tmp.61 281 35 43 ];
+                %tmp.61 = getv %tmp.60 :KEY_DOWN;
+                putv self :button %tmp.61;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 281; @position = 18; @symbol_constdef = [button,281,18,24]; ]
+            const button;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 284; @symbol_moduledef = [prompt_loc__body_with_title,284,15,42]; ]
+        module prompt_loc__body_with_title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 284; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 285; @position = 18; @symbol_constdef = [x,285,18,19]; @symbol_type<0> = [Number,285,23,29]; ]
+            const x as Number = 26;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 286; @position = 18; @symbol_constdef = [y,286,18,19]; @symbol_type<0> = [Number,286,23,29]; ]
+            const y as Number = 78;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 289; @symbol_moduledef = [system_icon_dark__search,289,15,39]; ]
+        module system_icon_dark__search {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 289; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 290; @position = 18; @symbol_constdef = [filename,290,18,26]; @symbol_type<0> = [String,290,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__search.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 291; @position = 18; @symbol_constdef = [compress,291,18,26]; @symbol_type<0> = [String,291,30,36]; ]
+            const compress as String = "true";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 292; @position = 18; @symbol_constdef = [dithering,292,18,27]; @symbol_type<0> = [String,292,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 293; @position = 18; @symbol_constdef = [automaticPalette,293,18,34]; @symbol_type<0> = [String,293,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 296; @symbol_moduledef = [activity_color_light__text,296,15,41]; ]
+        module activity_color_light__text {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 296; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 298 18 ]
+                symbol [ Graphics %tmp.62 298 31 39 ];
+                %tmp.62 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.63 298 40 57 ];
+                %tmp.63 = getv %tmp.62 :COLOR_TRANSPARENT;
+                putv self :background %tmp.63;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 297; @position = 18; @symbol_constdef = [color,297,18,23]; @symbol_type<0> = [Number,297,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 298; @position = 18; @symbol_constdef = [background,298,18,28]; ]
+            const background;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 301; @symbol_moduledef = [confirmation_icon__hint_keep,301,15,43]; ]
+        module confirmation_icon__hint_keep {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 301; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 302; @position = 18; @symbol_constdef = [filename,302,18,26]; @symbol_type<0> = [String,302,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_keep.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 303; @position = 18; @symbol_constdef = [dithering,303,18,27]; @symbol_type<0> = [String,303,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 306; @symbol_moduledef = [system_icon_dark__save,306,15,37]; ]
+        module system_icon_dark__save {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 306; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 307; @position = 18; @symbol_constdef = [filename,307,18,26]; @symbol_type<0> = [String,307,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__save.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 308; @position = 18; @symbol_constdef = [compress,308,18,26]; @symbol_type<0> = [String,308,30,36]; ]
+            const compress as String = "true";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 309; @position = 18; @symbol_constdef = [dithering,309,18,27]; @symbol_type<0> = [String,309,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 310; @position = 18; @symbol_constdef = [automaticPalette,310,18,34]; @symbol_type<0> = [String,310,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 313; @symbol_moduledef = [system_icon_destructive__hint_button_left_middle,313,15,63]; ]
+        module system_icon_destructive__hint_button_left_middle {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 313; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 314; @position = 18; @symbol_constdef = [filename,314,18,26]; @symbol_type<0> = [String,314,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_destructive__hint_button_left_middle.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 315; @position = 18; @symbol_constdef = [dithering,315,18,27]; @symbol_type<0> = [String,315,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 318; @symbol_moduledef = [system_icon_light__search,318,15,40]; ]
+        module system_icon_light__search {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 318; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 319; @position = 18; @symbol_constdef = [filename,319,18,26]; @symbol_type<0> = [String,319,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__search.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 320; @position = 18; @symbol_constdef = [dithering,320,18,27]; @symbol_type<0> = [String,320,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 323; @symbol_moduledef = [system_icon_dark__hint_button_left_bottom,323,15,56]; ]
+        module system_icon_dark__hint_button_left_bottom {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 323; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 324; @position = 18; @symbol_constdef = [filename,324,18,26]; @symbol_type<0> = [String,324,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__hint_button_left_bottom.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 325; @position = 18; @symbol_constdef = [dithering,325,18,27]; @symbol_type<0> = [String,325,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 328; @symbol_moduledef = [system_icon_positive__hint_button_left_top,328,15,57]; ]
+        module system_icon_positive__hint_button_left_top {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 328; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 329; @position = 18; @symbol_constdef = [filename,329,18,26]; @symbol_type<0> = [String,329,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_positive__hint_button_left_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 330; @position = 18; @symbol_constdef = [dithering,330,18,27]; @symbol_type<0> = [String,330,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 333; @symbol_moduledef = [system_loc__hint_button_right_bottom,333,15,51]; ]
+        module system_loc__hint_button_right_bottom {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 333; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 334; @position = 18; @symbol_constdef = [x,334,18,19]; @symbol_type<0> = [Number,334,23,29]; ]
+            const x as Number = 224;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 335; @position = 18; @symbol_constdef = [y,335,18,19]; @symbol_type<0> = [Number,335,23,29]; ]
+            const y as Number = 172;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 338; @symbol_moduledef = [confirmation_icon_dark__hint_reject,338,15,50]; ]
+        module confirmation_icon_dark__hint_reject {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 338; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 339; @position = 18; @symbol_constdef = [filename,339,18,26]; @symbol_type<0> = [String,339,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_reject.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 340; @position = 18; @symbol_constdef = [dithering,340,18,27]; @symbol_type<0> = [String,340,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 343; @symbol_moduledef = [confirmation_color_dark__body,343,15,44]; ]
+        module confirmation_color_dark__body {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 343; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 345 18 ]
+                symbol [ Graphics %tmp.64 345 31 39 ];
+                %tmp.64 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.65 345 40 57 ];
+                %tmp.65 = getv %tmp.64 :COLOR_TRANSPARENT;
+                putv self :background %tmp.65;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 344; @position = 18; @symbol_constdef = [color,344,18,23]; @symbol_type<0> = [Number,344,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 345; @position = 18; @symbol_constdef = [background,345,18,28]; ]
+            const background;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 348; @symbol_moduledef = [confirmation_icon_light__hint_confirm,348,15,52]; ]
+        module confirmation_icon_light__hint_confirm {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 348; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 349; @position = 18; @symbol_constdef = [filename,349,18,26]; @symbol_type<0> = [String,349,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_completion.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 350; @position = 18; @symbol_constdef = [dithering,350,18,27]; @symbol_type<0> = [String,350,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 353; @symbol_moduledef = [prompt_color_dark__title,353,15,39]; ]
+        module prompt_color_dark__title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 353; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 355 18 ]
+                symbol [ Graphics %tmp.66 355 31 39 ];
+                %tmp.66 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.67 355 40 57 ];
+                %tmp.67 = getv %tmp.66 :COLOR_TRANSPARENT;
+                putv self :background %tmp.67;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 354; @position = 18; @symbol_constdef = [color,354,18,23]; @symbol_type<0> = [Number,354,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 355; @position = 18; @symbol_constdef = [background,355,18,28]; ]
+            const background;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 358; @symbol_moduledef = [system_icon_destructive__cancel,358,15,46]; ]
+        module system_icon_destructive__cancel {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 358; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 359; @position = 18; @symbol_constdef = [filename,359,18,26]; @symbol_type<0> = [String,359,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_destructive__cancel.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 360; @position = 18; @symbol_constdef = [dithering,360,18,27]; @symbol_type<0> = [String,360,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 363; @symbol_moduledef = [system_icon_light__hint_button_right_bottom,363,15,58]; ]
+        module system_icon_light__hint_button_right_bottom {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 363; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 364; @position = 18; @symbol_constdef = [filename,364,18,26]; @symbol_type<0> = [String,364,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__hint_button_right_bottom.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 365; @position = 18; @symbol_constdef = [dithering,365,18,27]; @symbol_type<0> = [String,365,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 368; @symbol_moduledef = [prompt_loc__title,368,15,32]; ]
+        module prompt_loc__title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 368; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 369; @position = 18; @symbol_constdef = [x,369,18,19]; @symbol_type<0> = [Number,369,23,29]; ]
+            const x as Number = 26;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 370; @position = 18; @symbol_constdef = [y,370,18,19]; @symbol_type<0> = [Number,370,23,29]; ]
+            const y as Number = 19;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 373; @symbol_moduledef = [confirmation_font_enhanced_readability__body,373,15,59]; ]
+        module confirmation_font_enhanced_readability__body {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 373; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 374; @position = 18; @symbol_constdef = [exclude,374,18,25]; @symbol_type<0> = [Boolean,374,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 377; @symbol_moduledef = [prompt_color_light__title,377,15,40]; ]
+        module prompt_color_light__title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 377; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 379 18 ]
+                symbol [ Graphics %tmp.68 379 31 39 ];
+                %tmp.68 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.69 379 40 57 ];
+                %tmp.69 = getv %tmp.68 :COLOR_TRANSPARENT;
+                putv self :background %tmp.69;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 378; @position = 18; @symbol_constdef = [color,378,18,23]; @symbol_type<0> = [Number,378,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 379; @position = 18; @symbol_constdef = [background,379,18,28]; ]
+            const background;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 382; @symbol_moduledef = [system_icon_dark__hint_button_right_top,382,15,54]; ]
+        module system_icon_dark__hint_button_right_top {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 382; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 383; @position = 18; @symbol_constdef = [filename,383,18,26]; @symbol_type<0> = [String,383,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__hint_button_right_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 384; @position = 18; @symbol_constdef = [dithering,384,18,27]; @symbol_type<0> = [String,384,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 387; @symbol_moduledef = [system_icon_dark__hint_button_left_middle,387,15,56]; ]
+        module system_icon_dark__hint_button_left_middle {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 387; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 388; @position = 18; @symbol_constdef = [filename,388,18,26]; @symbol_type<0> = [String,388,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__hint_button_left_middle.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 389; @position = 18; @symbol_constdef = [dithering,389,18,27]; @symbol_type<0> = [String,389,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 392; @symbol_moduledef = [confirmation_icon_dark__hint_keep,392,15,48]; ]
+        module confirmation_icon_dark__hint_keep {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 392; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 393; @position = 18; @symbol_constdef = [filename,393,18,26]; @symbol_type<0> = [String,393,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_keep.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 394; @position = 18; @symbol_constdef = [dithering,394,18,27]; @symbol_type<0> = [String,394,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 397; @symbol_moduledef = [system_icon_light__cancel,397,15,40]; ]
+        module system_icon_light__cancel {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 397; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 398; @position = 18; @symbol_constdef = [filename,398,18,26]; @symbol_type<0> = [String,398,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__cancel.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 399; @position = 18; @symbol_constdef = [dithering,399,18,27]; @symbol_type<0> = [String,399,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 402; @symbol_moduledef = [confirmation_icon_light__hint_reject,402,15,51]; ]
+        module confirmation_icon_light__hint_reject {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 402; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 403; @position = 18; @symbol_constdef = [filename,403,18,26]; @symbol_type<0> = [String,403,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_reject.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 404; @position = 18; @symbol_constdef = [dithering,404,18,27]; @symbol_type<0> = [String,404,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 407; @symbol_moduledef = [system_icon_light__about,407,15,39]; ]
+        module system_icon_light__about {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 407; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 408; @position = 18; @symbol_constdef = [filename,408,18,26]; @symbol_type<0> = [String,408,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__about.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 409; @position = 18; @symbol_constdef = [dithering,409,18,27]; @symbol_type<0> = [String,409,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 412; @symbol_moduledef = [system_size__toast_icon,412,15,38]; ]
+        module system_size__toast_icon {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 412; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 413; @position = 18; @symbol_constdef = [scaleX,413,18,24]; @symbol_type<0> = [Number,413,28,34]; ]
+            const scaleX as Number = 21;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 414; @position = 18; @symbol_constdef = [scaleY,414,18,24]; @symbol_type<0> = [Number,414,28,34]; ]
+            const scaleY as Number = 21;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 415; @position = 18; @symbol_constdef = [scaleRelativeTo,415,18,33]; @symbol_type<0> = [String,415,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 418; @symbol_moduledef = [system_icon_dark__hint_button_right_middle,418,15,57]; ]
+        module system_icon_dark__hint_button_right_middle {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 418; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 419; @position = 18; @symbol_constdef = [exclude,419,18,25]; @symbol_type<0> = [Boolean,419,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 422; @symbol_moduledef = [confirmation_icon__hint_reject,422,15,45]; ]
+        module confirmation_icon__hint_reject {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 422; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 423; @position = 18; @symbol_constdef = [filename,423,18,26]; @symbol_type<0> = [String,423,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_reject.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 424; @position = 18; @symbol_constdef = [dithering,424,18,27]; @symbol_type<0> = [String,424,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 427; @symbol_moduledef = [system_icon_light__hint_action_menu,427,15,50]; ]
+        module system_icon_light__hint_action_menu {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 427; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 428; @position = 18; @symbol_constdef = [filename,428,18,26]; @symbol_type<0> = [String,428,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__hint_button_right_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 429; @position = 18; @symbol_constdef = [dithering,429,18,27]; @symbol_type<0> = [String,429,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 432; @symbol_moduledef = [system_icon_light__hint_button_right_middle,432,15,58]; ]
+        module system_icon_light__hint_button_right_middle {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 432; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 433; @position = 18; @symbol_constdef = [exclude,433,18,25]; @symbol_type<0> = [Boolean,433,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 436; @symbol_moduledef = [system_icon_destructive__hint_button_right_middle,436,15,64]; ]
+        module system_icon_destructive__hint_button_right_middle {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 436; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 437; @position = 18; @symbol_constdef = [exclude,437,18,25]; @symbol_type<0> = [Boolean,437,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 440; @symbol_moduledef = [confirmation_loc__hint_reject,440,15,44]; ]
+        module confirmation_loc__hint_reject {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 440; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 441; @position = 18; @symbol_constdef = [x,441,18,19]; @symbol_type<0> = [Number,441,23,29]; ]
+            const x as Number = 13;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 442; @position = 18; @symbol_constdef = [y,442,18,19]; @symbol_type<0> = [Number,442,23,29]; ]
+            const y as Number = 174;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 443; @position = 18; @symbol_constdef = [horizontalJustification,443,18,41]; @symbol_type<0> = [String,443,45,51]; ]
+            const horizontalJustification as String = "left";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 446; @symbol_moduledef = [confirmation_icon_dark__hint_delete,446,15,50]; ]
+        module confirmation_icon_dark__hint_delete {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 446; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 447; @position = 18; @symbol_constdef = [filename,447,18,26]; @symbol_type<0> = [String,447,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_delete.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 448; @position = 18; @symbol_constdef = [dithering,448,18,27]; @symbol_type<0> = [String,448,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 451; @symbol_moduledef = [activity_color_dark__background,451,15,46]; ]
+        module activity_color_dark__background {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 451; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 452; @position = 18; @symbol_constdef = [color,452,18,23]; @symbol_type<0> = [Number,452,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 453; @position = 18; @symbol_constdef = [background,453,18,28]; @symbol_type<0> = [Number,453,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 456; @symbol_moduledef = [system_icon_light__hint_button_left_bottom,456,15,57]; ]
+        module system_icon_light__hint_button_left_bottom {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 456; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 457; @position = 18; @symbol_constdef = [filename,457,18,26]; @symbol_type<0> = [String,457,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__hint_button_left_bottom.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 458; @position = 18; @symbol_constdef = [dithering,458,18,27]; @symbol_type<0> = [String,458,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 461; @symbol_moduledef = [system_icon_positive__hint_button_left_middle,461,15,60]; ]
+        module system_icon_positive__hint_button_left_middle {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 461; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 462; @position = 18; @symbol_constdef = [filename,462,18,26]; @symbol_type<0> = [String,462,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_positive__hint_button_left_middle.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 463; @position = 18; @symbol_constdef = [dithering,463,18,27]; @symbol_type<0> = [String,463,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 466; @symbol_moduledef = [system_size__menu_icon,466,15,37]; ]
+        module system_size__menu_icon {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 466; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 467; @position = 18; @symbol_constdef = [scaleX,467,18,24]; @symbol_type<0> = [Number,467,28,34]; ]
+            const scaleX as Number = 40;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 468; @position = 18; @symbol_constdef = [scaleY,468,18,24]; @symbol_type<0> = [Number,468,28,34]; ]
+            const scaleY as Number = 40;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 469; @position = 18; @symbol_constdef = [scaleRelativeTo,469,18,33]; @symbol_type<0> = [String,469,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 472; @symbol_moduledef = [system_icon_destructive__warning,472,15,47]; ]
+        module system_icon_destructive__warning {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 472; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 473; @position = 18; @symbol_constdef = [filename,473,18,26]; @symbol_type<0> = [String,473,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_destructive__warning.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 474; @position = 18; @symbol_constdef = [dithering,474,18,27]; @symbol_type<0> = [String,474,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 477; @symbol_moduledef = [system_loc__hint_button_right_middle,477,15,51]; ]
+        module system_loc__hint_button_right_middle {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 477; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 478; @position = 18; @symbol_constdef = [exclude,478,18,25]; @symbol_type<0> = [Boolean,478,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 481; @symbol_moduledef = [system_icon_dark__cancel,481,15,39]; ]
+        module system_icon_dark__cancel {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 481; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 482; @position = 18; @symbol_constdef = [filename,482,18,26]; @symbol_type<0> = [String,482,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__cancel.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 483; @position = 18; @symbol_constdef = [compress,483,18,26]; @symbol_type<0> = [String,483,30,36]; ]
+            const compress as String = "true";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 484; @position = 18; @symbol_constdef = [dithering,484,18,27]; @symbol_type<0> = [String,484,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 485; @position = 18; @symbol_constdef = [automaticPalette,485,18,34]; @symbol_type<0> = [String,485,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 488; @symbol_moduledef = [prompt_size__body_with_title,488,15,43]; ]
+        module prompt_size__body_with_title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 488; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 489; @position = 18; @symbol_constdef = [width,489,18,23]; @symbol_type<0> = [Number,489,27,33]; ]
+            const width as Number = 208;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 490; @position = 18; @symbol_constdef = [height,490,18,24]; @symbol_type<0> = [Number,490,28,34]; ]
+            const height as Number = 156;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 493; @symbol_moduledef = [system_loc__hint_button_right_top,493,15,48]; ]
+        module system_loc__hint_button_right_top {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 493; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 494; @position = 18; @symbol_constdef = [x,494,18,19]; @symbol_type<0> = [Number,494,23,29]; ]
+            const x as Number = 224;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 495; @position = 18; @symbol_constdef = [y,495,18,19]; @symbol_type<0> = [Number,495,23,29]; ]
+            const y as Number = 50;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 498; @symbol_moduledef = [system_color_light__text,498,15,39]; ]
+        module system_color_light__text {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 498; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 500 18 ]
+                symbol [ Graphics %tmp.70 500 31 39 ];
+                %tmp.70 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.71 500 40 57 ];
+                %tmp.71 = getv %tmp.70 :COLOR_TRANSPARENT;
+                putv self :background %tmp.71;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 499; @position = 18; @symbol_constdef = [color,499,18,23]; @symbol_type<0> = [Number,499,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 500; @position = 18; @symbol_constdef = [background,500,18,28]; ]
+            const background;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 503; @symbol_moduledef = [system_icon_light__check,503,15,39]; ]
+        module system_icon_light__check {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 503; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 504; @position = 18; @symbol_constdef = [filename,504,18,26]; @symbol_type<0> = [String,504,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__check.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 505; @position = 18; @symbol_constdef = [dithering,505,18,27]; @symbol_type<0> = [String,505,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 508; @symbol_moduledef = [confirmation_input__reject,508,15,41]; ]
+        module confirmation_input__reject {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 508; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 509 18 ]
+                symbol [ WatchUi %tmp.72 509 27 34 ];
+                %tmp.72 = getm $.Toybox.WatchUi;
+                symbol [ KEY_DOWN %tmp.73 509 35 43 ];
+                %tmp.73 = getv %tmp.72 :KEY_DOWN;
+                putv self :button %tmp.73;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 509; @position = 18; @symbol_constdef = [button,509,18,24]; ]
+            const button;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 512; @symbol_moduledef = [system_icon_light__revert,512,15,40]; ]
+        module system_icon_light__revert {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 512; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 513; @position = 18; @symbol_constdef = [filename,513,18,26]; @symbol_type<0> = [String,513,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__revert.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 514; @position = 18; @symbol_constdef = [dithering,514,18,27]; @symbol_type<0> = [String,514,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 517; @symbol_moduledef = [system_size__subwindow,517,15,37]; ]
+        module system_size__subwindow {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 517; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 518; @position = 18; @symbol_constdef = [exclude,518,18,25]; @symbol_type<0> = [Boolean,518,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 521; @symbol_moduledef = [system_icon_positive__hint_button_left_bottom,521,15,60]; ]
+        module system_icon_positive__hint_button_left_bottom {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 521; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 522; @position = 18; @symbol_constdef = [filename,522,18,26]; @symbol_type<0> = [String,522,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_positive__hint_button_left_bottom.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 523; @position = 18; @symbol_constdef = [dithering,523,18,27]; @symbol_type<0> = [String,523,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 526; @symbol_moduledef = [system_icon_dark__check,526,15,38]; ]
+        module system_icon_dark__check {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 526; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 527; @position = 18; @symbol_constdef = [filename,527,18,26]; @symbol_type<0> = [String,527,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__check.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 528; @position = 18; @symbol_constdef = [compress,528,18,26]; @symbol_type<0> = [String,528,30,36]; ]
+            const compress as String = "true";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 529; @position = 18; @symbol_constdef = [dithering,529,18,27]; @symbol_type<0> = [String,529,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 530; @position = 18; @symbol_constdef = [automaticPalette,530,18,34]; @symbol_type<0> = [String,530,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 533; @symbol_moduledef = [confirmation_loc__hint_keep,533,15,42]; ]
+        module confirmation_loc__hint_keep {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 533; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 534; @position = 18; @symbol_constdef = [x,534,18,19]; @symbol_type<0> = [Number,534,23,29]; ]
+            const x as Number = 13;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 535; @position = 18; @symbol_constdef = [y,535,18,19]; @symbol_type<0> = [Number,535,23,29]; ]
+            const y as Number = 174;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 536; @position = 18; @symbol_constdef = [horizontalJustification,536,18,41]; @symbol_type<0> = [String,536,45,51]; ]
+            const horizontalJustification as String = "left";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 539; @symbol_moduledef = [confirmation_loc__hint_delete,539,15,44]; ]
+        module confirmation_loc__hint_delete {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 539; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 540; @position = 18; @symbol_constdef = [x,540,18,19]; @symbol_type<0> = [Number,540,23,29]; ]
+            const x as Number = 208;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 541; @position = 18; @symbol_constdef = [y,541,18,19]; @symbol_type<0> = [Number,541,23,29]; ]
+            const y as Number = 50;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 544; @symbol_moduledef = [system_icon_positive__hint_action_menu,544,15,53]; ]
+        module system_icon_positive__hint_action_menu {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 544; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 545; @position = 18; @symbol_constdef = [filename,545,18,26]; @symbol_type<0> = [String,545,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_positive__hint_button_right_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 546; @position = 18; @symbol_constdef = [dithering,546,18,27]; @symbol_type<0> = [String,546,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 549; @symbol_moduledef = [system_icon_positive__hint_button_right_middle,549,15,61]; ]
+        module system_icon_positive__hint_button_right_middle {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 549; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 550; @position = 18; @symbol_constdef = [exclude,550,18,25]; @symbol_type<0> = [Boolean,550,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 553; @symbol_moduledef = [system_icon_light__hint_button_left_middle,553,15,57]; ]
+        module system_icon_light__hint_button_left_middle {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 553; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 554; @position = 18; @symbol_constdef = [filename,554,18,26]; @symbol_type<0> = [String,554,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__hint_button_left_middle.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 555; @position = 18; @symbol_constdef = [dithering,555,18,27]; @symbol_type<0> = [String,555,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 558; @symbol_moduledef = [system_icon_dark__hint_button_right_bottom,558,15,57]; ]
+        module system_icon_dark__hint_button_right_bottom {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 558; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 559; @position = 18; @symbol_constdef = [filename,559,18,26]; @symbol_type<0> = [String,559,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__hint_button_right_bottom.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 560; @position = 18; @symbol_constdef = [dithering,560,18,27]; @symbol_type<0> = [String,560,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 563; @symbol_moduledef = [system_icon_positive__hint_button_right_bottom,563,15,61]; ]
+        module system_icon_positive__hint_button_right_bottom {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 563; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 564; @position = 18; @symbol_constdef = [filename,564,18,26]; @symbol_type<0> = [String,564,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_positive__hint_button_right_bottom.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 565; @position = 18; @symbol_constdef = [dithering,565,18,27]; @symbol_type<0> = [String,565,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 568; @symbol_moduledef = [system_icon_dark__revert,568,15,39]; ]
+        module system_icon_dark__revert {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 568; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 569; @position = 18; @symbol_constdef = [filename,569,18,26]; @symbol_type<0> = [String,569,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__revert.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 570; @position = 18; @symbol_constdef = [compress,570,18,26]; @symbol_type<0> = [String,570,30,36]; ]
+            const compress as String = "true";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 571; @position = 18; @symbol_constdef = [dithering,571,18,27]; @symbol_type<0> = [String,571,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 572; @position = 18; @symbol_constdef = [automaticPalette,572,18,34]; @symbol_type<0> = [String,572,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 575; @symbol_moduledef = [confirmation_icon_light__hint_delete,575,15,51]; ]
+        module confirmation_icon_light__hint_delete {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 575; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 576; @position = 18; @symbol_constdef = [filename,576,18,26]; @symbol_type<0> = [String,576,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_delete.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 577; @position = 18; @symbol_constdef = [dithering,577,18,27]; @symbol_type<0> = [String,577,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 580; @symbol_moduledef = [system_icon_dark__question,580,15,41]; ]
+        module system_icon_dark__question {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 580; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 581; @position = 18; @symbol_constdef = [filename,581,18,26]; @symbol_type<0> = [String,581,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__question.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 582; @position = 18; @symbol_constdef = [compress,582,18,26]; @symbol_type<0> = [String,582,30,36]; ]
+            const compress as String = "true";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 583; @position = 18; @symbol_constdef = [dithering,583,18,27]; @symbol_type<0> = [String,583,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 584; @position = 18; @symbol_constdef = [automaticPalette,584,18,34]; @symbol_type<0> = [String,584,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 587; @symbol_moduledef = [system_icon_light__discard,587,15,41]; ]
+        module system_icon_light__discard {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 587; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 588; @position = 18; @symbol_constdef = [filename,588,18,26]; @symbol_type<0> = [String,588,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__discard.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 589; @position = 18; @symbol_constdef = [dithering,589,18,27]; @symbol_type<0> = [String,589,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 592; @symbol_moduledef = [device_info,592,15,26]; ]
+        module device_info {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 592; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 594 18 ]
+                symbol [ Toybox %tmp.75 594 32 38 ];
+                %tmp.75 = getv ? :Toybox;
+                symbol [ System %tmp.76 594 39 45 ];
+                %tmp.76 = getv %tmp.75 :System;
+                symbol [ SCREEN_SHAPE_ROUND %tmp.77 594 46 64 ];
+                %tmp.77 = getv %tmp.76 :SCREEN_SHAPE_ROUND;
+                putv self :screenShape %tmp.77;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 593; @position = 18; @symbol_constdef = [screenWidth,593,18,29]; @symbol_type<0> = [Number,593,33,39]; ]
+            const screenWidth as Number = 260;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 594; @position = 18; @symbol_constdef = [screenShape,594,18,29]; ]
+            const screenShape;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 595; @position = 18; @symbol_constdef = [hasNightMode,595,18,30]; @symbol_type<0> = [Boolean,595,34,41]; ]
+            const hasNightMode as Boolean = false;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 596; @position = 18; @symbol_constdef = [hasGpu,596,18,24]; @symbol_type<0> = [Boolean,596,28,35]; ]
+            const hasGpu as Boolean = false;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 597; @position = 18; @symbol_constdef = [screenHeight,597,18,30]; @symbol_type<0> = [Number,597,34,40]; ]
+            const screenHeight as Number = 260;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 598; @position = 18; @symbol_constdef = [hasTouchScreen,598,18,32]; @symbol_type<0> = [Boolean,598,36,43]; ]
+            const hasTouchScreen as Boolean = true;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 599; @position = 18; @symbol_constdef = [hasEnhancedReadabilityMode,599,18,44]; @symbol_type<0> = [Boolean,599,48,55]; ]
+            const hasEnhancedReadabilityMode as Boolean = false;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 602; @symbol_moduledef = [confirmation_icon_dark__hint_confirm,602,15,51]; ]
+        module confirmation_icon_dark__hint_confirm {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 602; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 603; @position = 18; @symbol_constdef = [filename,603,18,26]; @symbol_type<0> = [String,603,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_completion.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 604; @position = 18; @symbol_constdef = [dithering,604,18,27]; @symbol_type<0> = [String,604,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 607; @symbol_moduledef = [prompt_font__body_no_title,607,15,41]; ]
+        module prompt_font__body_no_title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 607; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 608 18 ]
+                symbol [ Graphics %tmp.78 608 34 42 ];
+                %tmp.78 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.79 608 43 62 ];
+                %tmp.79 = getv %tmp.78 :TEXT_JUSTIFY_CENTER;
+                symbol [ Graphics %tmp.80 608 63 71 ];
+                %tmp.80 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_VCENTER %tmp.81 608 72 92 ];
+                %tmp.81 = getv %tmp.80 :TEXT_JUSTIFY_VCENTER;
+                %tmp.82 = bitor %tmp.79 %tmp.81;
+                putv self :justification %tmp.82;
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 609 18 ]
+                symbol [ Graphics %tmp.83 609 25 33 ];
+                %tmp.83 = getm $.Toybox.Graphics;
+                symbol [ FONT_TINY %tmp.84 609 34 43 ];
+                %tmp.84 = getv %tmp.83 :FONT_TINY;
+                putv self :font %tmp.84;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 608; @position = 18; @symbol_constdef = [justification,608,18,31]; ]
+            const justification;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 609; @position = 18; @symbol_constdef = [font,609,18,22]; ]
+            const font;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 612; @symbol_moduledef = [prompt_size__title_icon,612,15,38]; ]
+        module prompt_size__title_icon {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 612; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 613; @position = 18; @symbol_constdef = [scaleX,613,18,24]; @symbol_type<0> = [Float,613,28,33]; ]
+            const scaleX as Float = 0.1539;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 614; @position = 18; @symbol_constdef = [scaleRelativeTo,614,18,33]; @symbol_type<0> = [String,614,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 617; @symbol_moduledef = [system_icon_dark__warning,617,15,40]; ]
+        module system_icon_dark__warning {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 617; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 618; @position = 18; @symbol_constdef = [filename,618,18,26]; @symbol_type<0> = [String,618,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_dark__warning.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 619; @position = 18; @symbol_constdef = [compress,619,18,26]; @symbol_type<0> = [String,619,30,36]; ]
+            const compress as String = "true";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 620; @position = 18; @symbol_constdef = [dithering,620,18,27]; @symbol_type<0> = [String,620,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 621; @position = 18; @symbol_constdef = [automaticPalette,621,18,34]; @symbol_type<0> = [String,621,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 624; @symbol_moduledef = [prompt_loc__title_icon,624,15,37]; ]
+        module prompt_loc__title_icon {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 624; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 625; @position = 18; @symbol_constdef = [x,625,18,19]; @symbol_type<0> = [Number,625,23,29]; ]
+            const x as Number = 130;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 626; @position = 18; @symbol_constdef = [y,626,18,19]; @symbol_type<0> = [Number,626,23,29]; ]
+            const y as Number = 39;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 627; @position = 18; @symbol_constdef = [horizontalJustification,627,18,41]; @symbol_type<0> = [String,627,45,51]; ]
+            const horizontalJustification as String = "center";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 628; @position = 18; @symbol_constdef = [verticalJustification,628,18,39]; @symbol_type<0> = [String,628,43,49]; ]
+            const verticalJustification as String = "center";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 631; @symbol_moduledef = [prompt_font_enhanced_readability__title,631,15,54]; ]
+        module prompt_font_enhanced_readability__title {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 631; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 632; @position = 18; @symbol_constdef = [exclude,632,18,25]; @symbol_type<0> = [Boolean,632,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 635; @symbol_moduledef = [prompt_color_dark__body,635,15,38]; ]
+        module prompt_color_dark__body {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 635; ]
+            <init> {
+[ "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen" 637 18 ]
+                symbol [ Graphics %tmp.85 637 31 39 ];
+                %tmp.85 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.86 637 40 57 ];
+                %tmp.86 = getv %tmp.85 :COLOR_TRANSPARENT;
+                putv self :background %tmp.86;
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 636; @position = 18; @symbol_constdef = [color,636,18,23]; @symbol_type<0> = [Number,636,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 637; @position = 18; @symbol_constdef = [background,637,18,28]; ]
+            const background;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 640; @symbol_moduledef = [confirmation_icon__hint_delete,640,15,45]; ]
+        module confirmation_icon__hint_delete {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 640; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 641; @position = 18; @symbol_constdef = [filename,641,18,26]; @symbol_type<0> = [String,641,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\confirmation_icon__hint_delete.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 642; @position = 18; @symbol_constdef = [dithering,642,18,27]; @symbol_type<0> = [String,642,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 645; @symbol_moduledef = [system_icon_light__hint_button_right_top,645,15,55]; ]
+        module system_icon_light__hint_button_right_top {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 645; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 646; @position = 18; @symbol_constdef = [filename,646,18,26]; @symbol_type<0> = [String,646,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_light__hint_button_right_top.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 647; @position = 18; @symbol_constdef = [dithering,647,18,27]; @symbol_type<0> = [String,647,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 650; @symbol_moduledef = [confirmation_size__body,650,15,38]; ]
+        module confirmation_size__body {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 650; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 651; @position = 18; @symbol_constdef = [width,651,18,23]; @symbol_type<0> = [Number,651,27,33]; ]
+            const width as Number = 156;
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 652; @position = 18; @symbol_constdef = [height,652,18,24]; @symbol_type<0> = [Number,652,28,34]; ]
+            const height as Number = 156;
+        }
+        [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 655; @symbol_moduledef = [system_icon_positive__check,655,15,42]; ]
+        module system_icon_positive__check {
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 655; ]
+            <init> {
+            }
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 656; @position = 18; @symbol_constdef = [filename,656,18,26]; @symbol_type<0> = [String,656,30,36]; ]
+            const filename as String = "C:\\Users\\15mel\\AppData\\Roaming\\Garmin\\ConnectIQ\\Devices\\fr255\\system_icon_positive__check.svg";
+            [ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 657; @position = 18; @symbol_constdef = [dithering,657,18,27]; @symbol_type<0> = [String,657,31,37]; ]
+            const dithering as String = "none";
+        }
+    }
+}
+[ @file = "c:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\bin\gen\006-B3992-00\source\Rez.mcgen"; @line = 1; ]
+<init> {
+}

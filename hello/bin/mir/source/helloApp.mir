@@ -1,0 +1,55 @@
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Application,2,13,24]; ]
+using Toybox.Application;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [WatchUi,3,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc"; @line = 5; @symbol_classdef = [helloApp,5,6,14]; @symbol_extends<0> = [Application,5,23,34]; @symbol_extends<1> = [AppBase,5,35,42]; ]
+class helloApp extends Application.AppBase {
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc"; @line = 5; ]
+    <init> {
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc"; @line = 5; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc"; @line = 7; @symbol_functiondef = [initialize,7,13,23]; ]
+    function initialize() as Void {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_source_helloApp_mc_7_26_9_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc" 8 8 ]
+        symbol [ AppBase %tmp.2 8 8 15 ];
+        %tmp.2 = getv ? :AppBase;
+        symbol [ initialize %tmp.3 8 16 26 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_source_helloApp_mc_7_26_9_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc"; @line = 12; @symbol_functiondef = [getInitialView,12,13,27]; ]
+    function getInitialView() {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_source_helloApp_mc_12_30_14_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc" 13 8 ]
+        %tmp.1 = newa 1;
+        symbol [ helloView %tmp.5 13 21 30 ];
+        %tmp.5 = getv ? :helloView;
+        %tmp.2 = newc %tmp.5 ();
+        %tmp.6 = dup %tmp.1;
+        %tmp.7 = aputv %tmp.6 0 %tmp.2;
+        ret %tmp.7;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_source_helloApp_mc_12_30_14_4_stop:
+    }
+}
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc"; @line = 17; @symbol_functiondef = [getApp,17,9,15]; ]
+function getApp() {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_source_helloApp_mc_17_18_19_0_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc" 18 4 ]
+    symbol [ Application %tmp.1 18 11 22 ];
+    %tmp.1 = getm $.Toybox.Application;
+    symbol [ getApp %tmp.2 18 23 29 ];
+    %tmp.2 = getv function %tmp.1 :getApp;
+    %tmp.3 = invoke %tmp.1 %tmp.2();
+    %tmp.4 = as %tmp.3 helloApp;
+    symbol [ helloApp %tmp.4 18 35 43 ];
+    ret %tmp.4;
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_source_helloApp_mc_17_18_19_0_stop:
+}
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloApp.mc"; @line = 2; ]
+<init> {
+}

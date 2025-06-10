@@ -1,0 +1,96 @@
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Graphics,2,13,21]; ]
+using Toybox.Graphics;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [WatchUi,3,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc"; @line = 5; @symbol_classdef = [helloView,5,6,15]; @symbol_extends<0> = [WatchUi,5,24,31]; @symbol_extends<1> = [View,5,32,36]; ]
+class helloView extends WatchUi.View {
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc"; @line = 5; ]
+    <init> {
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc"; @line = 5; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc"; @line = 7; @symbol_functiondef = [initialize,7,13,23]; ]
+    function initialize() as Void {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_source_helloView_mc_7_26_9_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc" 8 8 ]
+        symbol [ View %tmp.2 8 8 12 ];
+        %tmp.2 = getv ? :View;
+        symbol [ initialize %tmp.3 8 13 23 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_source_helloView_mc_7_26_9_4_stop:
+    }
+    [ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc"; @line = 12; @symbol_functiondef = [onUpdate,12,13,21]; @symbol_param<0> = [dc,12,22,24]; ]
+    function onUpdate(dc) {
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_source_helloView_mc_12_26_28_4_start:
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc" 14 8 ]
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 14 8 10 ];
+        symbol [ setColor %tmp.2 14 11 19 ];
+        %tmp.2 = getv function %tmp.1 :setColor;
+        symbol [ Graphics %tmp.3 14 20 28 ];
+        %tmp.3 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.4 14 29 40 ];
+        %tmp.4 = getv %tmp.3 :COLOR_BLACK;
+        symbol [ Graphics %tmp.5 14 42 50 ];
+        %tmp.5 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.6 14 51 62 ];
+        %tmp.6 = getv %tmp.5 :COLOR_BLACK;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc" 15 8 ]
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 15 8 10 ];
+        symbol [ clear %tmp.8 15 11 16 ];
+        %tmp.8 = getv function %tmp.7 :clear;
+        invoke %tmp.7 %tmp.8();
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc" 18 8 ]
+        %tmp.9 = lgetv %dc;
+        symbol [ dc %tmp.9 18 8 10 ];
+        symbol [ setColor %tmp.10 18 11 19 ];
+        %tmp.10 = getv function %tmp.9 :setColor;
+        symbol [ Graphics %tmp.11 18 20 28 ];
+        %tmp.11 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.12 18 29 40 ];
+        %tmp.12 = getv %tmp.11 :COLOR_WHITE;
+        symbol [ Graphics %tmp.13 18 42 50 ];
+        %tmp.13 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.14 18 51 68 ];
+        %tmp.14 = getv %tmp.13 :COLOR_TRANSPARENT;
+        invoke %tmp.9 %tmp.10(%tmp.12, %tmp.14);
+[ "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc" 21 8 ]
+        %tmp.15 = lgetv %dc;
+        symbol [ dc %tmp.15 21 8 10 ];
+        symbol [ drawText %tmp.16 21 11 19 ];
+        %tmp.16 = getv function %tmp.15 :drawText;
+        %tmp.17 = lgetv %dc;
+        symbol [ dc %tmp.17 22 12 14 ];
+        symbol [ getWidth %tmp.18 22 15 23 ];
+        %tmp.18 = getv function %tmp.17 :getWidth;
+        %tmp.19 = invoke %tmp.17 %tmp.18();
+        %tmp.20 = 2;
+        %tmp.21 = div %tmp.19 %tmp.20;
+        %tmp.22 = lgetv %dc;
+        symbol [ dc %tmp.22 23 12 14 ];
+        symbol [ getHeight %tmp.23 23 15 24 ];
+        %tmp.23 = getv function %tmp.22 :getHeight;
+        %tmp.24 = invoke %tmp.22 %tmp.23();
+        %tmp.25 = 2;
+        %tmp.26 = div %tmp.24 %tmp.25;
+        symbol [ Graphics %tmp.27 24 12 20 ];
+        %tmp.27 = getm $.Toybox.Graphics;
+        symbol [ FONT_LARGE %tmp.28 24 21 31 ];
+        %tmp.28 = getv %tmp.27 :FONT_LARGE;
+        %tmp.29 = "Hello World";
+        symbol [ Graphics %tmp.30 26 12 20 ];
+        %tmp.30 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.31 26 21 40 ];
+        %tmp.31 = getv %tmp.30 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.15 %tmp.16(%tmp.21, %tmp.26, %tmp.28, %tmp.29, %tmp.31);
+C_Users_15mel_OneDrive_Documents_Projet_Simon_test_marche_hello_source_helloView_mc_12_26_28_4_stop:
+    }
+}
+[ @file = "C:\Users\15mel\OneDrive\Documents\Projet_Simon\test\marche\hello\source\helloView.mc"; @line = 2; ]
+<init> {
+}
