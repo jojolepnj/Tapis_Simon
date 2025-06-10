@@ -42,13 +42,13 @@ mb_http_output('UTF-8');
             <!-- Panneau de contrôle -->
             <div class="control-panel panel">
                 <form id="difficulty-form" class="difficulty-form" action="retour.php" method="post">
-                    <select name="difficulty" class="form-select">
+                    <select name="difficulty" class="form-select" required>
                         <option value="easy" data-translate="easy">Facile</option>
                         <option value="medium" data-translate="medium">Moyen</option>
                         <option value="hard" data-translate="hard">Difficile</option>
                     </select>
                     <input type="hidden" name="selected_language" id="selected_language" value="fr">
-                    <button type="submit" class="btn-primary" data-translate="start_game">Demarrer le jeu</button>
+                    <button type="submit" class="btn-primary" data-translate="start_game">Démarrer le jeu</button>
                 </form>
             </div>
 
@@ -59,7 +59,7 @@ mb_http_output('UTF-8');
                         <tr>
                             <th data-translate="player">Joueur</th>
                             <th data-translate="score">Score</th>
-                            <th data-translate="difficulty">Difficulte</th>
+                            <th data-translate="difficulty">Difficulté</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,13 +85,13 @@ mb_http_output('UTF-8');
 
         <!-- Pied de page -->
         <footer>
-            <span data-translate="footer">2025 Simon Game - Testez votre memoire</span>
+            <span data-translate="footer">2025 Simon Game - Testez votre mémoire</span>
         </footer>
 
         <!-- Sélecteur de langue -->
         <div class="language-selector">
             <select id="languageSelect" onchange="changeLanguage(this.value)">
-                <option value="fr">[FR] Francais</option>
+                <option value="fr">[FR] Français</option>
                 <option value="en">[EN] English</option>
                 <option value="de">[DE] Deutsch</option>
             </select>
@@ -140,11 +140,11 @@ mb_http_output('UTF-8');
             easy: "Facile",
             medium: "Moyen",
             hard: "Difficile",
-            start_game: "Demarrer le jeu",
+            start_game: "Démarrer le jeu",
             player: "Joueur",
             score: "Score",
-            difficulty: "Difficulte",
-            footer: "2025 Simon Game - Testez votre memoire"
+            difficulty: "Difficulté",
+            footer: "2025 Simon Game - Testez votre mémoire"
         },
         de: {
             title: "Simon Spiel",
@@ -155,7 +155,7 @@ mb_http_output('UTF-8');
             player: "Spieler",
             score: "Punktzahl",
             difficulty: "Schwierigkeit",
-            footer: "2025 Simon Spiel - Testen Sie Ihr Gedachtnis"
+            footer: "2025 Simon Spiel - Testen Sie Ihr Gedächtnis"
         }
     };
 
@@ -170,7 +170,9 @@ mb_http_output('UTF-8');
      */
     function changeLanguage(lang) {
         document.documentElement.lang = lang;
-        localStorage.setItem('selectedLanguage', lang);
+        
+        // Utiliser sessionStorage au lieu de localStorage pour éviter les conflits
+        sessionStorage.setItem('selectedLanguage', lang);
         document.getElementById('selected_language').value = lang;
 
         const elements = document.querySelectorAll('[data-translate]');
@@ -196,12 +198,39 @@ mb_http_output('UTF-8');
      * @returns {void}
      */
     document.addEventListener('DOMContentLoaded', function initializeLanguage() {
-        const savedLang = localStorage.getItem('selectedLanguage');
+        const savedLang = sessionStorage.getItem('selectedLanguage');
         const userLang = navigator.language || navigator.userLanguage;
         const initialLang = savedLang || (userLang.startsWith('fr') ? 'fr' : 
                                         userLang.startsWith('de') ? 'de' : 'en');
         
         changeLanguage(initialLang);
+    });
+
+    /**
+     * @function handleFormSubmit
+     * @description Gère la soumission du formulaire avec validation
+     * @memberof SimonGame
+     * @listens submit
+     * @returns {boolean}
+     */
+    document.getElementById('difficulty-form').addEventListener('submit', function(e) {
+        const difficulty = this.difficulty.value;
+        const language = this.selected_language.value;
+        
+        // Validation simple
+        if (!difficulty) {
+            e.preventDefault();
+            alert('Veuillez sélectionner une difficulté');
+            return false;
+        }
+        
+        // Debug - optionnel
+        console.log('Envoi vers retour.php:', {
+            difficulty: difficulty,
+            selected_language: language
+        });
+        
+        return true;
     });
     </script>
 </body>
